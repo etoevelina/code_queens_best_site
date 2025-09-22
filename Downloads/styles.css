@@ -86,14 +86,14 @@ body {
     margin: 5px;
     box-shadow: 0 0 12px rgba(124,58,237,0.6);
   }
-  /* бонус: маленький маркер перед h2 */
+
   h2::before{
     content:"";
     display:inline-block;
     width:8px;height:18px;margin-right:10px;border-radius:4px;
     background:#7c3aed;
   }
-  /* футер одинаковый на всех страницах */
+ 
   .site-footer{color:#a78bfa;text-align:center;padding:16px 0;border-top:1px solid #2e3a7a}
   
   h2::before{
