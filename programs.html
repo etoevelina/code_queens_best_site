@@ -7,12 +7,24 @@
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="sheudele.html">Schedule</a>
-      <a href="programs.html">Programs</a>
-    </nav>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="home.html"><span class="logo">💪</span><span>EliteFit</span></a>
+      <nav>
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a class="active" href="about.html" aria-current="page">About us</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="schedule.html">Schedule</a></li>
+          <li><a href="plans.html">Plans</a></li>
+        </ul>
+      </nav>
+      <div class="auth">
+        <a class="btn ghost" href="login.html">Login</a>
+        <a class="btn primary glow" href="signup.html">Sign up</a>
+      </div>
+    </div>
   </header>
 
   <section id="programs">
