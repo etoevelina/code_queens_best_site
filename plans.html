@@ -1,58 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Offers</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offers</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="plans.css">
 </head>
 <body>
-      <header class="site-header">
-    <div class="container nav-wrap">
-      <a class="brand" href="home.html"><span class="logo">💪</span><span>EliteFit</span></a>
-      <nav>
-        <ul>
-          <li><a class="active" href="home.html" aria-current="page">Home</a></li>
-          <li><a href="about.html">About us</a></li>
-          <li><a href="programs.html">Programs</a></li>
-          <li><a href="team.html">Team</a></li>
-          <li><a href="schedule.html">Schedule</a></li>
-          <li><a href="plans.html">Plans</a></li>
-        </ul>
-      </nav>
-      <div class="auth">
-        <a class="btn ghost" href="login.html">Login</a>
-        <a class="btn primary glow" href="signup.html">Sign up</a>
-      </div>
-    </div>
-  </header>
-    <main>
-        <div class="offers-container">
-            <h1>OFFERS</h1>
-            <div class="offers-list">
-                <div class="offer-card">
-                    <span class="price">$100</span>
-                    <span class="desc">per 1 month</span>
-                </div>
-                <div class="offer-card main-offer">
-                    <span class="price">$890</span>
-                    <span class="desc">per 12 months</span>
-                </div>
-                <div class="offer-card">
-                    <span class="price">$500</span>
-                    <span class="desc">per 6 months</span>
-                </div>
-            </div>
+  <div class="page-grid">
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a class="brand" href="home.html"><span class="logo">💪</span><span>EliteFit</span></a>
+        <nav>
+          <ul>
+            <li><a class="active" href="home.html" aria-current="page">Home</a></li>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="programs.html">Programs</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="plans.html">Plans</a></li>
+          </ul>
+        </nav>
+        <div class="auth">
+          <a class="btn ghost" href="login.html">Login</a>
+          <a class="btn primary glow" href="signup.html">Sign up</a>
         </div>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <div class="sidebar-inner">
+        <h3>Navigation</h3>
+        <ul>
+          <li><a href="#offers">Plans</a></li>
+          <li><a href="#gallery">GYM Equipment</a></li>
+
+        </ul>
+      </div>
+    </aside>
+
+    <main class="content">
+      <section id="offers" class="offers-container">
+        <h1>OFFERS</h1>
+        <div class="offers-list">
+          <div class="offer-card">
+            <span class="price">$100</span>
+            <span class="desc">per 1 month</span>
+          </div>
+          <div class="offer-card main-offer">
+            <span class="price">$890</span>
+            <span class="desc">per 12 months</span>
+          </div>
+          <div class="offer-card">
+            <span class="price">$500</span>
+            <span class="desc">per 6 months</span>
+          </div>
+        </div>
+      </section>
+
+            <section id="gallery" class="team-gallery">
+  <div class="gallery-item">
+    <img src="assets/gym-room.png" alt="Gym Room 1">
+    <div class="caption">Gym Room 1</div>
+  </div>
+  <div class="gallery-item">
+    <img src="assets/gym-room (1).png" alt="Gym Room 2">
+    <div class="caption">Gym Room 2</div>
+  </div>
+  <div class="gallery-item">
+    <img src="assets/gym-room (2).png" alt="Gym Room 3">
+    <div class="caption">Gym Room 3</div>
+  </div>
+  <div class="gallery-item">
+    <img src="assets/gym-room (3).png" alt="Gym Room 4">
+    <div class="caption">Gym Room 4</div>
+  </div>
+  <div class="gallery-item">
+    <img src="assets/gym-room (4).png" alt="Gym Room 5">
+    <div class="caption">Gym Room 5</div>
+  </div>
+  <div class="gallery-item">
+    <img src="assets/gym-room (5).png" alt="Gym Room 6">
+    <div class="caption">Gym Room 6</div>
+  </div>
+</section>
     </main>
 
-<footer>
-    <ul>
+    <footer class="site-footer">
+      <ul>
         <li>Evelina</li>
         <li>Aknur</li>
         <li>Meruert</li>
         <li>Birkhanym</li>
-    </ul>
-</footer>
+      </ul>
+    </footer>
+  </div>
 </body>
 </html>
