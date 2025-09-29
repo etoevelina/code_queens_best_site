@@ -1,76 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fitness Club — Our Team</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fitness Club — Our Team</title>
+  <link rel="stylesheet" href="styles.css?v=3" />
+      <link rel="stylesheet" href="team.css">
 </head>
 <body>
+  <div class="page-grid">
     <header class="site-header">
-        <div class="container nav-wrap">
-            <a class="brand" href="home.html"><span class="logo">💪</span><span>EliteFit</span></a>
-            <nav>
-                <ul>
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="about.html">About us</a></li>
-                    <li><a href="programs.html">Programs</a></li>
-                    <li><a class="active" href="team.html" aria-current="page">Team</a></li>
-                    <li><a href="schedule.html">Schedule</a></li>
-                    <li><a href="plans.html">Plans</a></li>
-                </ul>
-            </nav>
-            <div class="auth">
-                <a class="btn ghost" href="login.html">Login</a>
-                <a class="btn primary glow" href="signup.html">Sign up</a>
-            </div>
+      <div class="container nav-wrap">
+        <a class="brand" href="home.html"><span class="logo">💪</span><span>EliteFit</span></a>
+        <nav>
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="programs.html">Programs</a></li>
+            <li><a class="active" href="team.html" aria-current="page">Team</a></li>
+            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="plans.html">Plans</a></li>
+          </ul>
+        </nav>
+        <div class="auth">
+          <a class="btn ghost" href="login.html">Login</a>
+          <a class="btn primary glow" href="signup.html">Sign up</a>
         </div>
+      </div>
     </header>
-    <main>
-        <section class="our-team">
-            <div class="our-team-content">
-                <h1>OUR TEAM</h1>
-                <p>
-                    At our club, you'll find certified and experienced trainers who are dedicated to helping you reach your goals—whether it's weight loss, muscle gain, injury recovery, or simply staying in great shape.<br>
-                    Every coach is a true professional who tailors their approach to your individual needs.<br>
-                    We'll help you create the perfect workout plan, support you every step of the way, and inspire you to achieve your best results!
-                </p>
-                <p class="highlight">Trust our experts—your fitness journey starts here!</p>
-            </div>
-            <img src="assets/general_pic.png" alt="Our Team" class="team-img">
-        </section>
-        
-        <section class="trainer-block ivan">
-            <img src="assets/fitness-coach-ivan-like-3d-plastic-render.png" alt="Ivan" class="trainer-img">
-            <div class="trainer-content">
-                <h2>Ivan — Personal Trainer</h2>
-                <p>Certified coach with 7+ years of experience.</p>
-                <p>Strength & functional training, weight loss, personal approach.</p>
-                <p>Motivates and supports you at every step.</p>
-                <p class="highlight">With Ivan, you'll get not only a great workout, but also the inspiration and support you need to succeed!</p>
-            </div>
-        </section>
-        
-        <section class="trainer-block reverse jessica">
-            <img src="assets/jessica.png" alt="Jessica" class="trainer-img">
-            <div class="trainer-content">
-                <h2>Jessica — Fitness Coach</h2>
-                <p>Certified trainer specializing in functional workouts and women's fitness.</p>
-                <p>Jessica brings energy, expertise, and a personalized approach to every session.</p>
-                <p>She'll help you feel confident, strong, and inspired to reach your best.</p>
-                <p class="highlight">Train with Jessica — unlock your full potential!</p>
-            </div>
-            
-        </section>
+
+    <aside class="sidebar">
+      <div class="sidebar-inner">
+        <h3>Navigation</h3>
+        <ul>
+          <li><a href="#our-team">Our Team</a></li>
+          <li><a href="#coaches">Coaches</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="content">
+      <section class="our-team">
+        <div class="our-team-content">
+          <h1>OUR TEAM</h1>
+          <p>At our club, you'll find certified and experienced trainers who are dedicated to helping you reach your goals—whether it's weight loss, muscle gain, injury recovery, or simply staying in great shape.<br>
+          Every coach is a true professional who tailors their approach to your individual needs.<br>
+          We'll help you create the perfect workout plan, support you every step of the way, and inspire you to achieve your best results!</p>
+          <p class="highlight">Trust our experts—your fitness journey starts here!</p>
+        </div>
+
+        <div class="team-gallery">
+          <div class="gallery-item">
+            <img src="assets/t1.png" alt="Workout 1">
+          </div>
+             <div class="gallery-item">
+            <img src="assets/t2.png" alt="Workout 1">
+          </div>
+            <div class="gallery-item">
+            <img src="assets/t3.png" alt="Workout 1">
+          </div>
+          <div class="gallery-item">
+            <img src="assets/t4.png" alt="Workout 1">
+          </div>
+                    <div class="gallery-item">
+            <img src="assets/t5.png" alt="Workout 1">
+          </div>
+                    <div class="gallery-item">
+            <img src="assets/t6.png" alt="Workout 1">
+          </div>
+                    <div class="gallery-item">
+            <img src="assets/t7.png" alt="Workout 1">
+          </div>
+                    <div class="gallery-item">
+            <img src="assets/t8.png" alt="Workout 1">
+          </div>
+                    <div class="gallery-item">
+            <img src="assets/t9.png" alt="Workout 1">
+        </div>
+      </section>
+
+      <section id="coaches" class="trainer-cards container">
+        <article class="card">
+          <img src="assets/fitness-coach-ivan-like-3d-plastic-render.png" alt="Ivan — Personal Trainer">
+          <div class="card-body">
+            <h3>Ivan</h3>
+            <p>Certified coach with 7+ years of experience. Strength & functional training, weight loss, personal approach.</p>
+          </div>
+          <a class="btn primary" href="signup.html">Book with Ivan</a>
+        </article>
+
+        <article class="card">
+          <img src="assets/jessica.png" alt="Jessica — Fitness Coach">
+          <div class="card-body">
+            <h3>Jessica</h3>
+            <p>Functional workouts & women’s fitness. Energy, expertise, personalized plans to reach your best.</p>
+          </div>
+          <a class="btn primary" href="signup.html">Train with Jessica</a>
+        </article>
+
+        <article class="card">
+          <img src="assets/jake.png" alt="Jake — Fitness Coach">
+          <div class="card-body">
+            <h3>Jake</h3>
+            <p>Train with Jake — unlock your power, build confidence, and push beyond limits!</p>
+          </div>
+          <a class="btn primary" href="signup.html">Train with Jake</a>
+        </article>
+      </section>
     </main>
 
-<footer>
-    <ul>
+    <footer class="site-footer">
+      <ul>
         <li>Evelina</li>
         <li>Aknur</li>
         <li>Meruert</li>
         <li>Birkhanym</li>
-    </ul>
-</footer>
+      </ul>
+    </footer>
+  </div>
 </body>
 </html>
