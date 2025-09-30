@@ -76,12 +76,6 @@
   .gallery{grid-template-columns:1fr}
 }
 
-
-
-
-
-
-
 *,
 *::before,
 *::after
@@ -866,6 +860,52 @@ button:hover{transform:scale(1.03)}
 }
 @media (max-width: 420px){
   .gallery{grid-template-columns:1fr}
+}
+
+/* login and sign up */
+
+.field .hint{ color: var(--muted); font-size: 12px; margin-top: 4px; }
+.field .err{ color:#ff9aa2; font-size:12px; margin-top:4px; opacity:0; height:0; overflow:hidden; transition:.2s; }
+.field input:required:placeholder-shown {
+  border-color: var(--line);
+  box-shadow: none;
+}
+
+
+.field input:not(:placeholder-shown):invalid{
+  border-color:#ff6b6b;
+  box-shadow:0 0 0 3px rgba(255,107,107,.12);
+}
+.field input:not(:placeholder-shown):valid{
+  border-color:#2a9d8f;
+  box-shadow:0 0 0 3px rgba(42,157,143,.15);
+}
+
+.field input:not(:placeholder-shown):invalid ~ .err{
+  opacity:1;
+  height:auto;
+}
+
+input:focus{
+  outline:none;
+  border-color:var(--brand);
+  box-shadow:0 0 0 3px rgba(124,92,255,.18);
+}
+
+
+.alt .btn[disabled]{
+  opacity:.6;
+  cursor:not-allowed;
+}
+.auth-card:has(form input:invalid) .submit{
+  pointer-events:none;
+  opacity:.6;
+  filter:saturate(.85);
+}
+a[aria-current="page"]{
+  background:#1b2233;
+  color:var(--text);
+  border-radius:10px;
 }
 
 
