@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sign up • EliteFit</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header>
@@ -12,66 +12,93 @@
       <a class="brand" href="index.html"><span class="logo">💪</span><span>EliteFit</span></a>
       <nav>
         <ul>
-          <li><a href="">Programs</a></li>
+          <li><a href="index.html#programs">Programs</a></li>
           <li><a href="index.html#team">Team</a></li>
           <li><a href="index.html#offers">Plans</a></li>
         </ul>
       </nav>
       <div class="auth">
         <a class="btn" href="login.html">Login</a>
-        <a class="btn primary" href="signup.html">Sign up</a>
+        <a class="btn primary" href="signup.html" aria-current="page">Sign up</a>
       </div>
     </div>
   </header>
+
   <main>
     <div class="container auth-wrap">
-      <div class="auth-card" role="form" aria-labelledby="signup.html-title">
-
+      <div class="auth-card" role="form" aria-labelledby="signup-title">
         <h1 id="signup-title">Create your account</h1>
         <p>Start your EliteFit journey in minutes.</p>
-        <form action="#" method="post" novalidate>
+
+        <form id="signup-form" action="#" method="post">
           <div class="row">
             <div class="field">
               <label for="first">First name</label>
-              <input id="first" name="first" type="text" placeholder="Dana" autocomplete="given-name" required>
+              <input id="first" name="first" type="text" placeholder="Dana"
+                     autocomplete="given-name" maxlength="40" required />
+              <small class="hint">Your real first name.</small>
+              <small class="err">First name is required.</small>
             </div>
             <div class="field">
               <label for="last">Last name</label>
-              <input id="last" name="last" type="text" placeholder="Aitugan" autocomplete="family-name" required>
+              <input id="last" name="last" type="text" placeholder="Aitugan"
+                     autocomplete="family-name" maxlength="40" required />
+              <small class="hint">Your real last name.</small>
+              <small class="err">Last name is required.</small>
             </div>
           </div>
+
           <div class="field">
-            <label for="email2">Email</label>
-            <input id="email2" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+            <label for="signup-email">Email</label>
+            <input id="signup-email" name="email" type="email" placeholder="you@example.com"
+                   autocomplete="email" inputmode="email" required />
+            <small class="hint">We’ll send a confirmation link.</small>
+            <small class="err">Please enter a valid email.</small>
           </div>
+
           <div class="row">
             <div class="field">
               <label for="pass1">Password</label>
-              <input id="pass1" name="password" type="password" placeholder="At least 6 characters" autocomplete="new-password" minlength="6" required>
+              <input id="pass1" name="password" type="password" placeholder="Min 8 characters"
+                     autocomplete="new-password" minlength="8"
+                     pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$"
+                     title="Use at least 8 characters, including a letter and a number."
+                     required />
+              <small class="hint">8+ chars, include a letter and a number.</small>
+              <small class="err">Password must be 8+ chars and include a letter &amp; a number.</small>
             </div>
+
             <div class="field">
               <label for="pass2">Confirm password</label>
-              <input id="pass2" name="confirm" type="password" placeholder="Repeat password" autocomplete="new-password" minlength="6" required>
+              <input id="pass2" name="confirm" type="password" placeholder="Repeat password"
+                     autocomplete="new-password" minlength="8" required />
+              <small class="hint">Repeat the same password.</small>
+              <small class="err">Make sure this matches the password above (manual check).</small>
             </div>
           </div>
+
           <div class="helper">
-            <label><input id="agree" name="terms" type="checkbox" required> I agree to the Terms</label>
+            <label>
+              <input id="agree" name="terms" type="checkbox" required />
+              I agree to the <a href="#" class="link">Terms</a> and <a href="#" class="link">Privacy</a>
+            </label>
             <a href="#" rel="nofollow">Read terms</a>
           </div>
-          <button class="btn primary" type="submit"> <a href="#">Sign up</a></button>
+
+          <button class="btn primary submit" type="submit">Sign up</button>
           <footer class="small">Already have an account? <a href="login.html">Log in</a></footer>
         </form>
-
       </div>
     </div>
   </main>
-  <footer><small>&copy; 2025 EliteFit</small>
-  
-      <ul>
-        <li>Evelina</li>
-        <li>Aknur</li>
-        <li>Meruert</li>
-        <li>Birkhanym</li>
+
+  <footer>
+    <small>&copy; 2025 EliteFit</small>
+    <ul>
+      <li>Evelina</li>
+      <li>Aknur</li>
+      <li>Meruert</li>
+      <li>Birkhanym</li>
     </ul>
   </footer>
 </body>
