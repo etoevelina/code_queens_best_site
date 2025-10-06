@@ -1,0 +1,63 @@
+/* ranking.css */
+
+/* Global Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+header {
+  background-color: #343a40;
+}
+
+footer {
+  background-color: #343a40;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+ul.list-unstyled li {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+table {
+  margin-top: 20px;
+}
+
+table th, table td {
+  text-align: center;
+  padding: 10px;
+}
+
+table th {
+  background-color: #343a40;
+  color: #fff;
+}
+
+table td {
+  background-color: #f8f9fa;
+}
+
+@media (max-width: 767px) {
+  .card-title {
+    font-size: 1.2rem;
+  }
+
+  table th, table td {
+    font-size: 0.9rem;
+  }
+}
