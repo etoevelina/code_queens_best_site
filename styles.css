@@ -1,6 +1,4 @@
 
-
-
 /* Task 1 — Flexbox Navigation */
 .site-header{position:sticky; top:0; z-index:10; background:rgba(21,27,41,.8); backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
 .nav-wrap{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
@@ -11,7 +9,7 @@
 .auth{display:flex; align-items:center; gap:10px}
 .btn{display:inline-flex; align-items:center; justify-content:center; padding:9px 14px; border-radius:12px; border:1px solid #2a3755; background:#1a2235; color:#dfe7f6; cursor:pointer; transition:transform .15s ease, background .15s ease}
 .btn:hover{transform:translateY(-1px); background:#1f2940}
-.btn.primary{background:linear-gradient(45deg, var(--brand, #7c3aed), var(--brand-2, #38bdf8)); border:0}
+.btn.primary.submit{background:linear-gradient(45deg, var(--brand, #6e5694), var(--brand-2, #38bdf8)); border:0}
 .btn.ghost{background:transparent}
 
 /* Task 3 — Grid Layout (sidebar + main) */
@@ -239,9 +237,9 @@ nav a:hover
   font-weight: 700;
   box-shadow: 0 6px 14px rgba(124,92,255,.35);
 }
-.btn:hover
-{
+.btn-primary:hover{
   transform: translateY(-2px);
+  background-color: #38bdf8;
 }
 
 
