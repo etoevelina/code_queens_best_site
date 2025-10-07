@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Login • EliteFit</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header>
@@ -12,68 +12,57 @@
       <a class="brand" href="index.html"><span class="logo">💪</span><span>EliteFit</span></a>
       <nav>
         <ul>
-          <li><a href="index.html#programs">Programs</a></li>
-          <li><a href="index.html#team">Team</a></li>
-          <li><a href="index.html#offers">Plans</a></li>
+          <li><a href="index.html">Programs</a></li>
+          <li><a href="index.html">Team</a></li>
+          <li><a href="index.html">Plans</a></li>
         </ul>
       </nav>
       <div class="auth">
-        <a class="btn" href="login.html" aria-current="page">Login</a>
+        <a class="btn" href="login.html">Login</a>
         <a class="btn primary" href="signup.html">Sign up</a>
       </div>
     </div>
   </header>
-
   <main>
     <div class="container auth-wrap">
-      <div class="auth-card" role="form" aria-labelledby="login-title">
+      <div class="auth-card" role="form" aria-labelledby="login.html-title">
+
         <h1 id="login-title">Welcome back</h1>
         <p>Log in to track your workouts, classes, and progress.</p>
-
-        <form id="login-form" action="#" method="post">
+        <form action="#" method="post" novalidate>
           <div class="field">
-            <label for="login-email">Email</label>
-            <input id="login-email" name="email" type="email" placeholder="you@example.com"
-                   autocomplete="email" inputmode="email" required />
-            <small class="hint">Use your school or personal email.</small>
-            <small class="err">Please enter a valid email.</small>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
           </div>
-
           <div class="field">
-            <label for="login-password">Password</label>
-            <input id="login-password" name="password" type="password" placeholder="••••••••"
-                   autocomplete="current-password" minlength="6" required />
-            <small class="hint">At least 6 characters.</small>
-            <small class="err">Password must be 6+ characters.</small>
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" placeholder="••••••••" autocomplete="current-password" minlength="6" required>
           </div>
-
           <div class="helper">
-            <label><input type="checkbox" name="remember" /> Remember me</label>
+            <label><input type="checkbox" name="remember"> Remember me</label>
             <a href="#" rel="nofollow">Forgot password?</a>
           </div>
-
-          <button class="btn primary submit" type="submit">Log in</button>
-
+          <button class="btn primary" type="submit"><a href="#"> Log in </a></button>
           <div class="or">or</div>
           <div class="alt">
-            <button class="btn" type="button" disabled title="Connect backend to enable">Continue with Google</button>
-            <button class="btn" type="button" disabled title="Connect backend to enable">Continue with Apple</button>
+            <button class="btn" type="button">Continue with Google</button>
+            <button class="btn" type="button">Continue with Apple</button>
           </div>
-
           <footer class="small">No account? <a href="signup.html">Create one</a></footer>
         </form>
+
       </div>
     </div>
   </main>
-
   <footer>
     <small>&copy; 2025 EliteFit</small>
-    <ul>
-      <li>Evelina</li>
-      <li>Aknur</li>
-      <li>Meruert</li>
-      <li>Birkhanym</li>
+            <ul>
+        <li>Evelina</li>
+        <li>Aknur</li>
+        <li>Meruert</li>
+        <li>Birkhanym</li>
     </ul>
   </footer>
+
 </body>
 </html>
