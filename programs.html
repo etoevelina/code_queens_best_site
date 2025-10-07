@@ -9,13 +9,14 @@
 <body class="page">
   <header class="site-header">
     <div class="container nav-wrap">
-      <a class="brand" href="home.html"><span class="logo">💪</span>EliteFit</a>
+      <a class="brand" href="home.html"><span class="logo">💪</span><span>EliteFit</span></a>
       <nav aria-label="Main">
         <ul class="nav-list">
           <li><a href="home.html">Home</a></li>
-          <li><a href="schedule.html">Schedule</a></li>
-          <li><a class="active" href="programs.html">Programs</a></li>
+          <li><a class="active" href="about.html" aria-current="page">About us</a></li>
+          <li><a href="programs.html">Programs</a></li>
           <li><a href="team.html">Team</a></li>
+          <li><a href="schedule.html">Schedule</a></li>
           <li><a href="plans.html">Plans</a></li>
         </ul>
       </nav>
@@ -26,6 +27,7 @@
     </div>
   </header>
 
+  <!-- GRID LAYOUT: sidebar + main -->
   <div class="container page-grid">
     <aside class="sidebar">
       <nav aria-label="Quick links">
@@ -40,32 +42,51 @@
     <main class="main">
       <section id="programs" class="section">
         <h2>Programs</h2>
+
+        <!-- FLEX ROW OF CARDS -->
         <div class="cards">
           <article class="card">
             <h3>Personal Training</h3>
-            <p>One-on-one sessions with a certified trainer tailored to your specific goals.</p>
+            <p>One-on-one sessions with a certified trainer tailored to your specific goals. Whether it’s weight loss, muscle gain, or improving endurance, your plan will be fully customized. Trainers provide constant feedback, adjust the intensity, and ensure safe progress.</p>
+            <div class="actions">
+              <button class="btn">Details</button>
+            </div>
           </article>
+
           <article class="card">
             <h3>Group Classes</h3>
-            <p>Daily group workouts like CrossFit, Yoga, cardio, and functional training.</p>
+            <p>Daily group workouts designed to keep you motivated and energized. Classes include CrossFit, Yoga, cardio, and functional training. Perfect for those who enjoy exercising in a supportive and social environment.</p>
+            <div class="actions">
+              <button class="btn">Details</button>
+            </div>
           </article>
+
           <article class="card">
             <h3>Yoga Flow</h3>
-            <p>Improve flexibility and mindfulness through flowing sequences.</p>
+            <p>A combination of strength, flexibility, and mindfulness through flowing sequences. Yoga Flow helps relieve stress, improve posture, and increase balance. Suitable for beginners and experienced practitioners alike.</p>
+            <div class="actions">
+              <button class="btn">Details</button>
+            </div>
           </article>
+
           <article class="card">
             <h3>Strength & Conditioning</h3>
-            <p>Build strength, stamina, and overall athletic performance.</p>
+            <p>A structured program to build strength, stamina, and overall athletic performance. Sessions include weightlifting techniques, resistance training, and bodyweight exercises. Ideal for those who want to push their limits and feel stronger every day.</p>
+            <div class="actions">
+              <button class="btn">Details</button>
+            </div>
           </article>
         </div>
       </section>
 
+      <!-- GRID GALLERY OF 9 IMAGES WITH HOVER CAPTION -->
       <section id="gallery" class="section">
         <h2>Gallery</h2>
         <div class="gallery">
           <figure class="tile"><img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1200&auto=format&fit=crop" alt="Gym"><figcaption class="caption">Gym</figcaption></figure>
           <figure class="tile"><img src="https://images.unsplash.com/photo-1558611848-73f7eb4001a1?q=80&w=1200&auto=format&fit=crop" alt="Yoga"><figcaption class="caption">Yoga</figcaption></figure>
           <figure class="tile"><img src="https://images.unsplash.com/photo-1546483875-ad9014c88eba?q=80&w=1200&auto=format&fit=crop" alt="Weights"><figcaption class="caption">Weights</figcaption></figure>
+          <figure class="tile"><img src="https://media.istockphoto.com/id/1132086660/photo/side-view-of-beautiful-muscular-woman-running-on-treadmill.jpg?s=612x612&w=0&k=20&c=5Vq_BJjG7sbIyKIP-Adu0pChReDXm0dC7BVPvto2M0I=" alt="Cardio"><figcaption class="caption">Cardio</figcaption></figure>
           <figure class="tile"><img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?q=80&w=1200&auto=format&fit=crop" alt="Crossfit"><figcaption class="caption">Crossfit</figcaption></figure>
           <figure class="tile"><img src="https://titleboxingclub.com/wp-content/uploads/2022/07/Home_Hero.jpg" alt="Boxing"><figcaption class="caption">Boxing</figcaption></figure>
           <figure class="tile"><img src="https://images.unsplash.com/photo-1549476464-37392f717541?q=80&w=1200&auto=format&fit=crop" alt="Stretch"><figcaption class="caption">Stretch</figcaption></figure>
