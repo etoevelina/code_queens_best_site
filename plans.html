@@ -5,89 +5,83 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>EliteFit — Offers</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="main.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=3" />
+      <link rel="stylesheet" href="plans.css">
 </head>
 
-<body class="text-light bg-dark">
+<body class="bg-base text-light">
 <div class="page-grid">
 
-  <header class="site-header bg-dark text-light px-3 py-2">
-    <div class="d-flex align-items-center justify-content-between">
-      <a class="text-decoration-none text-light fw-bold d-flex align-items-center gap-1" href="home.html">
-        💪 <span>EliteFit</span>
-      </a>
+  <header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="home.html">
+      <span class="logo">💪</span><span>EliteFit</span>
+    </a>
 
-      <input type="checkbox" id="nav-toggle-top" class="d-none">
-      <label for="nav-toggle-top" class="navbar-toggler d-lg-none p-2 m-0">
-        <span class="navbar-toggler-icon"></span>
-      </label>
-    </div>
-
-    <nav class="nav-collapse mt-3 mt-lg-0">
-      <ul class="nav flex-column flex-lg-row gap-2 gap-lg-4 text-center">
-        <li class="nav-item"><a class="nav-link text-light" href="home.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link text-light" href="about.html">About&nbsp;Us</a></li>
-        <li class="nav-item"><a class="nav-link text-light" href="contact.html">Contact</a></li>
-        <li class="nav-item"><a class="nav-link text-light" href="categories.html">Categories</a></li>
+    <nav>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html">About&nbsp;us</a></li>
+        <li><a href="programs.html">Programs</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="schedule.html">Schedule</a></li>
+        <li><a class="active" href="plans.html" aria-current="page">Plans</a></li>
       </ul>
     </nav>
-  </header>
+
+    <div class="auth">
+      <a class="btn ghost"  href="login.html">Login</a>
+      <a class="btn primary glow" href="signup.html">Sign&nbsp;up</a>
+    </div>
+  </div>
+</header>
 
   <input type="checkbox" id="side-toggle" class="d-none">
   <label for="side-toggle" class="navbar-toggler d-lg-none position-fixed top-0 start-0 p-3" style="z-index:1051;cursor:pointer;">
     <span class="navbar-toggler-icon"></span>
   </label>
 
-  <aside class="sidebar">
+  <aside class="sidebar d-none d-lg-block">
     <h3 class="h5 mb-3">Navigation</h3>
     <ul class="list-unstyled">
-      <li class="mb-2"><a class="text-light text-decoration-none" href="#offers">Plans</a></li>
-      <li><a class="text-light text-decoration-none" href="#gallery">Gym&nbsp;Equipment</a></li>
+      <li class="mb-2"><a class="side-link" href="#offers">Plans</a></li>
+      <li><a class="side-link" href="#gallery">Gym&nbsp;Equipment</a></li>
     </ul>
   </aside>
 
   <main class="content px-3 py-4">
     <section id="offers" class="container text-center my-5">
-      <h1 class="fw-bold mb-5">OFFERS</h1>
-      <div class="row g-4 justify-content-center">
-        <div class="col-12 col-sm-6 col-lg-4">
-          <div class="offer-card p-4">
-            <span class="display-6">$100</span>
-            <span class="fw-semibold">per 1&nbsp;month</span>
-          </div>
+      <h1 class="fw-bold text-accent mb-5">OFFERS</h1>
+      <div class="row">
+        <div class="offer-card">
+          <span class="display-6">$100</span>
+          <p class="fw-semibold mb-0">per 1&nbsp;month</p>
         </div>
-        <div class="col-12 col-sm-6 col-lg-4">
-          <div class="offer-card main-offer p-4">
-            <span class="display-5">$890</span>
-            <span class="fw-semibold">per 12&nbsp;months</span>
-          </div>
+        <div class="offer-card main-offer">
+          <span class="display-6">$890</span>
+          <p class="fw-semibold mb-0">per 12&nbsp;months</p>
         </div>
-        <div class="col-12 col-sm-6 col-lg-4">
-          <div class="offer-card p-4">
-            <span class="display-6">$500</span>
-            <span class="fw-semibold">per 6&nbsp;months</span>
-          </div>
+        <div class="offer-card">
+          <span class="display-6">$500</span>
+          <p class="fw-semibold mb-0">per 6&nbsp;months</p>
         </div>
       </div>
     </section>
 
     <section id="gallery" class="container my-5">
-      <div class="row g-4">
-        <div class="col-12 col-sm-6 col-lg-4">
-          <div class="gallery-item"><img src="assets/gym1.jpg" alt="Gym 1"></div>
-        </div>
-        <div class="col-12 col-sm-6 col-lg-4">
-          <div class="gallery-item"><img src="assets/gym2.jpg" alt="Gym 2"></div>
-        </div>
-        <div class="col-12 col-sm-6 col-lg-4">
-          <div class="gallery-item"><img src="assets/gym3.jpg" alt="Gym 3"></div>
-        </div>
+      <div class="row">
+        <div class="gallery-item"><img src="assets/gym-room.png" alt="Gym 1"></div>
+        <div class="gallery-item"><img src="assets/gym-room (1).png" alt="Gym 2"></div>
+        <div class="gallery-item"><img src="assets/gym-room (2).png" alt="Gym 3"></div>
+        <div class="gallery-item"><img src="assets/gym-room (3).png" alt="Gym 4"></div>
+        <div class="gallery-item"><img src="assets/gym-room (4).png" alt="Gym 5"></div>
+        <div class="gallery-item"><img src="assets/gym-room (5).png" alt="Gym 6"></div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <ul class="list-inline m-0 text-center">
+  <footer class="site-footer text-center py-3">
+    <ul class="list-inline m-0">
       <li class="list-inline-item mx-2">Evelina</li>
       <li class="list-inline-item mx-2">Aknur</li>
       <li class="list-inline-item mx-2">Meruert</li>
