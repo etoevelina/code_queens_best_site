@@ -1,71 +1,85 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="styles.css">
   <title>EliteFit — Home</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="index.css">
 </head>
 <body class="home">
-  <header class="site-header">
-    <div class="container nav-wrap">
-      <a class="brand" href="home.html"><span class="logo">💪</span><span>EliteFit</span></a>
-      <nav>
-        <ul>
-          <li><a class="active" href="home.html" aria-current="page">Home</a></li>
-          <li><a href="about.html">About us</a></li>
-          <li><a href="programs.html">Programs</a></li>
-          <li><a href="team.html">Team</a></li>
-          <li><a href="schedule.html">Schedule</a></li>
-          <li><a href="plans.html">Plans</a></li>
-        </ul>
-      </nav>
-      <div class="auth">
-        <a class="btn ghost" href="login.html">Login</a>
-        <a class="btn primary glow" href="signup.html">Sign up</a>
+
+  <header class="site-header bg-nav sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container container-nav-wrap">
+        <a class="navbar-brand brand d-flex align-items-center gap-2" href="home.html">
+          <span class="logo">💪</span><span>EliteFit</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div id="navMenu" class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link active" href="home.html" aria-current="page">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">About us</a></li>
+            <li class="nav-item"><a class="nav-link" href="programs.html">Programs</a></li>
+            <li class="nav-item"><a class="nav-link" href="team.html">Team</a></li>
+            <li class="nav-item"><a class="nav-link" href="schedule.html">Schedule</a></li>
+            <li class="nav-item"><a class="nav-link" href="plans.html">Plans</a></li>
+          </ul>
+
+          <div class="auth d-flex ms-lg-3 mt-3 mt-lg-0 gap-2">
+            <a class="btn ghost btn-outline-light btn-soft" href="login.html">Login</a>
+            <a class="btn primary glow btn-primary btn-soft" href="signup.html">Sign up</a>
+          </div>
+        </div>
       </div>
-    </div>
+    </nav>
   </header>
 
   <main>
-    <section class="hero container">
-      <div class="hero-copy">
-        <div class="badge">New • Fall Programs 2025</div>
-        <h1>
-          Become the <span class="gradient-text">strongest</span> version of you
-        </h1>
-        <p class="lead">
+    <section class="description container">
+      <div class="description-inner">
+        <div class="short-description">New • Fall Programs 2025</div>
+
+        <h1>Become the <span class="gradient-text">strongest</span> version of you</h1>
+
+        <p class="desription-paragraph">
           Elite equipment, science-backed coaching, and a community that keeps you accountable.
           Train smarter — not just harder.
         </p>
-        <div class="cta">
-          <a class="btn primary xl glow" href="signup.html">Start Free Trial</a>
-          <a class="btn ghost xl" href="plans.html">View Plans</a>
+
+        <div class="button-links">
+          <a class="btn primary xl glow btn-primary btn-soft" href="signup.html">Start Free Trial</a>
+          <a class="btn ghost xl btn-outline-light btn-soft" href="plans.html">View Plans</a>
         </div>
 
-        <ul class="hero-stats">
+        <ul class="description-statistic">
           <li><strong>24/7</strong><span>Access</span></li>
           <li><strong>+20</strong><span>Coaches</span></li>
           <li><strong>1200m²</strong><span>Facility</span></li>
         </ul>
       </div>
 
-      <div class="hero-visual">
-        <div class="device">
+      <div class="description-visual">
+        <div class="photo">
           <img src="assets/facility.jpg" alt="EliteFit Gym" loading="eager">
-          <div class="shine"></div>
         </div>
         <div class="orbs">
-          <span class="orb o1"></span>
-          <span class="orb o2"></span>
-          <span class="orb o3"></span>
+          <span class="orb-o1"></span>
+          <span class="orb-o2"></span>
+          <span class="orb-o3"></span>
         </div>
       </div>
     </section>
 
-    <!-- TRUST / LOGOS -->
-    <section class="trust">
-      <div class="container trust-inner">
+    <section class="trust container">
+      <div class="trust-inner">
         <span>Trusted by members from</span>
         <div class="logos">
           <span>Adidas</span><span>Nike</span><span>UnderArmour</span><span>TechCore</span><span>WellLabs</span>
@@ -74,35 +88,46 @@
     </section>
 
     <section class="features container">
-      <article class="card glass">
-        <h3>Personal Coaching</h3>
-        <p>Get a plan tailored to your goals with weekly check-ins and technique feedback.</p>
-        <a class="link" href="team.html">Meet our coaches →</a>
-      </article>
+      <div class="cards-row">
+        <article class="card-glass1">
+          <img class="card-img" src="assets/coach2.jpg" alt="Coaching">
+          <h3>Personal Coaching</h3>
+          <p>Get a plan tailored to your goals with weekly check-ins and technique feedback.</p>
+          <div class="card-actions">
+            <a class="btn primary btn-primary btn-soft" href="team.html">Meet our coaches</a>
+          </div>
+        </article>
 
-      <article class="card glass">
-        <h3>Performance Classes</h3>
-        <p>HIIT, strength, mobility &amp; conditioning that fit your level and schedule.</p>
-        <a class="link" href="programs.html">Explore programs →</a>
-      </article>
+        <article class="card-glass2">
+          <img class="card-img" src="assets/programs.jpg" alt="Classes">
+          <h3>Performance Classes</h3>
+          <p>HIIT, strength, mobility &amp; conditioning that fit your level and schedule.</p>
+          <div class="card-actions">
+            <a class="btn ghost btn-outline-light btn-soft" href="programs.html">Explore programs</a>
+          </div>
+        </article>
 
-      <article class="card glass">
-        <h3>Smart Tracking</h3>
-        <p>Progress dashboards, PR history, and habit reminders — stay consistent.</p>
-        <a class="link" href="plans.html">See membership plans →</a>
-      </article>
+        <article class="card-glass3">
+          <img class="card-img" src="assets/membership.jpg" alt="Tracking">
+          <h3>Smart Tracking</h3>
+          <p>Progress dashboards, PR history, and habit reminders — stay consistent.</p>
+          <div class="card-actions">
+            <a class="btn ghost btn-outline-light btn-soft" href="plans.html">See membership plans</a>
+          </div>
+        </article>
+      </div>
     </section>
 
-    <section class="testimonials container">
-      <div class="card quote">
+    <section class="feedback container">
+      <div class="text1">
         <p>“I hit my first 5k under 25 minutes and finally enjoy training again.”</p>
         <div class="by">— Aigerim, member since 2024</div>
       </div>
-      <div class="card quote">
+      <div class="text2">
         <p>“Coaches actually teach proper form. My back pain is gone.”</p>
         <div class="by">— Timur, software engineer</div>
       </div>
-      <div class="card quote">
+      <div class="text3">
         <p>“Beautiful space, clean, and open 24/7. Zero excuses.”</p>
         <div class="by">— Dana, designer</div>
       </div>
@@ -111,38 +136,24 @@
 
   <footer class="site-footer">
     <div class="container foot">
-      <div class="foot-brand">
-        <span class="logo">💪</span>
-        <strong>EliteFit</strong>
-      </div>
+      <div class="foot-brand"><span class="logo">💪</span><strong>EliteFit</strong></div>
       <nav class="foot-links">
-        <a href="about.html">About</a>
-        <a href="programs.html">Programs</a>
-        <a href="team.html">Team</a>
-        <a href="schedule.html">Schedule</a>
-        <a href="plans.html">Plans</a>
+        <a href="about.html">About</a><a href="programs.html">Programs</a>
+        <a href="team.html">Team</a><a href="schedule.html">Schedule</a><a href="plans.html">Plans</a>
       </nav>
-      <div class="foot-cta">
-        <a class="btn primary glow" href="signup.html">Join now</a>
+      <div class="foot-button-links">
+        <a class="btn primary glow btn-primary btn-soft" href="signup.html">Join now</a>
       </div>
     </div>
-      <div id="footer_with_names">
-        <ul>
-        <li>Evelina</li>
-        <li>Aknur</li>
-        <li>Meruert</li>
-        <li>Birkhanym</li>
-        </ul>
-      </div>
-
-
-    
+    <div id="footer-with-names">
+      <ul><li>Evelina</li><li>Aknur</li><li>Meruert</li><li>Birkhanym</li></ul>
+    </div>
   </footer>
 
   <div class="bg-gradients">
-    <span class="g g1"></span>
-    <span class="g g2"></span>
-    <span class="g g3"></span>
+    <span class="g-g1"></span><span class="g-g2"></span><span class="g-g3"></span>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

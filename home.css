@@ -287,72 +287,6 @@
   border-radius: 10px;
 }
 
-.features {
-  padding: 56px 0;
-}
-
-.card
-{
-  padding: 22px;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,.06);
-  background: #0d1322;
-}
-.card.glass
-{
-  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-  backdrop-filter: blur(10px);
-}
-.card h3
-{
-  margin: 0 0 8px;
-}
-.card p
-{
-  margin: 0 0 12px;
-  color: var(--muted);
-}
-.card .link
-{
-  color: #a78bfa;
-  text-decoration: none;
-}
-.card .link:hover
-{
-  text-decoration: underline;
-}
-.cards-row{
-  display:flex;
-  gap:18px;
-  align-items:stretch;
-  flex-wrap: wrap;
-}
-.cards-row .card{
-  display:flex;
-  flex-direction:column;
-  flex:1 1 300px;
-  transition:transform .18s, box-shadow .18s;
-}
-.card-img{
-  width:100%;
-  height:300px;
-  object-fit:cover;
-  border-radius:14px;
-  margin-bottom:10px;
-}
-.card-actions{ 
-  margin-top:auto; 
-} 
-.cards-row .card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 12px 30px rgba(0,0,0,.35);
-}
-
-@media (max-width:980px){
-  .cards-row{ 
-    flex-direction:column; 
-  }
-}
 
 .testimonials
 {
@@ -596,5 +530,77 @@
   {
     flex-direction: column;
     text-align: center;
+  }
+}
+
+
+
+
+.features {
+  padding: 56px 0;
+}
+
+.card
+{
+  padding: 22px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.06);
+  background: #0d1322;
+}
+.card.glass
+{
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  backdrop-filter: blur(10px);
+}
+.card h3
+{
+  margin: 0 0 8px;
+}
+.card p
+{
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+.card .link
+{
+  color: #a78bfa;
+  text-decoration: none;
+}
+.card .link:hover
+{
+  text-decoration: underline;
+}
+.cards-row{
+  display:flex;
+  gap:15px;
+  align-items:stretch;
+  flex-wrap: wrap;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.cards-row .card{
+  display:flex;
+  flex:1 300px;
+  transition:transform .18s, box-shadow .18s;
+}
+.card-img{
+  width:100%;
+  height: 300px;
+  object-fit:cover;
+  border-radius:14px;
+  margin-bottom:10px;
+}
+.card-actions{ 
+  margin-top:auto; 
+} 
+.cards-row .card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 12px 30px rgba(0,0,0,.35);
+}
+
+@media (max-width:980px){
+  .cards-row{ 
+    flex-direction:column; 
   }
 }
