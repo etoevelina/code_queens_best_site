@@ -56,10 +56,8 @@
 .offers-container {
   background: #111836;
   color: #bb36ff;
-  max-width: 900px;
-  margin: 30px auto;
   border-radius: 10px;
-  padding: 48px 12px 60px 12px;
+  padding: 48px 0 60px 0;
   text-align: center;
 }
 
@@ -69,14 +67,6 @@
   margin-bottom: 40px;
   font-weight: bold;
   letter-spacing: 2px;
-}
-
-.offers-list {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 50px;
-  flex-wrap: wrap;
 }
 
 .offer-card {
@@ -98,16 +88,8 @@
   border: 3px solid transparent;
 }
 
-.offer-card .price {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-.offer-card .desc {
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #bb36ff;
-}
+.offer-card .price { font-size: 2rem; margin-bottom: 10px; }
+.offer-card .desc { font-size: 1.1rem; font-weight: bold; color: #bb36ff; }
 
 .main-offer {
   font-size: 2.4rem;
@@ -144,38 +126,6 @@
   justify-content: center;
 }
 
-@media (max-width: 1000px) {
-  .page-grid {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "header"
-      "sidebar"
-      "content"
-      "footer";
-  }
-}
-
-@media (max-width: 800px) {
-  .offers-list {
-    flex-direction: column;
-    gap: 24px;
-    align-items: center;
-  }
-  .offer-card, .main-offer {
-    min-width: 190px;
-    min-height: 140px;
-    font-size: 1.6rem;
-  }
-}
-
-.team-gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  max-width: 1000px;
-  margin: 40px auto;
-}
-
 .gallery-item {
   position: relative;
   overflow: hidden;
@@ -207,18 +157,24 @@
   transition: opacity .3s ease;
 }
 
-.gallery-item:hover .caption {
-  opacity: 1;
-}
+.gallery-item:hover .caption { opacity: 1; }
 
-@media (max-width: 800px) {
-  .team-gallery {
-    grid-template-columns: repeat(2, 1fr);
+@media (max-width: 1000px) {
+  .page-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "sidebar"
+      "content"
+      "footer";
   }
 }
 
-@media (max-width: 500px) {
-  .team-gallery {
-    grid-template-columns: 1fr;
+@media (max-width: 800px) {
+  .offer-card,
+  .main-offer {
+    min-width: 190px;
+    min-height: 140px;
+    font-size: 1.6rem;
   }
 }
