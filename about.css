@@ -103,7 +103,15 @@
   padding: 0;
   list-style: none;
 }
+<<<<<<< HEAD
 .chip1, .chip2, .chip3, .chip4 {
+=======
+
+.chip1,
+.chip2, 
+.chip3, 
+.chip4 { 
+>>>>>>> a1c6ca0 ((feat) change the gallary)
   padding: 8px 12px;
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,.10);
@@ -274,15 +282,22 @@
   transform: translateY(0);
 }
 
-.about-gallery {
+/* .about-gallery {
   display: grid;
   grid-template-columns: repeat(3, minmax(240px, 300px));
   gap: 16px;
   justify-content: center;
   margin-top: 16px;
 }
+.about-gallery .g-item1{
+  grid-area: 1 1 2 2;
+}
 
+<<<<<<< HEAD
 .about-gallery .g-item1,
+=======
+/* .about-gallery .g-item1, */
+>>>>>>> a1c6ca0 ((feat) change the gallary)
 .about-gallery .g-item2,
 .about-gallery .g-item3,
 .about-gallery .g-item4,
@@ -341,6 +356,7 @@
 .about-gallery .g-item7:hover img,
 .about-gallery .g-item8:hover img,
 .about-gallery .g-item9:hover img {
+<<<<<<< HEAD
   transform: scale(1.06);
 }
 .about-gallery .g-item1:hover figcaption,
@@ -352,6 +368,53 @@
 .about-gallery .g-item7:hover figcaption,
 .about-gallery .g-item8:hover figcaption,
 .about-gallery .g-item9:hover figcaption {
+=======
+  transform: scale(1.06);
+}
+.about-gallery .g-item1:hover figcaption,
+.about-gallery .g-item2:hover figcaption,
+.about-gallery .g-item3:hover figcaption,
+.about-gallery .g-item4:hover figcaption,
+.about-gallery .g-item5:hover figcaption,
+.about-gallery .g-item6:hover figcaption,
+.about-gallery .g-item7:hover figcaption,
+.about-gallery .g-item8:hover figcaption,
+.about-gallery .g-item9:hover figcaption {
+  transform: translateY(0);
+} */
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  transition: transform .3s ease;
+}
+
+.gallery-item figcaption {
+  position: absolute;
+  inset: auto 0 0 0;
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,.65));
+  color: #fff;
+  padding: 10px 12px;
+  font-size: 14px;
+  transform: translateY(100%);
+  transition: transform .3s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.06);
+}
+
+.gallery-item:hover figcaption {
+>>>>>>> a1c6ca0 ((feat) change the gallary)
   transform: translateY(0);
 }
 
