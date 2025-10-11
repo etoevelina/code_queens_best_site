@@ -327,6 +327,7 @@ html,body{
   bottom:-120px
 }
 
+
 @media (max-width:991.98px){
   .description{
     grid-template-columns:1fr;
