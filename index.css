@@ -335,3 +335,80 @@ html,body{
     padding-top:48px
   }
 }
+
+/* Popup */
+.popup-overlay{
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.55);
+  z-index: 1050;
+}
+.popup-content{
+  width: min(90vw, 420px);
+  background: #0f1629;
+  color: #e8eef7;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 22px 60px rgba(0,0,0,.45);
+  position: relative;
+}
+.close-btn{
+  position: absolute;
+  top: 8px; right: 12px;
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 1;
+  color: #c8d4e3;
+}
+.close-btn:hover{ 
+  color:#fff; 
+}
+
+.faq {
+  color: var(--text);
+}
+
+.faq h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.accordion-item {
+  background: linear-gradient(180deg, #10141f, #0c1018);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.accordion-button {
+  background: transparent;
+  color: var(--text);
+  font-weight: 500;
+  padding: 1rem 1.25rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.accordion-button:not(.collapsed) {
+  background: rgba(124, 92, 255, 0.15);
+  color: #fff;
+  box-shadow: none;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+}
+
+.accordion-body {
+  background: linear-gradient(180deg, #0c1018, #0b0e16);
+  color: var(--muted);
+  font-size: 0.95rem;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
