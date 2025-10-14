@@ -112,7 +112,30 @@
         <li>Meruert</li>
         <li>Birkhanym</li>
       </ul>
+      <div class="text-center mt-3"></div>
+      <span id="currentDateTime"></span>
     </footer>
   </div>
+
+  <script>
+  (function () {
+    const el = document.getElementById('currentDateTime');
+    if (!el) return;
+
+    function updateDateTime() {
+      const now = new Date();
+      el.textContent = now.toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
+    updateDateTime(); 
+    setInterval(updateDateTime, 60000);
+  })();
+</script>
 </body>
 </html>
