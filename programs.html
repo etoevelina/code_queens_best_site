@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Fitness — Programs</title>
   <link rel="stylesheet" href="meru.css"/>
-<script src="app.js" defer></script>
-
+  <script src="app.js" defer></script>
 </head>
 <body class="page">
   <header class="site-header">
@@ -42,7 +41,6 @@
     </aside>
 
     <main class="main">
-
       <section id="programs" class="section mt-lg-4 px-sm-2">
         <h2>Programs</h2>
         <div class="cards">
@@ -97,53 +95,54 @@
           <figure class="tile"><img src="https://images.unsplash.com/photo-1549476464-37392f717541?q=80&w=1200&auto=format&fit=crop" alt="Stretch"><figcaption class="caption">Stretch</figcaption></figure>
         </div>
       </section>
-            <!-- === ASSIGNMENT #5 — minimal insert === -->
-            <section id="faq" class="section">
-              <h2>FAQ </h2>
-              <div class="accordion">
-                <button class="accordion__trigger" aria-expanded="false" aria-controls="a1" id="q1">
-                  What is included in my membership? <span class="chev" aria-hidden="true">▸</span>
-                </button>
-                <div id="a1" class="accordion__panel" role="region" aria-labelledby="q1">
-                  <p>Gym access, group classes, and trainer guidance during staffed hours.</p>
-                </div>
-      
-                <button class="accordion__trigger" aria-expanded="false" aria-controls="a2" id="q2">
-                  Can I pause my plan? <span class="chev" aria-hidden="true">▸</span>
-                </button>
-                <div id="a2" class="accordion__panel" role="region" aria-labelledby="q2">
-                  <p>Yes, you can freeze it for up to 30 days per quarter.</p>
-                </div>
-              </div>
-            </section>
-      
-            <section id="popup" class="section">
-              <h2>Subscribe </h2>
-              <div class="row" style="display:flex;gap:12px;align-items:center">
-                <button id="openModal" class="btn primary">Subscribe </button>
-                <span id="colorLabel" class="pill">Background: default</span>
-                <button id="colorBtn" class="btn">Change Background</button>
-              </div>
-      
-              <div id="modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-                <div class="modal__backdrop" data-close></div>
-                <div class="modal__content" role="document">
-                  <button class="modal__close" aria-label="Close" data-close>&times;</button>
-                  <h3 id="modal-title" style="margin-bottom:10px">Subscribe for updates</h3>
-                  <form id="subForm" novalidate>
-                    <label for="subEmail">Email <span style="color:var(--brand)">*</span></label>
-                    <input id="subEmail" type="email" required />
-                    <small class="error" id="err-sub"></small>
-                    <button type="submit" class="btn primary" style="margin-top:10px">Join</button>
-                    <p id="subSuccess" class="success" role="status" aria-live="polite"></p>
-                  </form>
-                </div>
-              </div>
-            </section>
-            <!-- === END ASSIGNMENT #5 insert === -->
-      
+
+      <!-- === ASSIGNMENT #5 inserts === -->
+      <section id="faq" class="section">
+        <h2>FAQ</h2>
+        <div class="accordion">
+          <button class="accordion__trigger" aria-expanded="false" aria-controls="a1" id="q1">
+            What is included in my membership? <span class="chev" aria-hidden="true">▸</span>
+          </button>
+          <div id="a1" class="accordion__panel" role="region" aria-labelledby="q1">
+            <p>Gym access, group classes, and trainer guidance during staffed hours.</p>
+          </div>
+
+          <button class="accordion__trigger" aria-expanded="false" aria-controls="a2" id="q2">
+            Can I pause my plan? <span class="chev" aria-hidden="true">▸</span>
+          </button>
+          <div id="a2" class="accordion__panel" role="region" aria-labelledby="q2">
+            <p>Yes, you can freeze it for up to 30 days per quarter.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="popup" class="section">
+        <h2>Subscribe</h2>
+        <div class="row" style="display:flex;gap:12px;align-items:center">
+          <button id="openModal" class="btn primary">Subscribe</button>
+          <span id="colorLabel" class="pill">Background: default</span>
+          <button id="colorBtn" class="btn">Change Background</button>
+        </div>
+
+        <div id="modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+          <div class="modal__backdrop" data-close></div>
+          <div class="modal__content" role="document">
+            <button class="modal__close" aria-label="Close" data-close>&times;</button>
+            <h3 id="modal-title" style="margin-bottom:10px">Subscribe for updates</h3>
+            <form id="subForm" novalidate>
+              <label for="subEmail">Email <span style="color:var(--brand)">*</span></label>
+              <input id="subEmail" type="email" required />
+              <small class="error" id="err-sub"></small>
+              <button type="submit" class="btn primary" style="margin-top:10px">Join</button>
+              <p id="subSuccess" class="success" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+      </section>
+      <!-- === END inserts === -->
     </main>
   </div>
+
   <footer class="site-footer">
     <div class="container">
       <ul class="team-list">
@@ -156,6 +155,8 @@
     </div>
   </footer>
 
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
+

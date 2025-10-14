@@ -10,29 +10,25 @@
 </head>
 <body>
   <div class="page-grid">
-  <header class="py-3 px-2 px-md-4 px-lg-5">
-    <div class="d-flex align-items-center justify-content-between">
-      <a class="d-flex align-items-center gap-1 fs-4 text-decoration-none text-light" href="#">
-        💪 <span>EliteFit</span>
-      </a>
-
-      <nav class="d-none d-md-block">
-        <ul class="nav gap-3">
-          <li><a class="nav-link px-0 text-light" href="#">Home</a></li>
-          <li><a class="nav-link px-0 text-light" href="#">About</a></li>
-          <li><a class="nav-link px-0 text-light" href="#">Programs</a></li>
-          <li><a class="nav-link px-0 text-light" href="#">Team</a></li>
-          <li><a class="nav-link px-0 text-light" href="#">Schedule</a></li>
-          <li><a class="nav-link px-0 text-light" href="#">Plans</a></li>
-        </ul>
-      </nav>
-
-      <div class="d-flex gap-2">
-        <a class="btn btn-outline-light btn-sm" href="#">Login</a>
-        <a class="btn btn-primary btn-sm" href="#">Sign up</a>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a class="brand" href="home.html"><span class="logo">💪</span><span>EliteFit</span></a>
+        <nav>
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="programs.html">Programs</a></li>
+            <li><a class="active" href="team.html" aria-current="page">Team</a></li>
+            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="plans.html">Plans</a></li>
+          </ul>
+        </nav>
+        <div class="auth">
+          <a class="btn ghost" href="login.html">Login</a>
+          <a class="btn primary glow" href="signup.html">Sign up</a>
+        </div>
       </div>
-    </div>
-  </header>
+    </header>
 
     <aside class="sidebar">
       <div class="sidebar-inner">
@@ -116,7 +112,30 @@
         <li>Meruert</li>
         <li>Birkhanym</li>
       </ul>
+      <div class="text-center mt-3"></div>
+      <span id="currentDateTime"></span>
     </footer>
   </div>
+
+  <script>
+  (function () {
+    const el = document.getElementById('currentDateTime');
+    if (!el) return;
+
+    function updateDateTime() {
+      const now = new Date();
+      el.textContent = now.toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
+    updateDateTime(); 
+    setInterval(updateDateTime, 60000);
+  })();
+</script>
 </body>
 </html>
