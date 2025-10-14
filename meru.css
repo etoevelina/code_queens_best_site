@@ -88,3 +88,43 @@ button:hover{transform:scale(1.03)}
 
 /* === Footer === */
 .site-footer{margin:28px 0 40px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted)}
+/* === Assignment #5 additions (minimal) === */
+
+/* Date & time + pills */
+.clock{font-variant-numeric:tabular-nums;font-size:1.05rem;padding:.35rem .6rem;border:1px solid var(--line);border-radius:10px;display:inline-block;background:#0a0f1f}
+.pill{display:inline-block;border:1px dashed var(--line);border-radius:999px;padding:6px 10px;color:var(--muted)}
+
+/* Form validation messages */
+.error{color:#ef4444;min-height:1em;margin-top:6px;display:block}
+.success{color:#22c55e;margin-top:8px}
+
+/* Accordion */
+.accordion__panel p { margin: 0 0 8px; }   
+.accordion{display:grid;gap:10px}
+.accordion__trigger{width:100%;text-align:left;background:#0a0f1f;border:1px solid var(--line);color:var(--text);padding:12px 14px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.accordion__panel{overflow:hidden;max-height:0;transition:max-height .3s ease,padding .3s ease;border-left:3px solid transparent;padding:0 12px;background:linear-gradient(180deg,#151b29 0%,#121827 100%)}
+.accordion__panel.open{padding:10px 12px;border-left-color:var(--brand)}
+.accordion__trigger[aria-expanded="true"] .chev{transform:rotate(90deg);transition:transform .2s}
+
+/* Modal (popup) */
+.modal{position:fixed;inset:0;display:none}
+.modal[aria-hidden="false"]{display:block}
+.modal__backdrop{position:absolute;inset:0;background:rgba(0,0,0,.6)}
+.modal__content{position:relative;max-width:520px;margin:8vh auto;background:linear-gradient(180deg,#151b29 0%,#121827 100%);border:1px solid var(--line);border-radius:16px;padding:18px}
+.modal__close{position:absolute;right:10px;top:8px;background:transparent;border:0;color:var(--muted);font-size:28px;cursor:pointer}
+
+
+.team-list {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  list-style: none;
+  padding: 0;
+  margin: 6px 0;
+}
+
+.footer-time {
+  text-align: center;
+  color: var(--muted);
+  margin-top: 8px;
+}
