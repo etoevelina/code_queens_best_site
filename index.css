@@ -131,6 +131,10 @@ html,body{
   position:relative
 }
 
+.description-visual .orbs{ 
+  pointer-events:none; 
+}
+
 .photo{
   position:relative;
   border-radius:22px;
@@ -344,7 +348,7 @@ html,body{
   align-items: center;
   justify-content: center;
   background: rgba(0,0,0,.55);
-  z-index: 1050;
+  z-index: 2000;
 }
 .popup-content{
   width: min(90vw, 420px);
@@ -376,6 +380,13 @@ html,body{
   text-align: center;
   font-size: 2rem;
   margin-bottom: 1.5rem;
+}
+.faq .accordion-button::after{
+  filter: brightness(0) invert(1);
+  opacity:.7;
+}
+.faq .accordion-button:not(.collapsed)::after{
+  opacity:1;
 }
 
 .accordion-item {
@@ -412,3 +423,47 @@ html,body{
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+
+.dark-theme{
+  --bg:#416bcd;
+  --text:#e8eef7;
+  --muted:#d6e0ed;
+  --line:rgba(255,255,255,.1);
+}
+
+.dark-theme .navbar{
+  background:linear-gradient(180deg,rgba(15,23,42,.85),rgba(182, 201, 246, 0.55) 60%,transparent);
+}
+
+
+.bg-gradients{
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.site-header{
+  position: sticky;
+  top: 0;
+  z-index: 1050; 
+}
+
+.rating{
+  display:inline-flex;
+  gap:8px;
+  margin:10px 0 4px;
+}
+.rating .star{
+  cursor:pointer;
+  font-size:22px;
+  color:#888;
+  transition:transform .12s ease, color .12s ease;
+}
+.rating .star:hover{ transform:scale(1.2); }
+
+#bgChangeBtn.active{
+  transform:translateY(-1px) scale(1.02);
+  box-shadow:0 10px 26px rgba(124,92,255,.35);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
