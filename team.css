@@ -149,3 +149,62 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+.dark-mode {
+  background-color: #0a0a0f;
+  color: #e0e0e0;
+}
+
+.dark-mode .our-team h1 {
+  color: #d6a4ff; 
+}
+
+.dark-mode .our-team p {
+  color: #ccc;
+}
+
+.dark-mode .our-team .highlight {
+  color: #bb59ff; 
+}
+
+.dark-mode .team-gallery {
+  filter: drop-shadow(0 0 40px #bb59ff99);
+}
+
+.dark-mode .team-gallery .gallery-item img {
+  filter: brightness(0.85) contrast(1.05);
+}
+
+.dark-mode .card {
+  background: #161626;
+  border-color: #333;
+  box-shadow: 0 0 15px rgba(187, 89, 255, 0.2);
+}
+
+.dark-mode .card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 20px rgba(187, 89, 255, 0.35);
+}
+
+.dark-mode .card .card-body {
+  color: #e5e5e5;
+}
+
+.dark-mode .sidebar {
+  background: #14141f;
+  border-color: #2d2d3a;
+  color: #d0d0d0;
+}
+
+.dark-mode .sidebar a {
+  color: #bbb;
+}
+.dark-mode .sidebar a:hover {
+  background: rgba(255,255,255,.08);
+  color: #fff;
+}
+
+body, .card, .sidebar, .team-gallery img {
+  transition: background-color 0.4s ease, color 0.4s ease, filter 0.4s ease, box-shadow 0.4s ease;
+}
