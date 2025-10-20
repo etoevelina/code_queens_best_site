@@ -67,6 +67,20 @@
         </ul>
       </section>
 
+        <!-- === Dynamic Greeting from JS Object === -->
+        <section class="container my-4">
+          <div class="alert alert-secondary" role="alert">
+            <strong id="userGreeting">Loading…</strong>
+          </div>
+        </section>
+
+        <!-- === Dynamic Programs from JS Array === -->
+        <section class="container my-4">
+          <h2 class="h4 mb-3">Programs We Offer</h2>
+          <ul id="programList" class="list-group"></ul>
+        </section>
+
+
       <section id="highlights" class="highlights-container">        <h2 class="section-title">Facility Highlights</h2>
         <div class="facility">
           <article class="facility1">
@@ -209,6 +223,13 @@
   </div>
 </section>
 
+<p id="gymInfo">
+  EliteFit is the most advanced gym in the city...
+  <span id="extraText" style="display:none;">We offer personal coaching, 24/7 access, and smart tracking.</span>
+</p>
+<button id="readMoreBtn" class="btn btn-link">Read More</button>
+
+
   <div class="text-center mt-4">
     <a href="home.html" class="btn btn-primary">View Full Gallery</a>
     <!-- <p class="text-danger text-center mt-4">GOOOD</p> -->
@@ -239,6 +260,8 @@
 
     </footer>
   </div>
+
+    <script src="aknur.js" defer></script>
 
   <!-- <script>
   const bgColors = ['#0b0e16', '#1e293b', '#0f172a', '#334155', '#020617'];
@@ -272,7 +295,7 @@
 
 <!-- <script src="/js/script1.js"></script> -->
 
-
+<!-- 
 <script>
   
   (function () {
@@ -298,48 +321,47 @@
     });
   })();
 
-  // document.addEventListener('DOMContentLoaded', () => {
-  // const btn = document.getElementById('bgButtonColor');
-  // if (!btn) { 
-  //   console.warn('btn not found'); 
-  //   return; 
-  // }
+  document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('bgButtonColor');
+  if (!btn) { 
+    console.warn('btn not found'); 
+    return; 
+  }
 
-//   btn.addEventListener('click', (e) => {
-//   e.preventDefault?.();
-//   btn.classList.remove('btn-outline-light');
-//   btn.style.backgroundColor = '#FF69B4';
-//   btn.style.borderColor = '#006400';
-//   btn.style.color = '#fff';
-// });
-
-
-//   btn.addEventListener('click', (e) => {
-//     e.preventDefault?.();
-
-//     btn.classList.remove('btn-outline-light');
-//     btn.classList.add('btn-success');
-//     });
-// });
-
-  //  (function(){
-  //   const bgButtonChange = document.getElementById("bgButtonColor");
-  //   // bgButtonChange.addEventListener('click', ()=>{
-  //   //   bgButtonChange.style.color = "#FF0000";
-  //   //   bgButtonChange.style.borderColor = "#006400";
-  //   //   bgButtonChange.style.backgroundColor = "#FF69B4"
-
-  //   btn.addEventListener('click', (e) => {
-  //   e.preventDefault();
-
-  //   bgButtonChange.style.setProperty('--bs-btn-bg', '#FF69B4');
-  //   bgButtonChange.style.setProperty('--bs-btn-border-color', '#006400');
-  //   bgButtonChange.style.setProperty('--bs-btn-color', '#ffffff');  
-  //   });
-  // })();
+  btn.addEventListener('click', (e) => {
+  e.preventDefault?.();
+  btn.classList.remove('btn-outline-light');
+  btn.style.backgroundColor = '#FF69B4';
+  btn.style.borderColor = '#006400';
+  btn.style.color = '#fff';
+});
 
 
-  // --- Footer date/time ---
+  btn.addEventListener('click', (e) => {
+    e.preventDefault?.();
+
+    btn.classList.remove('btn-outline-light');
+    btn.classList.add('btn-success');
+    });
+});
+
+   (function(){
+    const bgButtonChange = document.getElementById("bgButtonColor");
+    // bgButtonChange.addEventListener('click', ()=>{
+    //   bgButtonChange.style.color = "#FF0000";
+    //   bgButtonChange.style.borderColor = "#006400";
+    //   bgButtonChange.style.backgroundColor = "#FF69B4"
+
+    btn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    bgButtonChange.style.setProperty('--bs-btn-bg', '#FF69B4');
+    bgButtonChange.style.setProperty('--bs-btn-border-color', '#006400');
+    bgButtonChange.style.setProperty('--bs-btn-color', '#ffffff');  
+    });
+  })();
+
+
   (function () {
     const el = document.getElementById('currentDateTime');
     if (!el) return;
@@ -358,7 +380,18 @@
     updateDateTime(); 
     setInterval(updateDateTime, 60000);
   })();
-</script>
+
+
+  const readMoreBtn = document.getElementById('readMoreBtn');
+const extraText = document.getElementById('extraText');
+
+readMoreBtn.addEventListener('click', () => {
+  const isHidden = extraText.style.display === 'none';
+  extraText.style.display = isHidden ? 'inline' : 'none';
+  readMoreBtn.textContent = isHidden ? 'Read Less' : 'Read More';
+});
+
+</script> -->
 
 </body>
 </html>
