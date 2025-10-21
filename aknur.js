@@ -45,9 +45,14 @@ if (openPopupBtn && closePopupBtn) {
 const stars = document.querySelectorAll('.star');
 const ratingText = document.getElementById('ratingText');
 
+// const star = document.querySelector('.star');
+// console.log(star.dataset.value);
+
+
 if (stars.length > 0) {
   stars.forEach(star => {
     star.addEventListener('click', () => {
+       playClick();
       const rating = star.dataset.value;
       ratingText.textContent = `Your rating: ${rating}`;
 
@@ -60,6 +65,8 @@ if (stars.length > 0) {
 const themeToggle = document.getElementById('themeToggle');
 if (themeToggle) {
   themeToggle.addEventListener('click', () => {
+    playClick();
+    bump(themeToggle);
     document.body.classList.toggle('dark-theme');
   });
 }
@@ -70,6 +77,8 @@ const extraText = document.getElementById('extraText');
 
 if (readMoreBtn && extraText) {
   readMoreBtn.addEventListener('click', () => {
+    playClick();
+    bump(readMoreBtn);
     const isHidden = extraText.style.display === 'none';
     extraText.style.display = isHidden ? 'inline' : 'none';
     readMoreBtn.textContent = isHidden ? 'Read Less' : 'Read More';
@@ -86,6 +95,7 @@ if (readMoreBtn && extraText) {
   if (saved) document.documentElement.style.setProperty('--bg', saved);
 
   btn.addEventListener('click', () => {
+    playClick();
     const color = bgColors[Math.floor(Math.random() * bgColors.length)];
     document.documentElement.style.setProperty('--bg', color);
     localStorage.setItem('ef_bg', color);
@@ -146,6 +156,9 @@ const programs = [
   { name: 'CrossFit', type: 'Cardio' }
 ];
 
+// console.log(programs[0].name); // HIIT
+// console.log(programs[1].type); // Flexibility
+
 const sortedPrograms = programs
   .filter(p => p.name && p.type)             // filter
   .sort((a, b) => a.name.localeCompare(b.name)) // sort
@@ -168,3 +181,84 @@ if (programList) {
       programList.appendChild(li);
     });
 }
+
+/* SOUND */
+const clickSound = new Audio('assets/aknurclick.mp3');
+function playClick() {
+  try {
+    clickSound.currentTime = 0;
+    clickSound.play();
+  } catch (_) {}
+}
+
+/*  ANIMATION helper */
+function bump(el) {
+  if (!el) return;
+  el.classList.remove('bump');
+  el.offsetWidth;
+  el.classList.add('bump');
+}
+
+/* ========= SWITCH: категории (sports/tech/health/clear) ========= */
+(function setupCategorySwitch(){
+  const btns = document.querySelectorAll('.category-btn');
+  const out = document.getElementById('categoryContent');
+  if (!btns.length || !out) return;
+
+  const categoryTexts = {
+    sports: [
+      'Strength programming 5x5 starts Monday.',
+      'New assault bikes in Cardio Park.',
+      'Saturday community run 5 km at 9:00.'
+    ],
+    tech: [
+      'New tracking dashboard released.',
+      'Face ID access improvements this week.',
+      'Heart-rate live tiles rolled out to all treadmills.'
+    ],
+    health: [
+      'Mobility & recovery workshop on Sunday.',
+      'Nutrition seminar: Proteins & timing.',
+      'Sauna maintenance complete. Back online.'
+    ]
+  };
+
+  function renderList(items) {
+    const html = `
+      <ul class="list-group">
+        ${items.map(i => `<li class="list-group-item bg-transparent text-white border-secondary">${i}</li>`).join('')}
+      </ul>
+    `;
+    out.innerHTML = html;
+    out.classList.remove('fade-in');
+    // reflow
+    // eslint-disable-next-line no-unused-expressions
+    out.offsetWidth;
+    out.classList.add('fade-in');
+  }
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      playClick(); 
+      bump(btn); 
+
+      const category = btn.dataset.category;
+      switch (category) {
+        case 'sports':
+          renderList(categoryTexts.sports);
+          break;
+        case 'tech':
+          renderList(categoryTexts.tech);
+          break;
+        case 'health':
+          renderList(categoryTexts.health);
+          break;
+        case 'clear':
+        default:
+          out.innerHTML = '';
+          out.classList.remove('fade-in');
+      }
+    });
+  });
+})();
+
