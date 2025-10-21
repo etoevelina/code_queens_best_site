@@ -1,0 +1,6 @@
+[
+    { "id": 5, "title": "Engine Room",      "category": "cardio",   "price": 14, "img": "https://images.unsplash.com/photo-1526403226-eda5eb3f5f2c?q=80&w=600&auto=format&fit=crop" },
+    { "id": 6, "title": "Bulletproof Back", "category": "mobility", "price": 11, "img": "https://images.unsplash.com/photo-1541534401786-2077eed87a56?q=80&w=600&auto=format&fit=crop" },
+    { "id": 7, "title": "Max Strength",     "category": "strength", "price": 25, "img": "https://images.unsplash.com/photo-1580261450046-d0a30080dc9b?q=80&w=600&auto=format&fit=crop" }
+  ]
+  

@@ -7,21 +7,28 @@
   <link rel="stylesheet" href="meru.css"/>
   <script src="app.js" defer></script>
 </head>
-<body class="page">
+<body class="page theme-day">
   <header class="site-header">
     <div class="container nav-wrap">
       <a class="brand" href="home.html"><span class="logo">💪</span><span>EliteFit</span></a>
+
       <nav aria-label="Main">
-        <ul class="nav-list">
-          <li><a href="home.html">Home</a></li>
-          <li><a class="active" href="about.html" aria-current="page">About us</a></li>
-          <li><a href="programs.html">Programs</a></li>
-          <li><a href="team.html">Team</a></li>
-          <li><a href="schedule.html">Schedule</a></li>
-          <li><a href="plans.html">Plans</a></li>
-          <li><a href="ranking.html">Ranking</a></li>
+        <ul id="mainNav" class="nav-list" role="menubar">
+          <li><a role="menuitem" class="nav-item" href="home.html" tabindex="0">Home</a></li>
+          <li><a role="menuitem" class="nav-item active" href="about.html" aria-current="page" tabindex="0">About us</a></li>
+          <li><a role="menuitem" class="nav-item" href="programs.html" tabindex="0">Programs</a></li>
+          <li><a role="menuitem" class="nav-item" href="team.html" tabindex="0">Team</a></li>
+          <li><a role="menuitem" class="nav-item" href="schedule.html" tabindex="0">Schedule</a></li>
+          <li><a role="menuitem" class="nav-item" href="plans.html" tabindex="0">Plans</a></li>
+          <li><a role="menuitem" class="nav-item" href="ranking.html" tabindex="0">Ranking</a></li>
         </ul>
       </nav>
+
+      <div class="actions">
+        <button id="themeToggle" class="btn ghost" aria-pressed="false">🌞 Day</button>
+     
+      </div>
+
       <div class="auth">
         <a class="btn ghost" href="login.html">Login</a>
         <a class="btn primary glow" href="signup.html">Sign up</a>
@@ -33,70 +40,153 @@
     <aside class="sidebar">
       <nav aria-label="Quick links">
         <ul class="side-links">
-          <li><a href="#programs">Programs</a></li>
+          <li><a href="#intro">Greeting & Read more</a></li>
+          <li><a href="#rating">Rating</a></li>
           <li><a href="#gallery">Gallery</a></li>
-          <li><a href="schedule.html">Schedule</a></li>
+          <li><a href="#shop">Shop & Filter</a></li>
+          <li><a href="#wizard">Multi-step Form</a></li>
+          <li><a href="#quotes">Random Quote</a></li>
         </ul>
       </nav>
     </aside>
 
     <main class="main">
-      <section id="programs" class="section mt-lg-4 px-sm-2">
-        <h2>Programs</h2>
-        <div class="cards">
-          <article class="card mb-3">
-            <h3>Personal Training</h3>
-            <p>One-on-one sessions with a certified trainer tailored to your specific goals. Whether it's weight loss, muscle gain, or improving endurance, your plan will be fully
-              customized. Trainers provide constant feedback, adjust the intensity, and ensure safe progress.</p>
-            <div class="actions">
-              <button class="btn">Details</button>
-            </div>
-          </article>
 
-          <article class="card mb-3">
-            <h3>Group Classes</h3>
-            <p>Daily group workouts designed to keep you motivated and energized.
-              Classes include CrossFit, Yoga, cardio, and functional training. Perfect for those who enjoy exercising in a supportive and social environment.</p>
-            <div class="actions">
-              <button class="btn">Details</button>
-            </div>
-          </article>
+      <!-- Greeting + Read more (DOM + стили) -->
+      <section id="intro" class="section">
+        <h2 id="greeting">Programs</h2>
+        <form id="greetForm" class="inline-form" autocomplete="off">
+          <input id="nameInput" type="text" placeholder="Your name"/>
+          <button class="btn" type="submit">Update Greeting</button>
+          <button class="btn ghost" id="resetInputs" type="button">Reset Inputs</button>
+        </form>
 
-          <article class="card mb-3">
-            <h3>Yoga Flow</h3>
-            <p>A combination of strength, flexibility, and mindfulness through flowing sequences.
-              Yoga Flow helps relieve stress, improve posture, and increase balance. Suitable for beginners and
-              experienced practitioners alike.</p>
-            <div class="actions">
-              <button class="btn">Details</button>
-            </div>
-          </article>
-
-          <article class="card mb-3">
-            <h3>Strength & Conditioning</h3>
-            <p>A structured program to build strength, stamina, and overall athletic performance.
-              Sessions include weightlifting techniques, resistance training, and bodyweight exercises. Ideal for those who want to push their limits and feel stronger every day.</p>
-            <div class="actions">
-              <button class="btn">Details</button>
-            </div>
-          </article>
-        </div>
+        <article class="readmore">
+          <p>
+            EliteFit is the most advanced gym in the city... 
+          </p>
+          <div id="moreText" class="hidden">
+            <p>We offer personal coaching, 24/7 access, and smart tracking.</p>
+          </div>
+          <button id="readMoreBtn" class="btn">Read more</button>
+        </article>
       </section>
 
+      <!-- Rating -->
+      <section id="rating" class="section">
+        <h2>Rate today’s workout</h2>
+        <div class="stars" aria-label="Workout rating">
+          <i class="star" data-value="1" aria-label="1 star">★</i>
+          <i class="star" data-value="2" aria-label="2 stars">★</i>
+          <i class="star" data-value="3" aria-label="3 stars">★</i>
+          <i class="star" data-value="4" aria-label="4 stars">★</i>
+          <i class="star" data-value="5" aria-label="5 stars">★</i>
+        </div>
+        <p id="ratingOutput">Your rating: 0/5</p>
+      </section>
+
+      <!-- Gallery (смена src по клику) -->
       <section id="gallery" class="section">
         <h2>Gallery</h2>
-        <div class="gallery">
-          <figure class="tile"><img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1200&auto=format&fit=crop" alt="Gym"><figcaption class="caption">Gym</figcaption></figure>
-          <figure class="tile"><img src="https://images.unsplash.com/photo-1558611848-73f7eb4001a1?q=80&w=1200&auto=format&fit=crop" alt="Yoga"><figcaption class="caption">Yoga</figcaption></figure>
-          <figure class="tile"><img src="https://images.unsplash.com/photo-1546483875-ad9014c88eba?q=80&w=1200&auto=format&fit=crop" alt="Weights"><figcaption class="caption">Weights</figcaption></figure>
-          <figure class="tile"><img src="https://media.istockphoto.com/id/1132086660/photo/side-view-of-beautiful-muscular-woman-running-on-treadmill.jpg?s=612x612&w=0&k=20&c=5Vq_BJjG7sbIyKIP-Adu0pChReDXm0dC7BVPvto2M0I=" alt="Cardio"><figcaption class="caption">Cardio</figcaption></figure>
-          <figure class="tile"><img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?q=80&w=1200&auto=format&fit=crop" alt="Crossfit"><figcaption class="caption">Crossfit</figcaption></figure>
-          <figure class="tile"><img src="https://titleboxingclub.com/wp-content/uploads/2022/07/Home_Hero.jpg" alt="Boxing"><figcaption class="caption">Boxing</figcaption></figure>
-          <figure class="tile"><img src="https://images.unsplash.com/photo-1549476464-37392f717541?q=80&w=1200&auto=format&fit=crop" alt="Stretch"><figcaption class="caption">Stretch</figcaption></figure>
+        <div class="gallery-hero">
+          <img id="mainImage" src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1200&auto=format&fit=crop" alt="Main display">
+        </div>
+        <div class="thumbs">
+          <img class="thumb" src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1200&auto=format&fit=crop" alt="Thumb 4">
+          <img class="thumb" src="https://images.unsplash.com/photo-1558611848-73f7eb4001a1?q=80&w=1200&auto=format&fit=crop" alt="Thumb 5">
+          <img class="thumb" src="https://images.unsplash.com/photo-1546483875-ad9014c88eba?q=80&w=1200&auto=format&fit=crop" alt="Thumb 6">
+          <img class="thumb" src="https://media.istockphoto.com/id/1132086660/photo/side-view-of-beautiful-muscular-woman-running-on-treadmill.jpg?s=612x612&w=0&k=20&c=5Vq_BJjG7sbIyKIP-Adu0pChReDXm0dC7BVPvto2M0I=" alt="Thumb 7">
+          <img class="thumb" src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?q=80&w=1200&auto=format&fit=crop"alt="Thumb 8">
+          <img class="thumb" src="https://titleboxingclub.com/wp-content/uploads/2022/07/Home_Hero.jpg" alt="Thumb 9">
+          <img class="thumb" src="https://images.unsplash.com/photo-1549476464-37392f717541?q=80&w=1200&auto=format&fit=crop" alt="Thumb 10">
         </div>
       </section>
 
-      <!-- === ASSIGNMENT #5 inserts === -->
+      <!-- Programs (статические карточки + анимация) -->
+      <section class="section">
+        <h2>Programs</h2>
+        <div class="cards">
+          <article class="card mb-3 pop">
+            <h3>Personal Training</h3>
+            <p>One-on-one sessions with a certified trainer tailored to your goals.</p>
+            <div class="actions"><button class="btn addBtn">Details</button></div>
+          </article>
+          <article class="card mb-3 pop">
+            <h3>Group Classes</h3>
+            <p>CrossFit, Yoga, cardio, and functional training with a community.</p>
+            <div class="actions"><button class="btn addBtn">Details</button></div>
+          </article>
+          <article class="card mb-3 pop">
+            <h3>Yoga Flow</h3>
+            <p>Strength, flexibility, and mindfulness through flowing sequences.</p>
+            <div class="actions"><button class="btn addBtn">Details</button></div>
+          </article>
+          <article class="card mb-3 pop">
+            <h3>Strength & Conditioning</h3>
+            <p>Structured plan to build strength, stamina, and performance.</p>
+            <div class="actions"><button class="btn addBtn">Details</button></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Switch + Arrays/Loops/HOF/Objects + Load more (fetch) -->
+      <section id="shop" class="section">
+        <h2>Programs & Plans</h2>
+        <div class="toolbar">
+          <label for="category">Filter by category:</label>
+          <select id="category">
+            <option value="all">All</option>
+            <option value="strength">Strength</option>
+            <option value="cardio">Cardio</option>
+            <option value="mobility">Mobility</option>
+          </select>
+          <button id="loadMoreBtn" class="btn">Load more plans</button>
+        </div>
+        <div id="products" class="grid"></div>
+      </section>
+
+      <!-- Multi-step form (callbacks + сохранение state) -->
+      <section id="wizard" class="section">
+        <h2>Sign-up </h2>
+        <form id="wizForm" class="form" autocomplete="off">
+          <div id="step1" class="wiz-step">
+            <label>Name</label>
+            <input name="name" type="text" placeholder="Your name" required>
+            <div class="row"><button type="button" class="btn primary" data-next>Next</button></div>
+          </div>
+          <div id="step2" class="wiz-step hidden">
+            <label>Email</label>
+            <input name="email" type="email" placeholder="name@example.com" required>
+            <div class="row">
+              <button type="button" class="btn ghost" data-back>Back</button>
+              <button type="button" class="btn primary" data-next>Next</button>
+            </div>
+          </div>
+          <div id="step3" class="wiz-step hidden">
+            <label>Goal</label>
+            <select name="goal" required>
+              <option value="">Select goal…</option>
+              <option>Muscle gain</option>
+              <option>Fat loss</option>
+              <option>Mobility</option>
+            </select>
+            <div class="row">
+              <button type="button" class="btn ghost" data-back>Back</button>
+              <button type="submit" class="btn primary">Finish</button>
+            </div>
+          </div>
+        </form>
+        <p id="wizStatus" class="pill" aria-live="polite"></p>
+      </section>
+
+      <!-- Random Quote (fetch local JSON) -->
+      <section id="quotes" class="section">
+        <h2>Inspire me ✨</h2>
+        <button id="newQuoteBtn" class="btn">Get Quote</button>
+        <blockquote id="quoteText" class="quote">Click the button to load a random quote.</blockquote>
+      </section>
+
+      <!-- FAQ / modal / color switch -->
       <section id="faq" class="section">
         <h2>FAQ</h2>
         <div class="accordion">
@@ -139,7 +229,6 @@
           </div>
         </div>
       </section>
-      <!-- === END inserts === -->
     </main>
   </div>
 
@@ -155,8 +244,8 @@
     </div>
   </footer>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+          crossorigin="anonymous"></script>
 </body>
 </html>
-
