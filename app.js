@@ -1,4 +1,4 @@
-// ---------- 1) DATE & TIME ----------
+// date & time 
 function formatNow(d = new Date()) {
   return d.toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'short' });
 }
@@ -8,7 +8,7 @@ if (nowEl) {
   setInterval(() => (nowEl.textContent = formatNow()), 60_000);
 }
 
-// ---------- 2) BACKGROUND COLOR CHANGER ----------
+// bgcolor changer
 const bgBtn = document.getElementById('bg-btn');
 const bgReset = document.getElementById('bg-reset');
 const originalBg = getComputedStyle(document.body).backgroundColor;
@@ -26,7 +26,7 @@ if (bgReset) {
   });
 }
 
-// ---------- 3) USER RANKING TABLE ----------
+// user ranking table
 const users = [
   { name: 'John Doe', rank: '#1', exercises: 300 },
   { name: 'Alice Smith', rank: '#2', exercises: 290 },
@@ -42,16 +42,16 @@ const users = [
 
 function updateRanking() {
   const table = document.getElementById('userTable');
-  table.innerHTML = ''; // Clear the table
+  table.innerHTML = ''; // clears the table
   users.forEach((user, index) => {
     const row = document.createElement('tr');
     row.innerHTML = `<td>${index + 1}</td><td>${user.name}</td><td>${user.rank}</td><td>${user.exercises}</td>`;
     table.appendChild(row);
   });
 }
-updateRanking(); // Initial ranking display
+updateRanking(); // initial ranking
 
-// ---------- 4) POPUP OPEN/CLOSE ----------
+// popup open / close
 const popup = document.getElementById('popup');
 const openBtn = document.getElementById('open-popup');
 
@@ -74,7 +74,7 @@ if (popup && openBtn) {
   window.addEventListener('keydown', (e) => { if (!popup.hidden && e.key === 'Escape') closePopup(); });
 }
 
-// ---------- 5) FORM VALIDATION ----------
+// form validation
 const form = document.getElementById('signup-form');
 if (form) {
   const errMsg = form.querySelector('[data-error]');
