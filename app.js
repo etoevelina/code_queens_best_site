@@ -12,7 +12,7 @@ if (nowEl) {
 const bgBtn = document.getElementById('bg-btn');
 const bgReset = document.getElementById('bg-reset');
 const originalBg = getComputedStyle(document.body).backgroundColor;
-const palette = ['#a2a4adff','#f8f9ffff','#b3cfe0ff','#9fa2b2ff','#686a76ff','#b8b9bdff'];
+const palette = ['#0f1530','#111836','#0a0f12','#151c3d','#1a1f3f','#0e142c'];
 
 function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 if (bgBtn) {
