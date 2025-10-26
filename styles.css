@@ -868,3 +868,52 @@ button:hover{transform:scale(1.03)}
 }
 
 
+
+#scrollProgress{
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 8px;                 
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.25) inset;
+}
+
+#scrollProgress .bar{
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg,#7c4dff,#00e5ff,#00e676);
+  background-size: 200% 100%;
+  border-radius: 0 8px 8px 0;
+  box-shadow: 0 0 12px rgba(0,229,255,0.6);
+  transition: width 0.08s ease-out;
+  animation: progress-sheen 6s linear infinite;
+}
+
+#scrollProgress .pct{
+  position: absolute;
+  right: 10px; top: 10px;     
+  transform: translateY(-100%);
+  font: 600 12px/1.2 system-ui, -apple-system, "Segoe UI", Roboto, Inter, sans-serif;
+  color: #cbd5e1;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.45);
+  user-select: none;
+}
+
+@keyframes progress-sheen{
+  0%{ background-position: 0% 50%; }
+  100%{ background-position: 200% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  #scrollProgress .bar{ animation: none; transition: none; }
+}
+
+.lazy-img {
+  opacity: 0;
+  transition: opacity 0.6s ease-out;
+}
+.lazy-img[src] {
+  opacity: 1;
+}
