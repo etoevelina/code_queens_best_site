@@ -36,6 +36,19 @@ updateRanking();
 // ===== jQuery Ready =====
 $(document).ready(function () {
   console.log("jQuery is ready!");
+  // ===== Dynamic FAQ Accordion =====
+$(".accordion-button").on("click", function () {
+  const target = $(this).data("target");
+  const collapse = $(target);
+
+  // Close other open sections
+  $(".accordion-collapse").not(collapse).slideUp(300);
+  $(".accordion-button").not(this).removeClass("active");
+
+  // Toggle selected section
+  collapse.slideToggle(300);
+  $(this).toggleClass("active");
+});
 
   // ===== Task 1: Real-Time Search =====
   $("#searchUser").on("keyup", function () {

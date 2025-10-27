@@ -250,3 +250,37 @@ body {
   color: #cfe8ff;
   font-weight: 500;
 }
+.accordion-button {
+  width: 100%;
+  background: #1a1f3f;
+  color: #cfe8ff;
+  border: none;
+  text-align: left;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.accordion-button:hover {
+  background: #232a55;
+}
+
+.accordion-button.active {
+  background: #bb36ff;
+  color: #fff;
+}
+
+.accordion-collapse {
+  display: none;
+  background: #111836;
+  padding: 10px 16px;
+  border-radius: 8px;
+  margin-top: 6px;
+}
+
+.accordion-body {
+  color: #cfe8ff;
+  line-height: 1.5;
+}
