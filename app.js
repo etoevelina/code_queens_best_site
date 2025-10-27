@@ -43,6 +43,11 @@ $(".accordion-button").on("click", function () {
 
   // Close other open sections
   $(".accordion-collapse").not(collapse).slideUp(300);
+  // Scroll smoothly to the active question
+$('html, body').animate({
+  scrollTop: $(this).offset().top - 120
+}, 400);
+
   $(".accordion-button").not(this).removeClass("active");
 
   // Toggle selected section
