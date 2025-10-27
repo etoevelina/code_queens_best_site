@@ -1,4 +1,4 @@
-// date & time 
+// ===== Date & Time =====
 function formatNow(d = new Date()) {
   return d.toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'short' });
 }
@@ -8,25 +8,7 @@ if (nowEl) {
   setInterval(() => (nowEl.textContent = formatNow()), 60_000);
 }
 
-// bgcolor changer
-const bgBtn = document.getElementById('bg-btn');
-const bgReset = document.getElementById('bg-reset');
-const originalBg = getComputedStyle(document.body).backgroundColor;
-const palette = ['#0f1530','#111836','#0a0f12','#151c3d','#1a1f3f','#0e142c'];
-
-function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-if (bgBtn) {
-  bgBtn.addEventListener('click', () => {
-    document.body.style.backgroundColor = pick(palette);
-  });
-}
-if (bgReset) {
-  bgReset.addEventListener('click', () => {
-    document.body.style.backgroundColor = originalBg || '';
-  });
-}
-
-// user ranking table
+// ===== User Data =====
 const users = [
   { name: 'John Doe', rank: '#1', exercises: 300 },
   { name: 'Alice Smith', rank: '#2', exercises: 290 },
@@ -42,73 +24,111 @@ const users = [
 
 function updateRanking() {
   const table = document.getElementById('userTable');
-  table.innerHTML = ''; // clears the table
+  table.innerHTML = '';
   users.forEach((user, index) => {
     const row = document.createElement('tr');
     row.innerHTML = `<td>${index + 1}</td><td>${user.name}</td><td>${user.rank}</td><td>${user.exercises}</td>`;
     table.appendChild(row);
   });
 }
-updateRanking(); // initial ranking
+updateRanking();
 
-// popup open / close
-const popup = document.getElementById('popup');
-const openBtn = document.getElementById('open-popup');
+// ===== jQuery Ready =====
+$(document).ready(function () {
+  console.log("jQuery is ready!");
 
-function openPopup() {
-  popup.hidden = false;
-  document.body.style.overflow = 'hidden';
-  const first = popup.querySelector('input');
-  if (first) first.focus();
-}
-function closePopup() {
-  popup.hidden = true;
-  document.body.style.overflow = '';
-}
+  // ===== Task 1: Real-Time Search =====
+  $("#searchUser").on("keyup", function () {
+    const value = $(this).val().toLowerCase();
+    $("#userTable tr").filter(function () {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+    });
+  });
 
-if (popup && openBtn) {
-  const closeBtn = popup.querySelector('.popup-close');
-  openBtn.addEventListener('click', openPopup);
-  closeBtn.addEventListener('click', closePopup);
-  popup.addEventListener('click', (e) => { if (e.target === popup) closePopup(); });
-  window.addEventListener('keydown', (e) => { if (!popup.hidden && e.key === 'Escape') closePopup(); });
-}
+  // ===== Task 2: Autocomplete Suggestions =====
+  const names = users.map(u => u.name);
+  $("#searchUser").on("input", function () {
+    const value = $(this).val().toLowerCase();
+    $("#suggestions").remove();
+    if (!value) return;
+    const list = $("<ul id='suggestions' class='list-group mt-1'></ul>");
+    names.filter(n => n.toLowerCase().includes(value)).forEach(n => {
+      list.append(`<li class='list-group-item list-group-item-action'>${n}</li>`);
+    });
+    $(this).after(list);
+    $("#suggestions li").on("click", function () {
+      $("#searchUser").val($(this).text());
+      $("#suggestions").remove();
+      $("#searchUser").trigger("keyup");
+    });
+  });
 
-// form validation
-const form = document.getElementById('signup-form');
-if (form) {
-  const errMsg = form.querySelector('[data-error]');
-  const okMsg = form.querySelector('[data-success]');
+  // ===== Task 3: Search Highlight =====
+  $("#searchUser").on("keyup", function () {
+    const term = $(this).val();
+    $(".accordion-body").each(function () {
+      const text = $(this).text();
+      if (term) {
+        const regex = new RegExp(`(${term})`, "gi");
+        $(this).html(text.replace(regex, "<mark>$1</mark>"));
+      } else $(this).text(text);
+    });
+  });
 
-  function showError(msg) {
-    if (okMsg) { okMsg.hidden = true; okMsg.textContent = ''; }
-    if (errMsg) { errMsg.hidden = !msg; errMsg.textContent = msg || ''; }
-  }
-  function showSuccess(msg) {
-    if (errMsg) { errMsg.hidden = true; errMsg.textContent = ''; }
-    if (okMsg) { okMsg.hidden = !msg; okMsg.textContent = msg || ''; }
-  }
-  function emailValid(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+  // ===== Task 4: Scroll Progress Bar =====
+  $(window).on("scroll", function () {
+    const scrollTop = $(this).scrollTop();
+    const docHeight = $(document).height() - $(window).height();
+    const percent = (scrollTop / docHeight) * 100;
+    $("#scrollProgress").css("width", percent + "%");
+  });
 
-  form.addEventListener('submit', (e) => {
+  // ===== Task 5: Animated Counter =====
+  $(".counter").each(function () {
+    const $this = $(this);
+    const countTo = parseInt($this.attr("data-target"));
+    $({ countNum: 0 }).animate({ countNum: countTo }, {
+      duration: 2000,
+      easing: "swing",
+      step: function () { $this.text(Math.floor(this.countNum)); },
+      complete: function () { $this.text(this.countNum); }
+    });
+  });
+
+  // ===== Task 6: Loading Spinner on Submit =====
+  const form = $("#signup-form");
+  form.on("submit", function (e) {
     e.preventDefault();
-    const email = form.elements.email.value.trim();
-    const pass  = form.elements.password.value;
-    const conf  = form.elements.confirm.value;
+    const btn = $(this).find("button[type='submit']");
+    const email = form.find("[name='email']").val().trim();
+    const pass = form.find("[name='password']").val();
+    const conf = form.find("[name='confirm']").val();
 
-    form.querySelectorAll('input').forEach(i => i.classList.remove('is-invalid'));
+    form.find("input").removeClass("is-invalid");
+    const err = form.find("[data-error]");
+    const ok = form.find("[data-success]");
 
-    if (!emailValid(email)) {
-      form.elements.email.classList.add('is-invalid');
-      return showError('Please enter a valid email address.');
+    function showError(msg) {
+      err.text(msg).prop("hidden", !msg);
+      ok.prop("hidden", true);
+    }
+    function showSuccess(msg) {
+      ok.text(msg).prop("hidden", !msg);
+      err.prop("hidden", true);
+    }
+
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!emailValid) {
+      form.find("[name='email']").addClass("is-invalid");
+      return showError("Please enter a valid email.");
     }
     if (pass.length < 6) {
-      form.elements.password.classList.add('is-invalid');
-      return showError('Password must be at least 6 characters.');
+      form.find("[name='password']").addClass("is-invalid");
+      return showError("Password must be at least 6 characters.");
     }
     if (pass !== conf) {
-      form.elements.confirm.classList.add('is-invalid');
-      return showError('Passwords do not match.');
+      form.find("[name='confirm']").addClass("is-invalid");
+      return showError("Passwords do not match.");
     }
 
     showError('');
@@ -118,322 +138,3 @@ if (form) {
 }
 
 
-// ===== Sound: short click tone =====
-function playClickTone(){
-    try{
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      const o = ctx.createOscillator();
-      const g = ctx.createGain();
-      o.type = 'triangle'; o.frequency.value = 880;
-      g.gain.setValueAtTime(0.0001, ctx.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.05, ctx.currentTime + 0.01);
-      g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.12);
-      o.connect(g).connect(ctx.destination); o.start(); o.stop(ctx.currentTime + 0.13);
-    }catch(e){}
-  }
-  
-  // ===== Theme toggle =====
-  const themeToggle = document.querySelector('#themeToggle');
-  if(themeToggle){
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('theme-night');
-      const night = document.body.classList.contains('theme-night');
-      themeToggle.textContent = night ? '🌙 Night' : '🌞 Day';
-      themeToggle.setAttribute('aria-pressed', String(night));
-      playClickTone();
-    });
-  }
-  
-  // ===== Show time =====
-  const timeBtn = document.querySelector('#timeBtn');
-  const timeOut = document.querySelector('#timeOut');
-  if(timeBtn && timeOut){
-    timeBtn.addEventListener('click', () => {
-      timeOut.textContent = new Date().toLocaleTimeString();
-      playClickTone();
-    });
-  }
-  
-  // ===== Footer clock =====
-  const footerTime = document.querySelector('#footerTime');
-  if(footerTime){
-    const fmtDate = new Intl.DateTimeFormat('en-US',{month:'long',day:'numeric',year:'numeric'});
-    const fmtTime = new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',hour12:true});
-    const tick = ()=>{ const now=new Date(); footerTime.textContent=`${fmtDate.format(now)} at ${fmtTime.format(now)}`; };
-    tick(); setInterval(tick, 30000);
-  }
-  
-  // ===== Greeting + reset =====
-  const greetForm = document.querySelector('#greetForm');
-  const nameInput = document.querySelector('#nameInput');
-  const greeting = document.querySelector('#greeting');
-  const resetInputs = document.querySelector('#resetInputs');
-  
-  if(greetForm && nameInput && greeting){
-    greetForm.addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const name = nameInput.value.trim();
-      greeting.textContent = name ? `Programs — welcome, ${name}!` : 'Programs';
-      playClickTone();
-    });
-  }
-  if(resetInputs){
-    resetInputs.addEventListener('click', ()=>{
-      document.querySelectorAll('input').forEach(i=> i.value = '');
-      if(greeting) greeting.textContent = 'Programs';
-      playClickTone();
-    });
-  }
-  
-  // ===== Read more toggle =====
-  const readMoreBtn = document.querySelector('#readMoreBtn');
-  const moreText = document.querySelector('#moreText');
-  if(readMoreBtn && moreText){
-    readMoreBtn.addEventListener('click', ()=>{
-      moreText.classList.toggle('hidden');
-      readMoreBtn.textContent = moreText.classList.contains('hidden') ? 'Read more' : 'Show less';
-      playClickTone();
-    });
-  }
-  
-  // ===== Rating =====
-  const stars = document.querySelectorAll('.star');
-  const ratingOutput = document.querySelector('#ratingOutput');
-  let rating = 0;
-  if(stars.length && ratingOutput){
-    stars.forEach(star=>{
-      star.addEventListener('click', ()=>{
-        rating = Number(star.dataset.value);
-        stars.forEach(s=> s.classList.toggle('active', Number(s.dataset.value) <= rating));
-        ratingOutput.textContent = `Your rating: ${rating}/5`;
-        playClickTone();
-      });
-    });
-  }
-  
-  // ===== Gallery =====
-  const mainImage = document.querySelector('#mainImage');
-  const thumbs = document.querySelectorAll('.thumb');
-  if(mainImage && thumbs.length){
-    thumbs.forEach(th=>{
-      th.addEventListener('click', ()=>{
-        mainImage.style.transform = 'scale(.98)';
-        const src = th.getAttribute('src').replace('w=300','w=1200');
-        mainImage.setAttribute('src', src);
-        setTimeout(()=> mainImage.style.transform='scale(1)', 200);
-        playClickTone();
-      });
-    });
-  }
-  
-  // ===== Keyboard nav (ArrowLeft/ArrowRight) =====
-  const navItems = Array.from(document.querySelectorAll('#mainNav .nav-item'));
-  document.addEventListener('keydown', (e) => {
-    const idx = document.activeElement ? navItems.indexOf(document.activeElement) : -1;
-    if(e.key === 'ArrowRight' && idx > -1){ e.preventDefault(); navItems[(idx+1)%navItems.length].focus(); }
-    else if(e.key === 'ArrowLeft' && idx > -1){ e.preventDefault(); navItems[(idx-1+navItems.length)%navItems.length].focus(); }
-  });
-  
-  // ===== Data + Switch + Arrays/Loops/HOFs =====
-  const initialProducts = [
-    { id:1, title:'Power Build', category:'strength', price:19, img:'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=600&auto=format&fit=crop' },
-    { id:2, title:'HIIT Express', category:'cardio',   price:12, img:'https://images.unsplash.com/photo-1554284126-aa88f22d8b74?q=80&w=600&auto=format&fit=crop' },
-    { id:3, title:'Mobility Flow', category:'mobility', price:9,  img:'https://images.unsplash.com/photo-1552196563-55cd4e45efb3?q=80&w=600&auto=format&fit=crop' },
-    { id:4, title:'Lean Strength', category:'strength', price:22, img:'https://images.unsplash.com/photo-1517963879433-6ad2b056d712?q=80&w=600&auto=format&fit=crop' }
-  ];
-  const AppState = {
-    products: [...initialProducts],
-    addProducts(list){ this.products.push(...list); },
-    filtered(category){
-      const arr = category==='all' ? this.products : this.products.filter(p=> p.category===category);
-      return arr.map(p=> ({ ...p, label: p.title.toUpperCase() })); // HOFs
-    }
-  };
-  
-  const productsEl = document.querySelector('#products');
-  function renderProducts(list){
-    if(!productsEl) return;
-    productsEl.innerHTML = '';
-    for(const p of list){ // loop
-      const el = document.createElement('article');
-      el.className = 'product';
-      el.innerHTML = `
-        <img src="${p.img}" alt="${p.title}">
-        <div class="p-body">
-          <h3>${p.title}</h3>
-          <div class="meta"><span>${p.category}</span><span>$${p.price}</span></div>
-          <button class="btn addBtn" data-id="${p.id}">Add</button>
-        </div>`;
-      productsEl.appendChild(el);
-      requestAnimationFrame(()=> el.classList.add('show'));
-    }
-    document.querySelectorAll('.addBtn').forEach(btn=> btn.addEventListener('click', playClickTone));
-  }
-  if(productsEl){ renderProducts(AppState.filtered('all')); }
-  
-  const categorySelect = document.querySelector('#category');
-  if(categorySelect){
-    categorySelect.addEventListener('change', ()=>{
-      const val = categorySelect.value;
-      let list;
-      switch(val){
-        case 'strength': list = AppState.filtered('strength'); break;
-        case 'cardio':   list = AppState.filtered('cardio');   break;
-        case 'mobility': list = AppState.filtered('mobility'); break;
-        case 'all':
-        default:         list = AppState.filtered('all');
-      }
-      renderProducts(list); playClickTone();
-    });
-  }
-  
- // ===== Load more via fetch (with OFFLINE fallback) =====
-const loadMoreBtn = document.querySelector('#loadMoreBtn');
-
-// локальный запасной массив на случай file:// или ошибки сети
-const EXTRA_PRODUCTS_FALLBACK = [
-  { id:5, title:'Engine Room',      category:'cardio',   price:14, img:'https://images.unsplash.com/photo-1526403226-eda5eb3f5f2c?q=80&w=600&auto=format&fit=crop' },
-  { id:6, title:'Bulletproof Back', category:'mobility', price:11, img:'https://images.unsplash.com/photo-1541534401786-2077eed87a56?q=80&w=600&auto=format&fit=crop' },
-  { id:7, title:'Max Strength',     category:'strength', price:25, img:'https://images.unsplash.com/photo-1580261450046-d0a30080dc9b?q=80&w=600&auto=format&fit=crop' }
-];
-
-if (loadMoreBtn) {
-  loadMoreBtn.addEventListener('click', async () => {
-    try {
-      const res = await fetch('data/products.json', { cache: 'no-store' });
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const extra = await res.json();
-      AppState.addProducts(extra);
-    } catch {
-      // оффлайн-фолбэк
-      AppState.addProducts(EXTRA_PRODUCTS_FALLBACK);
-    }
-    renderProducts(AppState.filtered(categorySelect ? categorySelect.value : 'all'));
-    playClickTone();
-  });
-}
-
-  
-  // ===== Multi-step form (callbacks + state) =====
-  const wizForm = document.querySelector('#wizForm');
-  const wizStatus = document.querySelector('#wizStatus');
-  const steps = ['step1','step2','step3'].map(id=> document.getElementById(id));
-  let currentStep = 0;
-  const showStep = (idx)=> steps.forEach((s,i)=> s.classList.toggle('hidden', i!==idx));
-  
-  function nextStep(){
-    if(currentStep < steps.length-1){ currentStep++; showStep(currentStep); playClickTone(); }
-  }
-  function prevStep(){
-    if(currentStep > 0){ currentStep--; showStep(currentStep); playClickTone(); }
-  }
-  if(wizForm){
-    wizForm.addEventListener('click', (e)=>{
-      if(e.target.matches('[data-next]')) nextStep();
-      if(e.target.matches('[data-back]')) prevStep();
-    });
-    wizForm.addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const data = Object.fromEntries(new FormData(wizForm).entries());
-      const onDone = (payload)=>{ // callback to update UI
-        wizStatus.textContent = `✅ Saved: ${payload.name || '-'} • ${payload.email || '-'} • ${payload.goal || '-'}`;
-        wizForm.reset();
-        currentStep = 0; showStep(currentStep);
-        playClickTone();
-      };
-      // имитация async
-      setTimeout(()=> onDone(data), 400);
-    });
-  }
-  showStep(currentStep);
-  
- // ===== Random Quote (with OFFLINE fallback) =====
-const newQuoteBtn = document.querySelector('#newQuoteBtn');
-const quoteText   = document.querySelector('#quoteText');
-
-const QUOTES_FALLBACK = [
-  { text: "Discipline is choosing what you want most over what you want now.", author: "Craig Groeschel" },
-  { text: "The secret of getting ahead is getting started.", author: "Mark Twain" },
-  { text: "It never gets easier, you just get stronger.", author: "Unknown" },
-  { text: "Motivation gets you going, habit keeps you growing.", author: "John C. Maxwell" }
-];
-
-if (newQuoteBtn && quoteText) {
-  newQuoteBtn.addEventListener('click', async () => {
-    try {
-      const res = await fetch('data/quotes.json', { cache: 'no-store' });
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const quotes = await res.json();
-      const q = quotes[Math.floor(Math.random() * quotes.length)];
-      quoteText.textContent = `“${q.text}” — ${q.author}`;
-    } catch {
-      // оффлайн-фолбэк
-      const q = QUOTES_FALLBACK[Math.floor(Math.random() * QUOTES_FALLBACK.length)];
-      quoteText.textContent = `“${q.text}” — ${q.author}`;
-
-    }
-    playClickTone();
-  });
-}
-
-  
-  // ===== Accordion =====
-  function setupAccordion(){
-    const triggers = document.querySelectorAll('.accordion__trigger');
-    if(!triggers.length) return;
-    triggers.forEach(btn=>{
-      const panel = document.getElementById(btn.getAttribute('aria-controls'));
-      btn.setAttribute('aria-expanded','false'); panel.style.maxHeight='0';
-      btn.addEventListener('click', ()=>{
-        const expanded = btn.getAttribute('aria-expanded')==='true';
-        btn.setAttribute('aria-expanded', String(!expanded));
-        if(!expanded){ panel.classList.add('open'); panel.style.maxHeight = panel.scrollHeight + 'px'; }
-        else{ panel.style.maxHeight = panel.scrollHeight + 'px'; requestAnimationFrame(()=>{ panel.style.maxHeight = '0'; panel.classList.remove('open'); }); }
-        playClickTone();
-      });
-    });
-  }
-  setupAccordion();
-  
-  // ===== Modal =====
-  function setupModal(){
-    const openBtn = document.getElementById('openModal');
-    const modal = document.getElementById('modal');
-    if(!openBtn || !modal) return;
-    const show = ()=> modal.setAttribute('aria-hidden','false');
-    const hide = ()=> modal.setAttribute('aria-hidden','true');
-    openBtn.addEventListener('click', show);
-    modal.addEventListener('click', e=>{ if(e.target.matches('[data-close]')) hide(); });
-    document.addEventListener('keydown', e=>{ if(e.key==='Escape' && modal.getAttribute('aria-hidden')==='false') hide(); });
-    const subForm = document.getElementById('subForm');
-    const subEmail = document.getElementById('subEmail');
-    const errSub = document.getElementById('err-sub');
-    const subSuccess = document.getElementById('subSuccess');
-    if(subForm){
-      subForm.addEventListener('submit', (e)=>{
-        e.preventDefault();
-        errSub.textContent=''; subSuccess.textContent='';
-        const ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(subEmail.value.trim());
-        if(!ok){ errSub.textContent='Please enter a valid email.'; return; }
-        subSuccess.textContent='🎉 Subscribed!'; subForm.reset(); setTimeout(hide, 1200); playClickTone();
-      });
-    }
-  }
-  setupModal();
-  
-  // ===== Background Color Switch =====
-  function setupColorSwitcher(){
-    const btn = document.getElementById('colorBtn');
-    const label = document.getElementById('colorLabel');
-    if(!btn || !label) return;
-    const colors = ['#0f1115','#151b29','#1f2937','#022c22','#1d2433','#2b1b3f','#0b1b2a','#2a1f2f','#132a13','#1b263b'];
-    let i = 0;
-    const apply = (c)=>{ document.body.style.background = c; label.textContent = 'Background: ' + c; };
-    btn.addEventListener('click', ()=>{ i = (i+1) % colors.length; apply(colors[i]); playClickTone(); });
-    apply(colors[0]);
-  }
-  setupColorSwitcher();
-  
-  // ===== Reveal animations =====
-  document.querySelectorAll('.pop').forEach(el=> requestAnimationFrame(()=> el.classList.add('show')));
-  
