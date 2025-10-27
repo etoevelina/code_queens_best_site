@@ -1,3 +1,8 @@
+
+$(document).ready(function() {
+  console.log("jQuery is ready!");
+});
+
 // --- Form Validation ---
 const signupForm = document.getElementById('signupForm');
 
@@ -143,3 +148,55 @@ if (quoteBtn && quoteText && catImage && modalEl) {
     }
   });
 }
+
+$(document).ready(function () {
+  console.log("jQuery is ready!");
+
+  $("#searchInput").on("keyup", function () {
+    const value = $(this).val().toLowerCase();
+
+    $(".gallery-item").filter(function () {
+      const altText = $(this).find("img").attr("alt").toLowerCase();
+      $(this).toggle(altText.includes(value));
+    });
+  });
+});
+
+
+(function(){
+  const $bar = $("#scrollProgress .bar");
+  const $pct = $("#scrollProgress .pct");
+
+  function updateProgress(){
+    const scrollTop = $(window).scrollTop();
+    const docH = $(document).height();
+    const winH = $(window).height();
+    const max = Math.max(docH - winH, 1);
+    const pct = Math.min(100, Math.max(0, (scrollTop / max) * 100));
+    $bar.css("width", pct + "%");
+    $pct.text(Math.round(pct) + "%");
+  }
+
+  $(window).on("scroll resize", updateProgress);
+  updateProgress();
+})();
+
+
+$(document).ready(function () {
+  function lazyLoad() {
+    $("img[data-src]").each(function () {
+      const $img = $(this);
+      const imgTop = $img.offset().top;
+      const scrollBottom = $(window).scrollTop() + $(window).height();
+
+      if (imgTop < scrollBottom + 200) { 
+        $img.attr("src", $img.data("src"));
+        $img.removeAttr("data-src");
+        $img.hide().fadeIn(600); 
+      }
+    });
+  }
+
+  $(window).on("scroll resize", lazyLoad);
+  lazyLoad();
+});
