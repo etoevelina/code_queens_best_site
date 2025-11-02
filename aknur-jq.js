@@ -1,7 +1,8 @@
+// $(document).ready(function(){ ... });
+
 $(function(){
   console.log('jQuery is ready!');
 
-  // Our source data for suggestions + filter (can reuse your vanilla array)
   const programs = [
     { name: 'HIIT', type: 'Cardio' },
     { name: 'Yoga', type: 'Flexibility' },
@@ -10,21 +11,20 @@ $(function(){
     { name: 'CrossFit', type: 'Cardio' }
   ];
 
-  // Task 1: live filter (filters #programList <li>)
-  $('#liveSearch').on('keyup', function(){
-    const q = $(this).val().toLowerCase().trim();
-    const $list = $('#programList li');
-    if (!$list.length) return;
+ //live filter (filters #programList <li>)
+ $('#liveSearch').on('input', function () {
+  const q = this.value.trim().toLowerCase();
 
-    $list.each(function(){
-      const text = $(this).text().toLowerCase();
-      $(this).toggle(text.indexOf(q) !== -1);
-    });
-    // Also update suggestions dropdown
-    renderSuggestions(q);
+  $('#programList > li').each(function () {
+    const name = $(this).find('span').first().text().toLowerCase();
+    const show = !q || name.includes(q);
+    $(this).toggle(show);
   });
 
-  // Task 2: autocomplete suggestions
+  renderSuggestions(q);
+});
+
+  // autocomplete suggestions
   function renderSuggestions(query){
     const $wrap = $('#suggestions');
     $wrap.empty();
@@ -57,10 +57,10 @@ $(function(){
     }
   });
 
-  // Task 3: highlight matches in FAQ (index page)
+  // highlight matches in FAQ (index page)
   $('#hlBtn').on('click', function(){
     const q = $('#hlInput').val().trim();
-    const $scope = $('.faq'); // highlight within FAQ section
+    const $scope = $('.faq');
     clearHighlights($scope);
     if (!q) return;
 
@@ -87,9 +87,7 @@ $(function(){
   }
   function escapeReg(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
-  /* Part 2. UX Elements */
-
-  // Task 4: scroll progress bar
+  // scroll progress bar
   const $bar = $('#scrollProgress');
   const onScroll = () => {
     const h = $(document).height() - $(window).height();
@@ -100,7 +98,7 @@ $(function(){
   $(window).on('scroll resize', onScroll);
   onScroll();
 
-  // Task 5: animated number counter (elements with .countup)
+  // animated number counter (elements with .countup)
   // Starts when they appear in viewport
   const started = new Set();
   function runCountersIfVisible(){
@@ -117,7 +115,6 @@ $(function(){
 
       function tick(now){
         const p = Math.min(1, (now - start)/duration);
-        // easeOutQuad
         const eased = 1 - (1-p)*(1-p);
         const val = Math.floor(target * eased);
         $el.text(val);
@@ -133,36 +130,42 @@ $(function(){
   $(window).on('scroll resize', runCountersIfVisible);
   runCountersIfVisible();
 
-  // Task 6: Loading spinner on submit (newsletter)
-  $('#subscribeBtn').on('click', function(){
-    const $btn = $(this);
-    if ($btn.prop('disabled')) return;
+  // Loading spinner on submit (newsletter)
+  $('#subscribeBtn').on('click', function(e){
+  e.preventDefault();
+  e.stopImmediatePropagation();
 
-    // fake minimal validation: ensure an input exists and is valid
-    const $input = $('#subscriberEmail');
-    const val = ($input.val() || '').trim();
-    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
-    if (!ok){
-      showToast('Please enter a valid email.');
-      $input.focus();
-      return;
-    }
+  const $btn = $(this);
+  if ($btn.prop('disabled')) return;
 
-    const original = $btn.html();
-    $btn.prop('disabled', true).html(`<span class="spinner"></span>Please wait…`);
+  const $input = $('#subscriberEmail');
+  const val = ($input.val() || '').trim();
+  const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+  if (!ok){
+    showToast('Please enter a valid email.');
+    $input.focus();
+    return;
+  }
 
-    // simulate server call
-    setTimeout(function(){
-      $btn.prop('disabled', false).html(original);
-      showToast('Subscribed successfully!');
-      // Close popup if you use it
-      // $('#popupForm').hide();
-    }, 1200);
-  });
+  const original = $btn.html();
+  $btn.prop('disabled', true).html(`<span class="spinner"></span>Please wait…`);
 
-  /* Part 3. App Improvements*/
+  setTimeout(function(){
+    $btn.prop('disabled', false).html(original);
+    showToast('Subscribed successfully!');
+    // $('#popupForm').hide();
+  }, 1200);
+});
 
-  // Task 7: Toast helper
+function showToast(msg){
+  const $t = $('#toast');
+  $t.text(msg).addClass('show');
+  clearTimeout($t.data('timer'));
+  const timer = setTimeout(()=> $t.removeClass('show'), 1800);
+  $t.data('timer', timer);
+}
+
+  // Toast helper
   function showToast(msg){
     const $t = $('#toast');
     $t.text(msg).addClass('show');
@@ -172,34 +175,44 @@ $(function(){
   }
   window.showToast = showToast;
 
-  // Task 8: Copy to clipboard
+  // Copy to clipboard
   $('.copyBtn').on('click', function(){
     const target = $(this).data('target');
     const text = $(target).text().trim();
     navigator.clipboard.writeText(text).then(()=>{
       const $btn = $(this);
       const old = $btn.html();
-      $btn.html('✔ Copied');
+      $btn.html('Copied');
       showToast('Copied to clipboard!');
       setTimeout(()=> $btn.html(old), 900);
     });
   });
 
   // Task 9: Lazy loading images
-  const $lazy = $('img.lazy');
-  function lazyCheck(){
-    $lazy.each(function(){
-      const $img = $(this);
-      if ($img.attr('data-loaded')) return;
-      if (isInView(this)){
-        const src = $img.attr('data-src');
-        if (src){
-          $img.attr('src', src);
-          $img.attr('data-loaded', '1');
-        }
-      }
-    });
-  }
-  $(window).on('scroll resize', lazyCheck);
-  lazyCheck();
+  // const $lazy = $('img.lazy');
+  // function lazyCheck(){
+  //   $lazy.each(function(){
+  //     const $img = $(this);
+  //     if ($img.attr('data-loaded')) return;
+  //     if (isInView(this)){
+  //       const src = $img.attr('data-src');
+  //       if (src){
+  //         $img.attr('src', src);
+  //         $img.attr('data-loaded', '1');
+  //       }
+  //     }
+  //   });
+  // }
+  // $(window).on('scroll resize', lazyCheck);
+  // lazyCheck();
+
+
+
+  $(function(){
+  $('#openPopupBtn').on('click', ()=> $('#popupForm').css('display','flex'));
+  $('#closePopupBtn').on('click', ()=> $('#popupForm').hide());
+  $('#popupForm').on('click', e => { if (e.target.id === 'popupForm') $('#popupForm').hide(); });
 });
+});
+
+
