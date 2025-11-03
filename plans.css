@@ -164,9 +164,13 @@
     grid-template-columns: 1fr;
     grid-template-areas:
       "header"
-      "sidebar"
       "content"
       "footer";
+    gap: 16px;
+  }
+  
+  .sidebar {
+    display: none;
   }
 }
 
