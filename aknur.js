@@ -1,52 +1,5 @@
-// POPUP LOGIC
-const popup = document.getElementById('popupForm');
-const openPopupBtn = document.getElementById('openPopupBtn');
-const closePopupBtn = document.getElementById('closePopupBtn');
-const emailInput = document.getElementById('subscriberEmail');
-
-function openPopup() {
-  popup.style.display = 'flex';
-  emailInput.focus();
-}
-
-function closePopup() {
-  popup.style.display = 'none';
-}
-
-if (openPopupBtn && closePopupBtn) {
-  openPopupBtn.addEventListener('click', openPopup);
-  closePopupBtn.addEventListener('click', closePopup);
-
-  popup.addEventListener('click', (e) => {
-    if (e.target === popup) closePopup();
-  });
-
-  document.querySelector('.popup-content')?.addEventListener('click', (e) => e.stopPropagation());
-
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && popup.style.display === 'flex') closePopup();
-  });
-
-  document.querySelector('#popupForm .btn.btn-success')?.addEventListener('click', () => {
-    const val = emailInput.value.trim();
-    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
-    if (!ok) {
-      emailInput.classList.add('is-invalid');
-      emailInput.focus();
-      return;
-    }
-    emailInput.classList.remove('is-invalid');
-    alert('Thanks! You are subscribed.');
-    closePopup();
-  });
-}
-
-// RATING SYSTEM
 const stars = document.querySelectorAll('.star');
 const ratingText = document.getElementById('ratingText');
-
-// const star = document.querySelector('.star');
-// console.log(star.dataset.value);
 
 
 if (stars.length > 0) {
@@ -62,14 +15,20 @@ if (stars.length > 0) {
 }
 
 // THEME TOGGLE
-const themeToggle = document.getElementById('themeToggle');
-if (themeToggle) {
-  themeToggle.addEventListener('click', () => {
-    playClick();
-    bump(themeToggle);
-    document.body.classList.toggle('dark-theme');
-  });
-}
+(function initTheme(){
+  const saved = localStorage.getItem('theme'); // 'light' | 'dark' | null
+  if (saved === 'light') {
+    document.body.classList.add('light-theme');
+  }
+})();
+
+const toggle = document.getElementById('themeToggle');
+toggle?.addEventListener('click', () => {
+   playClick();
+  document.body.classList.toggle('light-theme');
+  const isLight = document.body.classList.contains('light-theme');
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+});
 
 // READ MORE TOGGLE (About page)
 const readMoreBtn = document.getElementById('readMoreBtn');
@@ -85,7 +44,7 @@ if (readMoreBtn && extraText) {
   });
 }
 
-// BACKGROUND COLOR CHANGE
+// BACKGROUND COLOR CHANGE (local storage)
 (function () {
   const bgColors = ['#0b0e16', '#1e293b', '#0f172a', '#334155', '#020617', '#8b5cf6'];
   const btn = document.getElementById('bgChangeBtn');
@@ -103,14 +62,14 @@ if (readMoreBtn && extraText) {
 })();
 
 // Temporary one-time color (no localStorage)
-(function(){
-  const bgOneColor = document.getElementById("bgChangeOneColor");
-  if (bgOneColor) {
-    bgOneColor.addEventListener('click', ()=>{
-      document.body.style.backgroundColor = '#8b5cf6';
-    });
-  }
-})();
+// (function(){
+//   const bgOneColor = document.getElementById("bgChangeOneColor");
+//   if (bgOneColor) {
+//     bgOneColor.addEventListener('click', ()=>{
+//       document.body.style.backgroundColor = '#8b5cf6';
+//     });
+//   }
+// })();
 
 // FOOTER DATE/TIME
 (function () {
@@ -158,11 +117,13 @@ const programs = [
 
 // console.log(programs[0].name); // HIIT
 // console.log(programs[1].type); // Flexibility
+// programs.forEach(p => console.log(p.name));
+
 
 const sortedPrograms = programs
-  .filter(p => p.name && p.type)             // filter
-  .sort((a, b) => a.name.localeCompare(b.name)) // sort
-  .map(p => `${p.name} — ${p.type}`);        // map
+  .filter(p => p.name && p.type)
+  .sort((a, b) => a.name.localeCompare(b.name))
+  .map(p => `${p.name} — ${p.type}`);
 
 console.log('Programs:', sortedPrograms);
 
@@ -182,7 +143,6 @@ if (programList) {
     });
 }
 
-/* SOUND */
 const clickSound = new Audio('assets/aknurclick.mp3');
 function playClick() {
   try {
@@ -191,15 +151,13 @@ function playClick() {
   } catch (_) {}
 }
 
-/*  ANIMATION helper */
 function bump(el) {
   if (!el) return;
   el.classList.remove('bump');
-  el.offsetWidth;
+  el.offsetWidth; 
   el.classList.add('bump');
 }
 
-/* ========= SWITCH: категории (sports/tech/health/clear) ========= */
 (function setupCategorySwitch(){
   const btns = document.querySelectorAll('.category-btn');
   const out = document.getElementById('categoryContent');
@@ -231,8 +189,7 @@ function bump(el) {
     `;
     out.innerHTML = html;
     out.classList.remove('fade-in');
-    // reflow
-    // eslint-disable-next-line no-unused-expressions
+    // reflow, eslint-disable-next-line no-unused-expressions
     out.offsetWidth;
     out.classList.add('fade-in');
   }

@@ -104,7 +104,7 @@ $(document).ready(function(){
     // Task 8: Copy to clipboard
     const $copyBlock = $(`
       <div id="copyBlock" style="margin-top:20px;">
-        <p id="copyText">https://elitefit.example.com/join</p>
+        <p id="copyText">https://courageous-manatee-93f835.netlify.app</p>
         <button id="copyBtn" class="btn">Copy</button>
       </div>`);
     $('#popup').append($copyBlock);

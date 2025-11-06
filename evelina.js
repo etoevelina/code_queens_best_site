@@ -65,15 +65,23 @@ if (signupForm) {
   setInterval(updateDateTime, 60000);
 })();
 
-// --- Theme Toggle ---
+// --- Theme Toggle with localStorage ---
 const themeBtn = document.getElementById('themeToggle');
 if (themeBtn) {
+  // Load saved theme preference
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+    themeBtn.textContent = '☀️ Light Mode';
+  }
+
   themeBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
-    themeBtn.textContent =
-      document.body.classList.contains('dark-mode')
-        ? '☀️ Light Mode'
-        : '🌙 Dark Mode';
+    const isDark = document.body.classList.contains('dark-mode');
+    themeBtn.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+    
+    // Save theme preference
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
   });
   console.log("Theme script loaded ✅");
 }
@@ -143,3 +151,58 @@ if (quoteBtn && quoteText && catImage && modalEl) {
     }
   });
 }
+
+$(document).ready(function () {
+  console.log("jQuery is ready!");
+
+  $("#searchInput").on("keyup", function () {
+    const value = $(this).val().toLowerCase();
+
+    $(".gallery-item").filter(function () {
+      const altText = $(this).find("img").attr("alt").toLowerCase();
+      $(this).toggle(altText.includes(value));
+    });
+  });
+});
+
+
+(function(){
+  const $bar = $("#scrollProgress .bar");
+  const $pct = $("#scrollProgress .pct");
+
+  function updateProgress(){
+    const scrollTop = $(window).scrollTop();
+    const docH = $(document).height();
+    const winH = $(window).height();
+    const max = Math.max(docH - winH, 1);
+    const pct = Math.min(100, Math.max(0, (scrollTop / max) * 100));
+    $bar.css("width", pct + "%");
+    $pct.text(Math.round(pct) + "%");
+  }
+
+  $(window).on("scroll resize", updateProgress);
+  updateProgress();
+})();
+
+
+$(document).ready(function () {
+  function lazyLoad() {
+    $("img[data-src]").each(function () {
+      const $img = $(this);
+      const imgTop = $img.offset().top;
+      const scrollBottom = $(window).scrollTop() + $(window).height();
+
+      if (imgTop < scrollBottom + 200) { 
+        $img.attr("src", $img.data("src"));
+        $img.removeAttr("data-src");
+        $img.hide().fadeIn(600); 
+      }
+    });
+  }
+  $(window).on("scroll resize", lazyLoad);
+  lazyLoad();
+
+   $("#btn").hover(function() {
+        $("#btn").css("background-color", "cbd5e1");
+   });
+});
