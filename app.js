@@ -149,10 +149,75 @@ $('html, body').animate({
       return showError("Passwords do not match.");
     }
 
-    showError('');
-    showSuccess('Signed up successfully! (demo)');
-    form.reset();
+    // Spinner effect
+    btn.html('<span class="spinner-border spinner-border-sm"></span> Please wait...');
+    btn.prop("disabled", true);
+
+    setTimeout(() => {
+      btn.html("Create account");
+      btn.prop("disabled", false);
+      showSuccess("Signed up successfully! (demo)");
+      form[0].reset();
+    }, 2000);
   });
-}
 
+  // ===== Task 7: Toast Notification =====
+  function showToast(msg) {
+    const toast = $("#toast");
+    toast.find(".toast-body").text(msg);
+    toast.fadeIn(400).delay(2000).fadeOut(400);
+  }
 
+  $("#bg-btn").on("click", function () {
+    const palette = ['#0f1530', '#111836', '#0a0f12', '#151c3d', '#1a1f3f', '#0e142c'];
+    const color = palette[Math.floor(Math.random() * palette.length)];
+    $("body").css("background-color", color);
+    showToast("Background color changed!");
+  });
+
+  $("#bg-reset").on("click", function () {
+    $("body").css("background-color", "");
+    showToast("Background reset!");
+  });
+
+  // ===== Task 8: Copy to Clipboard =====
+  $(".copy-btn").on("click", function () {
+    const code = $(this).siblings("code").text();
+    navigator.clipboard.writeText(code).then(() => {
+      $(this).html("✔ Copied!");
+      showToast("Copied to clipboard!");
+      setTimeout(() => $(this).html("Copy"), 1500);
+    });
+  });
+
+  // ===== Task 9: Lazy Image Loading =====
+  $(window).on("scroll", function () {
+    $(".lazy").each(function () {
+      const top = $(this).offset().top;
+      const bottom = $(window).scrollTop() + $(window).height();
+      if (top < bottom && !$(this).attr("src")) {
+        $(this).attr("src", $(this).data("src"));
+      }
+    });
+  });
+
+  // ===== Popup Open / Close =====
+  const popup = $("#popup");
+  $("#open-popup").on("click", function () {
+    popup.prop("hidden", false);
+    $("body").css("overflow", "hidden");
+    popup.find("input:first").focus();
+  });
+  popup.find(".popup-close").on("click", closePopup);
+  popup.on("click", function (e) {
+    if (e.target.id === "popup") closePopup();
+  });
+  $(window).on("keydown", function (e) {
+    if (!popup.prop("hidden") && e.key === "Escape") closePopup();
+  });
+
+  function closePopup() {
+    popup.prop("hidden", true);
+    $("body").css("overflow", "");
+  }
+});
