@@ -20,6 +20,7 @@ function playClick() {
   } catch (_) {}
 }
 
+
 (function initTheme(){
   const saved = localStorage.getItem('theme');
   if (saved === 'light') {
