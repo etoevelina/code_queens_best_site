@@ -1,4 +1,6 @@
-// ---------- 1) DATE & TIME ----------
+// =========================================================
+// 1️⃣ DATE & TIME
+// =========================================================
 function formatNow(d = new Date()) {
   return d.toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'short' });
 }
@@ -8,25 +10,38 @@ if (nowEl) {
   setInterval(() => (nowEl.textContent = formatNow()), 60_000);
 }
 
-// ---------- 2) BACKGROUND COLOR CHANGER ----------
+// =========================================================
+// 2️⃣ BACKGROUND COLOR CHANGER (Body + Header)
+// =========================================================
 const bgBtn = document.getElementById('bg-btn');
 const bgReset = document.getElementById('bg-reset');
-const originalBg = getComputedStyle(document.body).backgroundColor;
-const palette = ['#0f1530','#111836','#0a0f12','#151c3d','#1a1f3f','#0e142c'];
+const palette = ['#0f1530', '#111836', '#0a0f12', '#151c3d', '#1a1f3f', '#0e142c'];
+const header = document.querySelector('.bg-nav');
+const originalBodyBg = getComputedStyle(document.body).backgroundColor;
+const originalHeaderBg = header ? getComputedStyle(header).background : '';
 
-function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function pick(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
 if (bgBtn) {
   bgBtn.addEventListener('click', () => {
-    document.body.style.backgroundColor = pick(palette);
-  });
-}
-if (bgReset) {
-  bgReset.addEventListener('click', () => {
-    document.body.style.backgroundColor = originalBg || '';
+    const newColor = pick(palette);
+    document.body.style.backgroundColor = newColor;
+    if (header) header.style.background = newColor;
   });
 }
 
-// ---------- 3) USER RANKING TABLE ----------
+if (bgReset) {
+  bgReset.addEventListener('click', () => {
+    document.body.style.backgroundColor = originalBodyBg || '';
+    if (header) header.style.background = originalHeaderBg || '';
+  });
+}
+
+// =========================================================
+// 3️⃣ USER RANKING TABLE
+// =========================================================
 const users = [
   { name: 'John Doe', rank: '#1', exercises: 300 },
   { name: 'Alice Smith', rank: '#2', exercises: 290 },
@@ -42,16 +57,23 @@ const users = [
 
 function updateRanking() {
   const table = document.getElementById('userTable');
-  table.innerHTML = ''; // Clear the table
+  if (!table) return;
+  table.innerHTML = '';
   users.forEach((user, index) => {
     const row = document.createElement('tr');
-    row.innerHTML = `<td>${index + 1}</td><td>${user.name}</td><td>${user.rank}</td><td>${user.exercises}</td>`;
+    row.innerHTML = `
+      <td>${index + 1}</td>
+      <td>${user.name}</td>
+      <td>${user.rank}</td>
+      <td>${user.exercises}</td>`;
     table.appendChild(row);
   });
 }
-updateRanking(); // Initial ranking display
+updateRanking();
 
-// ---------- 4) POPUP OPEN/CLOSE ----------
+// =========================================================
+// 4️⃣ POPUP OPEN/CLOSE
+// =========================================================
 const popup = document.getElementById('popup');
 const openBtn = document.getElementById('open-popup');
 
@@ -70,33 +92,55 @@ if (popup && openBtn) {
   const closeBtn = popup.querySelector('.popup-close');
   openBtn.addEventListener('click', openPopup);
   closeBtn.addEventListener('click', closePopup);
-  popup.addEventListener('click', (e) => { if (e.target === popup) closePopup(); });
-  window.addEventListener('keydown', (e) => { if (!popup.hidden && e.key === 'Escape') closePopup(); });
+  popup.addEventListener('click', (e) => {
+    if (e.target === popup) closePopup();
+  });
+  window.addEventListener('keydown', (e) => {
+    if (!popup.hidden && e.key === 'Escape') closePopup();
+  });
 }
 
-// ---------- 5) FORM VALIDATION ----------
+// =========================================================
+// 5️⃣ FORM VALIDATION
+// =========================================================
 const form = document.getElementById('signup-form');
 if (form) {
   const errMsg = form.querySelector('[data-error]');
   const okMsg = form.querySelector('[data-success]');
 
   function showError(msg) {
-    if (okMsg) { okMsg.hidden = true; okMsg.textContent = ''; }
-    if (errMsg) { errMsg.hidden = !msg; errMsg.textContent = msg || ''; }
+    if (okMsg) {
+      okMsg.hidden = true;
+      okMsg.textContent = '';
+    }
+    if (errMsg) {
+      errMsg.hidden = !msg;
+      errMsg.textContent = msg || '';
+    }
   }
+
   function showSuccess(msg) {
-    if (errMsg) { errMsg.hidden = true; errMsg.textContent = ''; }
-    if (okMsg) { okMsg.hidden = !msg; okMsg.textContent = msg || ''; }
+    if (errMsg) {
+      errMsg.hidden = true;
+      errMsg.textContent = '';
+    }
+    if (okMsg) {
+      okMsg.hidden = !msg;
+      okMsg.textContent = msg || '';
+    }
   }
-  function emailValid(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  function emailValid(v) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  }
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = form.elements.email.value.trim();
-    const pass  = form.elements.password.value;
-    const conf  = form.elements.confirm.value;
+    const pass = form.elements.password.value;
+    const conf = form.elements.confirm.value;
 
-    form.querySelectorAll('input').forEach(i => i.classList.remove('is-invalid'));
+    form.querySelectorAll('input').forEach((i) => i.classList.remove('is-invalid'));
 
     if (!emailValid(email)) {
       form.elements.email.classList.add('is-invalid');
@@ -117,17 +161,55 @@ if (form) {
   });
 }
 
-(function initTheme(){
-  const saved = localStorage.getItem('theme'); // 'light' | 'dark' | null
+// =========================================================
+// 6️⃣ THEME TOGGLE 🌞 / 🌙 (with color + emoji change)
+// =========================================================
+(function initTheme() {
+  const saved = localStorage.getItem('theme');
+  const toggle = document.getElementById('themeToggle');
   if (saved === 'light') {
     document.body.classList.add('light-theme');
+    if (toggle) toggle.textContent = '🌚 / ☀️';
+  } else {
+    if (toggle) toggle.textContent = '☀️ / 🌙';
   }
 })();
 
 const toggle = document.getElementById('themeToggle');
-toggle?.addEventListener('click', () => {
-   playClick();
-  document.body.classList.toggle('light-theme');
-  const isLight = document.body.classList.contains('light-theme');
-  localStorage.setItem('theme', isLight ? 'light' : 'dark');
-});
+
+function playClick() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = 'triangle';
+    o.frequency.value = 880;
+    g.gain.setValueAtTime(0.0001, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.05, ctx.currentTime + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.12);
+    o.connect(g).connect(ctx.destination);
+    o.start();
+    o.stop(ctx.currentTime + 0.13);
+  } catch (e) {}
+}
+
+if (toggle) {
+  toggle.addEventListener('click', () => {
+    playClick();
+    document.body.classList.toggle('light-theme');
+    const isLight = document.body.classList.contains('light-theme');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+
+    // Change emoji and button color
+    toggle.textContent = isLight ? '🌚 / ☀️' : '☀️ / 🌙';
+    toggle.style.backgroundColor = isLight ? '#fff' : 'var(--card)';
+    toggle.style.color = isLight ? '#000' : 'var(--text)';
+
+    // Update header background too
+    if (header) {
+      header.style.background = isLight
+        ? '#4a369c'
+        : 'linear-gradient(180deg, rgba(17,24,39,.85), rgba(17,24,39,.55) 60%, transparent)';
+    }
+  });
+}
