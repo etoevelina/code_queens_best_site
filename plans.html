@@ -7,71 +7,113 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=3" />
   <link rel="stylesheet" href="plans.css" />
-  <script src="evelina.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="evelina.js" defer></script>
 </head>
 <body>
+  <div id="scrollProgress" style="
+    position:fixed;left:0;top:0;height:4px;width:0;
+    background:linear-gradient(90deg,#7c5cff,#60a5fa,#34d399);
+    z-index:2000;box-shadow:0 0 8px rgba(124,92,255,.6);">
+  </div>
   <div class="page-grid">
-    <header class="site-header">
-      <div class="container nav-wrap">
-        <a class="brand" href="index.html"><span class="logo">💪</span><span>EliteFit</span></a>
-        <nav>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About us</a></li>
-            <li><a href="programs.html">Programs</a></li>
-            <li><a href="team.html">Team</a></li>
-            <li><a href="schedule.html">Schedule</a></li>
-            <li><a class="active" href="plans.html" aria-current="page">Plans</a></li>
+    <header class="site-header bg-nav sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container container-nav-wrap">
+        <a class="navbar-brand brand d-flex align-items-center gap-2" href="index.html">
+          <span class="logo">💪</span><span>EliteFit</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div id="navMenu" class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="./index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="./about.html">About us</a></li>
+            <li class="nav-item"><a class="nav-link" href="./programs.html">Programs</a></li>
+            <li class="nav-item"><a class="nav-link" href="./team.html">Team</a></li>
+            <li class="nav-item"><a class="nav-link" href="./schedule.html">Schedule</a></li>
+            <li class="nav-item"><a class="nav-link active" href="./plans.html" aria-current="page">Plans</a></li>
+            <li class="nav-item"><a class="nav-link" href="./ranking.html">Ranking</a></li>
           </ul>
-        </nav>
-        <div class="auth">
-          <a class="btn ghost" href="login.html">Login</a>
-          <a class="btn primary glow" href="signup.html">Sign up</a>
+
+          <div class="auth d-flex ms-lg-3 gap-2">
+            <a class="btn primary glow btn-primary btn-soft" href="login.html">Login</a>
+            <a class="btn primary glow btn-primary btn-soft" href="signup.html">Sign up</a>
+            <button id="themeToggle" class="btn btn-secondary ms-3">🌞 / 🌙</button>
+          </div>
         </div>
-        <div class="text-center mt-2">
-          <button id="themeToggle" class="btn btn-secondary" aria-label="Toggle between light and dark theme">🌙 Toggle Theme</button>
-        </div>
-        <button id="playSound" class="btn btn-outline-light mt-2" aria-label="Play audio sound">Play Sound</button>
-        <audio id="clickSound" src="assets/evelina-2.mp3"></audio>
       </div>
-    </header>
+    </nav>
+  </header>
 
   <aside class="sidebar">
-    <h3 class="h5 mb-3">Navigation</h3>
-    <ul class="list-unstyled">
-      <li class="mb-2"><a class="text-light text-decoration-none" href="#offers">Plans</a></li>
-      <li><a class="text-light text-decoration-none" href="#gallery">Gym&nbsp;Equipment</a></li>
-    </ul>
+    <div class="sidebar-inner">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="#offers">Plans</a></li>
+        <li><a href="#gallery">Gym Equipment</a></li>
+      </ul>
+    </div>
   </aside>
 
-  <main class="content px-3 py-4">
-    <section id="offers" class="container text-center my-5">
-      <h1 class="fw-bold mb-5">OFFERS</h1>
+  <main class="content px-3 py-4 position-relative">
+    <div class="bg-orbs">
+      <span class="bg-orb bg-orb-1"></span>
+      <span class="bg-orb bg-orb-2"></span>
+      <span class="bg-orb bg-orb-3"></span>
+    </div>
+    <section id="offers" class="container text-center">
+      <h2 class="text-left mb-4 fw-bold">Plans</h2>
+
       <div class="row g-4 justify-content-center">
         <div class="col-12 col-sm-6 col-lg-4">
           <div class="offer-card p-4">
             <span class="display-6">$100</span>
             <span class="fw-semibold">per 1&nbsp;month</span>
+            <ul class="offer-features mt-3 mb-0">
+              <li>24/7 gym access</li>
+              <li>All equipment included</li>
+              <li>Free fitness assessment</li>
+              <li>Basic workout plans</li>
+            </ul>
           </div>
         </div>
         <div class="col-12 col-sm-6 col-lg-4">
           <div class="offer-card main-offer p-4">
             <span class="display-5">$890</span>
             <span class="fw-semibold">per 12&nbsp;months</span>
+            <ul class="offer-features mt-3 mb-0">
+              <li>24/7 gym access</li>
+              <li>All premium equipment</li>
+              <li>Personal trainer consultation</li>
+              <li>Custom workout programs</li>
+              <li>Nutrition guidance</li>
+              <li>Priority class booking</li>
+              <li>Best value - save $310</li>
+            </ul>
           </div>
         </div>
         <div class="col-12 col-sm-6 col-lg-4">
           <div class="offer-card p-4">
             <span class="display-6">$500</span>
             <span class="fw-semibold">per 6&nbsp;months</span>
+            <ul class="offer-features mt-3 mb-0">
+              <li>24/7 gym access</li>
+              <li>All equipment included</li>
+              <li>Group fitness classes</li>
+              <li>Progress tracking app</li>
+              <li>Save $100 vs monthly</li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
 <section id="gallery" class="container my-5">
-  <h2 class="text-center mb-4 fw-bold">GYM EQUIPMENT</h2>
+  <h2 class="text-left mb-4 fw-bold">GYM EQUIPMENT</h2>
 
   <div class="gallery-layout d-flex flex-wrap justify-content-center align-items-start gap-4">
     <div class="main-image flex-grow-1 text-center">
@@ -89,72 +131,25 @@
     </div>
   </div>
 </section>
-
-    <section id="signup" class="container my-5">
-  <h2 class="text-center mb-4">Sign Up</h2>
-  <form id="signupForm" novalidate>
-    <div class="mb-3">
-      <label for="email" class="form-label">Email *</label>
-      <input type="email" id="email" class="form-control" required>
-      <div class="text-danger small" id="emailError"></div>
-    </div>
-
-    <div class="mb-3">
-      <label for="password" class="form-label">Password *</label>
-      <input type="password" id="password" class="form-control" minlength="6" required>
-      <div class="text-danger small" id="passwordError"></div>
-    </div>
-
-    <div class="mb-3">
-      <label for="confirmPassword" class="form-label">Confirm Password *</label>
-      <input type="password" id="confirmPassword" class="form-control" required>
-      <div class="text-danger small" id="confirmPasswordError"></div>
-    </div>
-
-    <button type="submit" class="btn btn-primary w-100">Sign Up</button>
-  </form>
-</section>
   </main>
 
 
 
     <footer class="site-footer">
-      <ul>
-        <li>Evelina</li>
-        <li>Aknur</li>
-        <li>Meruert</li>
-        <li>Birkhanym</li>
-      </ul>
-      <div class="text-center mt-3"></div>
-      <button id="showTime" class="btn btn-outline-primary mt-3">🕒 Show Current Time</button>
-      <div id="timeOutput" class="fw-bold mt-2"></div>
+  <div class="container footer-inner">
+    <ul class="footer-names">
+      <li>Evelina</li>
+      <li>Aknur</li>
+      <li>Meruert</li>
+      <li>Birkhanym</li>
+    </ul>
 
-    <section id="quoteSection" class="container my-5 text-center">
-  <!-- <h2 class="fw-bold mb-4">Test what Cat of the Day</h2> -->
-  <div class="mb-3">
-    <!-- <button id="getQuote" class="btn btn-primary">Get Random Cat & Quote</button> -->
-  </div>
-  <!-- <p id="quoteText" class="lead"></p>
-  <div class="mt-4">
-    <img id="catImage" src="" alt="Random Cat" class="img-fluid rounded shadow" style="max-width: 400px;">
-  </div> -->
-</section>
-    </footer>
-  </div>
-<!-- Modal -->
-<div class="modal fade" id="catModal" tabindex="-1" aria-labelledby="catModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content bg-dark text-light text-center p-3 rounded-4">
-      <div class="modal-header border-0">
-        <h5 class="modal-title w-100" id="catModalLabel">🐱 Cat of the Day</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p id="quoteText" class="mb-3">Loading...</p>
-        <img id="catImage" src="" alt="Random Cat" class="img-fluid rounded shadow fade-in">
-      </div>
+    <div class="footer-date">
+      <span id="currentDateTime"></span>
     </div>
   </div>
-</div>
+</footer>
+  </div>
+
 </body>
 </html>
