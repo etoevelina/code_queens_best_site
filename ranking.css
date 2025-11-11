@@ -182,3 +182,33 @@ body.light-theme .bg-nav{
 }
 .navbar .nav-link.active,
 .navbar .nav-link:hover{ color:#fff; }
+
+.site-footer{ 
+  border-top:1px solid var(--line); 
+  background:color-mix(in oklab, var(--bg), #000 2%); 
+  padding:18px 0 26px; 
+}
+.footer-inner{ 
+  display:flex; 
+  flex-direction:column; 
+  align-items:center; 
+  gap:10px; 
+}
+.footer-names{ 
+  display:flex; 
+  gap:28px; 
+  margin:0; 
+  padding:0; 
+  list-style:none; 
+  color:var(--muted); 
+}
+.footer-date{ 
+  color:var(--muted); 
+  font-size:.95rem; 
+}
+@media (max-width:575.98px){ 
+  .footer-names{ 
+  flex-wrap:wrap; 
+  justify-content:center; 
+  gap:12px; } 
+}
