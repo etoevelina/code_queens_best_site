@@ -83,14 +83,6 @@ function playClick() {
   }, 100);
 })();
 
-(function setupNavLinksSound() {
-  const navLinks = document.querySelectorAll('.navbar .nav-link');
-  navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      playClick();
-    });
-  });
-})();
 
 const mainImg = document.getElementById('mainDisplay');
 const thumbnails = document.querySelectorAll('.gallery-item img');
