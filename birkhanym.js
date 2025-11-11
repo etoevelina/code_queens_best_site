@@ -117,5 +117,17 @@ if (form) {
   });
 }
 
+(function initTheme(){
+  const saved = localStorage.getItem('theme'); // 'light' | 'dark' | null
+  if (saved === 'light') {
+    document.body.classList.add('light-theme');
+  }
+})();
 
-
+const toggle = document.getElementById('themeToggle');
+toggle?.addEventListener('click', () => {
+   playClick();
+  document.body.classList.toggle('light-theme');
+  const isLight = document.body.classList.contains('light-theme');
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+});
