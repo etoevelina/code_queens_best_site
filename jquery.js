@@ -104,7 +104,7 @@ $(document).ready(function(){
     // Task 8: Copy to clipboard
     const $copyBlock = $(`
       <div id="copyBlock" style="margin-top:20px;">
-        <p id="copyText">https://elitefit.example.com/join</p>
+        <p id="copyText">https://courageous-manatee-93f835.netlify.app</p>
         <button id="copyBtn" class="btn">Copy</button>
       </div>`);
     $('#popup').append($copyBlock);
@@ -135,3 +135,70 @@ $(document).ready(function(){
   
   });
   
+// ===== Search Highlighting with jQuery =====
+function setupSearchHighlighting() {
+  const searchInput = $('#searchInput');
+  const highlightBtn = $('#highlightBtn');
+  const clearHighlightBtn = $('#clearHighlightBtn');
+  const productsSection = $('#shop');
+
+  if (!searchInput.length || !highlightBtn.length || !clearHighlightBtn.length || !productsSection.length) return;
+
+  let originalHTML = '';
+
+  // Сохраняем оригинальный HTML после загрузки продуктов
+  setTimeout(() => {
+    originalHTML = productsSection.html();
+  }, 100);
+
+  function highlightContent() {
+    const searchTerm = searchInput.val().trim();
+    
+    if (!searchTerm) {
+      showToast('Please enter a search term');
+      return;
+    }
+
+    // Восстанавливаем оригинальный HTML
+    if (originalHTML) {
+      productsSection.html(originalHTML);
+    }
+
+    // Подсвечиваем текст с помощью jQuery
+    productsSection.find('h2, h3, h4, h5, h6, p, span, .meta span:first-child, .p-body h3').each(function() {
+      const $element = $(this);
+      const originalText = $element.text();
+      
+      // Пропускаем элементы с ценами
+      if (originalText.includes('$')) return;
+      
+      const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+      const newText = originalText.replace(regex, '<mark class="highlight">$1</mark>');
+      
+      if (newText !== originalText) {
+        $element.html(newText);
+      }
+    });
+
+    playClickTone();
+    showToast(`Highlighted "${searchTerm}" in programs section`);
+  }
+
+  function clearHighlight() {
+    if (originalHTML) {
+      productsSection.html(originalHTML);
+    }
+    searchInput.val('');
+    playClickTone();
+    showToast('Highlight cleared');
+  }
+
+  highlightBtn.on('click', highlightContent);
+  clearHighlightBtn.on('click', clearHighlight);
+
+  searchInput.on('keypress', (e) => {
+    if (e.which === 13) {
+      highlightContent();
+    }
+  });
+}

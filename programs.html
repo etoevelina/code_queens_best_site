@@ -3,50 +3,59 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Fitness — Programs</title>
-  <link rel="stylesheet" href="meru.css"/>
+  <title>EliteFit — Programs</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="jquery.js" defer></script>
-  <script src="app.js" defer></script>
+  <script src="meru.js" defer></script>
+  
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="meru.css">
 </head>
 <body class="page theme-day">
-  <header class="site-header">
-    <div class="container nav-wrap">
-      <a class="brand" href="home.html"><span class="logo">💪</span><span>EliteFit</span></a>
 
-      <nav aria-label="Main">
-        <ul id="mainNav" class="nav-list" role="menubar">
-          <li><a role="menuitem" class="nav-item" href="home.html" tabindex="0">Home</a></li>
-          <li><a role="menuitem" class="nav-item active" href="about.html" aria-current="page" tabindex="0">About us</a></li>
-          <li><a role="menuitem" class="nav-item" href="programs.html" tabindex="0">Programs</a></li>
-          <li><a role="menuitem" class="nav-item" href="team.html" tabindex="0">Team</a></li>
-          <li><a role="menuitem" class="nav-item" href="schedule.html" tabindex="0">Schedule</a></li>
-          <li><a role="menuitem" class="nav-item" href="plans.html" tabindex="0">Plans</a></li>
-          <li><a role="menuitem" class="nav-item" href="ranking.html" tabindex="0">Ranking</a></li>
-        </ul>
-      </nav>
-
-      <div class="actions">
-        <button id="themeToggle" class="btn ghost" aria-pressed="false">🌞 Day</button>
-     
+  <div id="scrollProgress" style="
+    position:fixed;left:0;top:0;height:4px;width:0;
+    background:linear-gradient(90deg,#7c5cff,#60a5fa,#34d399);
+    z-index:2000;box-shadow:0 0 8px rgba(124,92,255,.6);">
+  </div>
+  <header class="site-header bg-nav sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container container-nav-wrap">
+        <a class="navbar-brand brand d-flex align-items-center gap-2" href="index.html">
+          <span class="logo1">💪</span><span>EliteFit</span>
+        </a>
+  
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <div id="navMenu" class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="./index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="./about.html">About us</a></li>
+            <li class="nav-item"><a class="nav-link active" href="./programs.html" aria-current="page">Programs</a></li>
+            <li class="nav-item"><a class="nav-link" href="./team.html">Team</a></li>
+            <li class="nav-item"><a class="nav-link" href="./schedule.html">Schedule</a></li>
+            <li class="nav-item"><a class="nav-link" href="./plans.html">Plans</a></li>
+            <li class="nav-item"><a class="nav-link" href="./ranking.html">Ranking</a></li>
+          </ul>
+  
+          <div class="auth d-flex ms-lg-3 gap-2">
+            <a class="btn primary glow btn-primary btn-soft" href="login.html">Login</a>
+            <a class="btn primary glow btn-primary btn-soft" href="signup.html">Sign up</a>
+            <button id="themeToggle" class="btn btn-secondary ms-3">🌞 / 🌙</button>
+          </div>
+        </div>
       </div>
-
-      <div class="auth">
-        <a class="btn ghost" href="login.html">Login</a>
-        <a class="btn primary glow" href="signup.html">Sign up</a>
-      </div>
-    </div>
+    </nav>
   </header>
-
+  
   <div class="container page-grid">
     <aside class="sidebar">
       <nav aria-label="Quick links">
         <ul class="side-links">
-          <li><a href="#intro">Greeting & Read more</a></li>
-          <li><a href="#rating">Rating</a></li>
           <li><a href="#gallery">Gallery</a></li>
           <li><a href="#shop">Shop & Filter</a></li>
-          <li><a href="#wizard">Multi-step Form</a></li>
           <li><a href="#quotes">Random Quote</a></li>
         </ul>
       </nav>
@@ -54,37 +63,11 @@
 
     <main class="main">
 
-      <!-- Greeting + Read more (DOM + стили) -->
-      <section id="intro" class="section">
-        <h2 id="greeting">Programs</h2>
-        <form id="greetForm" class="inline-form" autocomplete="off">
-          <input id="nameInput" type="text" placeholder="Your name"/>
-          <button class="btn" type="submit">Update Greeting</button>
-          <button class="btn ghost" id="resetInputs" type="button">Reset Inputs</button>
-        </form>
-
-        <article class="readmore">
-          <p>
-            EliteFit is the most advanced gym in the city... 
-          </p>
-          <div id="moreText" class="hidden">
-            <p>We offer personal coaching, 24/7 access, and smart tracking.</p>
-          </div>
-          <button id="readMoreBtn" class="btn">Read more</button>
-        </article>
-      </section>
-
-      <!-- Rating -->
-      <section id="rating" class="section">
-        <h2>Rate today’s workout</h2>
-        <div class="stars" aria-label="Workout rating">
-          <i class="star" data-value="1" aria-label="1 star">★</i>
-          <i class="star" data-value="2" aria-label="2 stars">★</i>
-          <i class="star" data-value="3" aria-label="3 stars">★</i>
-          <i class="star" data-value="4" aria-label="4 stars">★</i>
-          <i class="star" data-value="5" aria-label="5 stars">★</i>
-        </div>
-        <p id="ratingOutput">Your rating: 0/5</p>
+      <!-- Random Quote (fetch local JSON) -->
+      <section id="quotes" class="section">
+        <h2>Inspire me ✨</h2>
+        <button id="newQuoteBtn" class="btn">Get Quote</button>
+        <blockquote id="quoteText" class="quote">Click the button to load a random quote.</blockquote>
       </section>
 
       <!-- Gallery (смена src по клику) -->
@@ -98,13 +81,12 @@
           <img class="thumb" src="https://images.unsplash.com/photo-1558611848-73f7eb4001a1?q=80&w=1200&auto=format&fit=crop" alt="Thumb 5">
           <img class="thumb" src="https://images.unsplash.com/photo-1546483875-ad9014c88eba?q=80&w=1200&auto=format&fit=crop" alt="Thumb 6">
           <img class="thumb" src="https://media.istockphoto.com/id/1132086660/photo/side-view-of-beautiful-muscular-woman-running-on-treadmill.jpg?s=612x612&w=0&k=20&c=5Vq_BJjG7sbIyKIP-Adu0pChReDXm0dC7BVPvto2M0I=" alt="Thumb 7">
-          <img class="thumb" src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?q=80&w=1200&auto=format&fit=crop"alt="Thumb 8">
+          <img class="thumb" src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?q=80&w=1200&auto=format&fit=crop" alt="Thumb 8">
           <img class="thumb" src="https://titleboxingclub.com/wp-content/uploads/2022/07/Home_Hero.jpg" alt="Thumb 9">
           <img class="thumb" src="https://images.unsplash.com/photo-1549476464-37392f717541?q=80&w=1200&auto=format&fit=crop" alt="Thumb 10">
         </div>
       </section>
 
-      <!-- Programs (статические карточки + анимация) -->
       <section class="section">
         <h2>Programs</h2>
         <div class="cards">
@@ -130,62 +112,52 @@
           </article>
         </div>
       </section>
+      
 
-      <!-- Switch + Arrays/Loops/HOF/Objects + Load more (fetch) -->
-      <section id="shop" class="section">
-        <h2>Programs & Plans</h2>
+
+        <!-- Switch + Arrays/Loops/HOF/Objects + Load more (fetch) -->
+<section id="shop" class="section">
+  <h2>Programs & Plans</h2>
+  
+  <!-- Search Highlighting -->
+  <div class="search-highlight mb-3">
+    <label for="searchInput" class="form-label">Search programs:</label>
+    <div class="d-flex gap-2">
+      <input id="searchInput" class="form-control" type="text" placeholder="Type keyword to highlight...">
+      <button id="highlightBtn" class="btn btn-primary">Highlight</button>
+      <button id="clearHighlightBtn" class="btn btn-outline-secondary">Clear</button>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <label for="category">Filter by category:</label>
+    <select id="category">
+      <option value="all">All</option>
+      <option value="strength">Strength</option>
+      <option value="cardio">Cardio</option>
+      <option value="mobility">Mobility</option>
+    </select>
+   
+  </div>
+  <div id="products" class="grid"></div>
+</section>
+      
+
+
+      <section id="exercises" class="section">
+        <h2>Exercise Library</h2>
         <div class="toolbar">
-          <label for="category">Filter by category:</label>
-          <select id="category">
-            <option value="all">All</option>
-            <option value="strength">Strength</option>
-            <option value="cardio">Cardio</option>
-            <option value="mobility">Mobility</option>
+          <label for="muscle">Select muscle:</label>
+          <select id="muscle">
+            <option value="biceps">Biceps</option>
+            <option value="chest">Chest</option>
+            <option value="legs">Legs</option>
+            <option value="triceps">Triceps</option>
+            <option value="abs">Abs</option>
           </select>
-          <button id="loadMoreBtn" class="btn">Load more plans</button>
+          <button id="loadExercisesBtn" class="btn primary">Load Exercises</button>
         </div>
-        <div id="products" class="grid"></div>
-      </section>
-
-      <!-- Multi-step form (callbacks + сохранение state) -->
-      <section id="wizard" class="section">
-        <h2>Sign-up </h2>
-        <form id="wizForm" class="form" autocomplete="off">
-          <div id="step1" class="wiz-step">
-            <label>Name</label>
-            <input name="name" type="text" placeholder="Your name" required>
-            <div class="row"><button type="button" class="btn primary" data-next>Next</button></div>
-          </div>
-          <div id="step2" class="wiz-step hidden">
-            <label>Email</label>
-            <input name="email" type="email" placeholder="name@example.com" required>
-            <div class="row">
-              <button type="button" class="btn ghost" data-back>Back</button>
-              <button type="button" class="btn primary" data-next>Next</button>
-            </div>
-          </div>
-          <div id="step3" class="wiz-step hidden">
-            <label>Goal</label>
-            <select name="goal" required>
-              <option value="">Select goal…</option>
-              <option>Muscle gain</option>
-              <option>Fat loss</option>
-              <option>Mobility</option>
-            </select>
-            <div class="row">
-              <button type="button" class="btn ghost" data-back>Back</button>
-              <button type="submit" class="btn primary">Finish</button>
-            </div>
-          </div>
-        </form>
-        <p id="wizStatus" class="pill" aria-live="polite"></p>
-      </section>
-
-      <!-- Random Quote (fetch local JSON) -->
-      <section id="quotes" class="section">
-        <h2>Inspire me ✨</h2>
-        <button id="newQuoteBtn" class="btn">Get Quote</button>
-        <blockquote id="quoteText" class="quote">Click the button to load a random quote.</blockquote>
+        <div id="exercisesList" class="grid"></div>
       </section>
 
       <!-- FAQ / modal / color switch -->
@@ -208,29 +180,6 @@
         </div>
       </section>
 
-      <section id="popup" class="section">
-        <h2>Subscribe</h2>
-        <div class="row" style="display:flex;gap:12px;align-items:center">
-          <button id="openModal" class="btn primary">Subscribe</button>
-          <span id="colorLabel" class="pill">Background: default</span>
-          <button id="colorBtn" class="btn">Change Background</button>
-        </div>
-
-        <div id="modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-          <div class="modal__backdrop" data-close></div>
-          <div class="modal__content" role="document">
-            <button class="modal__close" aria-label="Close" data-close>&times;</button>
-            <h3 id="modal-title" style="margin-bottom:10px">Subscribe for updates</h3>
-            <form id="subForm" novalidate>
-              <label for="subEmail">Email <span style="color:var(--brand)">*</span></label>
-              <input id="subEmail" type="email" required />
-              <small class="error" id="err-sub"></small>
-              <button type="submit" class="btn primary" style="margin-top:10px">Join</button>
-              <p id="subSuccess" class="success" role="status" aria-live="polite"></p>
-            </form>
-          </div>
-        </div>
-      </section>
     </main>
   </div>
 
@@ -246,8 +195,13 @@
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-          crossorigin="anonymous"></script>
+  <div class="bg-gradients">
+    <span class="g-g1"></span><span class="g-g2"></span><span class="g-g3"></span>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="aknur.js" defer></script>
+  <script src="aknur-jq.js" defer></script>
+  <script src="meru.js" defer></script>
 </body>
 </html>
