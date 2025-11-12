@@ -58,15 +58,25 @@ It makes the **Programs page interactive and personalized**.
 #### 1. API Key Setup
 We registered on [api-ninjas.com](https://api-ninjas.com) and generated a free API key.  
 Then the key was added into the JavaScript file:
-
-```js
 const API_KEY = "YOUR_API_KEY_HERE";
 ### Fetch Request
 When the user selects a muscle group (for example, *biceps* or *legs*),  
 the system sends a request to the API endpoint:
 https://api.api-ninjas.com/v1/exercises?muscle=biceps
-
-
+with headers:
+headers: { "X-Api-Key": API_KEY }
+### JavaScript Function
+The core logic is written in meru.js
+### User Interface
+In programs.html, the user selects the muscle group
+On button click, the JavaScript dynamically displays cards with exercise data fetched from the API.
+### 🌐 Example Result
+When you click "Load Exercises" →
+You instantly get a list of exercises like:
+💪 Bicep Curl — Type: Strength
+Equipment: Dumbbells
+Difficulty: Beginner
+“Hold the dumbbells and curl towards your shoulders…”
 
 ## 🔌 External APIs and Technologies Used
 
