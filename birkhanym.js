@@ -162,63 +162,70 @@ if (form) {
 }
 
 // =========================================================
-// 6️⃣ THEME TOGGLE 🌞 / 🌙 (Header + Background + LocalStorage)
+// 🌞 / 🌙 THEME TOGGLE (Full Page + Header + Footer)
 // =========================================================
 (function initTheme() {
-  const saved = localStorage.getItem('theme');
-  const toggle = document.getElementById('themeToggle');
-  const header = document.querySelector('.bg-nav');
+  const saved = localStorage.getItem("theme");
+  const body = document.body;
+  const header = document.querySelector(".bg-nav");
+  const toggle = document.getElementById("themeToggle");
+  const loginBtn = document.querySelector('.auth a[href="login.html"]');
+  const signupBtn = document.querySelector('.auth a[href="signup.html"]');
+  const footer = document.querySelector(".site-footer");
 
-  if (saved === 'light') {
-    document.body.classList.add('light-theme');
-    if (toggle) toggle.textContent = '🌚 / ☀️';
-    document.body.style.backgroundColor = '#f3f4ff';
-    if (header) header.style.background = '#4a369c';
-  } else {
-    if (toggle) toggle.textContent = '☀️ / 🌙';
-    document.body.style.backgroundColor = '';
-    if (header)
-      header.style.background =
-        'linear-gradient(180deg, rgba(17,24,39,.85), rgba(17,24,39,.55) 60%, transparent)';
+  function applyTheme(isLight) {
+    if (isLight) {
+      // --- Light mode ---
+      body.classList.add("light-theme");
+      body.style.backgroundColor = "#f3f4ff";
+      if (header) header.style.background = "#4a369c";
+      if (footer) footer.style.background = "#ede9ff";
+      if (loginBtn) loginBtn.style.color = "#fff";
+      if (signupBtn) signupBtn.style.color = "#fff";
+      if (toggle) toggle.textContent = "🌚 / ☀️";
+    } else {
+      // --- Dark mode ---
+      body.classList.remove("light-theme");
+      body.style.backgroundColor = "#0f1115";
+      if (header)
+        header.style.background =
+          "linear-gradient(180deg, rgba(17,24,39,.85), rgba(17,24,39,.55) 60%, transparent)";
+      if (footer)
+        footer.style.background = "color-mix(in oklab, var(--bg), #000 2%)";
+      if (loginBtn) loginBtn.style.color = "#fff";
+      if (signupBtn) signupBtn.style.color = "#fff";
+      if (toggle) toggle.textContent = "☀️ / 🌙";
+    }
   }
+
+  // Initialize theme
+  applyTheme(saved === "light");
+
+  // Toggle handler
+  toggle?.addEventListener("click", () => {
+    playClick();
+    const isLight = !body.classList.contains("light-theme");
+    localStorage.setItem("theme", isLight ? "light" : "dark");
+    applyTheme(isLight);
+  });
 })();
 
-const toggle = document.getElementById('themeToggle');
+// ===== Footer Date =====
+(function () {
+  const footerTime = document.getElementById('footerTime');
+  if (!footerTime) return;
 
-function playClick() {
-  try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const o = ctx.createOscillator();
-    const g = ctx.createGain();
-    o.type = 'triangle';
-    o.frequency.value = 880;
-    g.gain.setValueAtTime(0.0001, ctx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.05, ctx.currentTime + 0.01);
-    g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.12);
-    o.connect(g).connect(ctx.destination);
-    o.start();
-    o.stop(ctx.currentTime + 0.13);
-  } catch (e) {}
-}
+  function updateDateTime() {
+    const now = new Date();
+    footerTime.textContent = now.toLocaleString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  }
 
-if (toggle) {
-  toggle.addEventListener('click', () => {
-    playClick();
-    document.body.classList.toggle('light-theme');
-    const isLight = document.body.classList.contains('light-theme');
-    const header = document.querySelector('.bg-nav');
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
-
-    // Emoji + button colors
-    toggle.textContent = isLight ? '🌚 / ☀️' : '☀️ / 🌙';
-    toggle.style.backgroundColor = isLight ? '#fff' : 'var(--card)';
-    toggle.style.color = isLight ? '#000' : 'var(--text)';
-
-    // Apply background + header colors
-    document.body.style.backgroundColor = isLight ? '#f3f4ff' : '';
-    if (header)
-      header.style.background = isLight
-        ? '#4a369c'
-        : 'linear-gradient(180deg, rgba(17,24,39,.85), rgba(17,24,39,.55) 60%, transparent)';
-  });
-}
+  updateDateTime();
+  setInterval(updateDateTime, 60000);
+})();
