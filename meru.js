@@ -428,64 +428,56 @@ function setupSearchHighlighting() {
     });
   }
   
-  // ===== Load Exercises =====
-  const loadExercisesBtn = document.getElementById('loadExercisesBtn');
-  const exercisesList = document.getElementById('exercisesList');
-  const muscleSelect = document.getElementById('muscle');
-  
-  if(loadExercisesBtn && exercisesList && muscleSelect){
-    loadExercisesBtn.addEventListener('click', function() {
-      const muscle = muscleSelect.value;
-      
-      // Mock data for exercises
-      const exercisesData = {
-        biceps: [
-          { name: 'Barbell Curl', difficulty: 'Intermediate' },
-          { name: 'Dumbbell Curl', difficulty: 'Beginner' },
-          { name: 'Hammer Curl', difficulty: 'Beginner' }
-        ],
-        chest: [
-          { name: 'Bench Press', difficulty: 'Intermediate' },
-          { name: 'Push Ups', difficulty: 'Beginner' },
-          { name: 'Chest Fly', difficulty: 'Intermediate' }
-        ],
-        legs: [
-          { name: 'Squats', difficulty: 'Intermediate' },
-          { name: 'Lunges', difficulty: 'Beginner' },
-          { name: 'Deadlifts', difficulty: 'Advanced' }
-        ],
-        triceps: [
-          { name: 'Tricep Dips', difficulty: 'Beginner' },
-          { name: 'Skull Crushers', difficulty: 'Intermediate' },
-          { name: 'Tricep Pushdown', difficulty: 'Beginner' }
-        ],
-        abs: [
-          { name: 'Crunches', difficulty: 'Beginner' },
-          { name: 'Plank', difficulty: 'Beginner' },
-          { name: 'Leg Raises', difficulty: 'Intermediate' }
-        ]
-      };
-      
-      const exercises = exercisesData[muscle] || [];
-      exercisesList.innerHTML = '';
-      
-      exercises.forEach(exercise => {
-        const exerciseEl = document.createElement('div');
-        exerciseEl.className = 'product';
-        exerciseEl.innerHTML = `
-          <div class="p-body">
-            <h3>${exercise.name}</h3>
-            <div class="meta"><span>${muscle}</span><span>${exercise.difficulty}</span></div>
-          </div>`;
-        exercisesList.appendChild(exerciseEl);
-        
-        requestAnimationFrame(() => exerciseEl.classList.add('show'));
+ // ===== Exercises API (API Ninjas) =====
+const API_KEY = "4R2xYsWrwe6DCJCQeGUee5A==w5HAxqQH0bkcnCH"; // твой ключ API
+
+const loadExercisesBtn = document.getElementById('loadExercisesBtn');
+const exercisesList = document.getElementById('exercisesList');
+const muscleSelect = document.getElementById('muscle');
+
+if (loadExercisesBtn && exercisesList && muscleSelect) {
+  loadExercisesBtn.addEventListener('click', async function() {
+    const muscle = muscleSelect.value;
+    exercisesList.innerHTML = `<p>Loading ${muscle} exercises...</p>`;
+
+    try {
+      const res = await fetch(`https://api.api-ninjas.com/v1/exercises?muscle=${muscle}`, {
+        headers: { "X-Api-Key": API_KEY }
       });
-      
+
+      if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+      const data = await res.json();
+
+      if (!data.length) {
+        exercisesList.innerHTML = `<p>No exercises found for ${muscle} 😢</p>`;
+        return;
+      }
+
+      exercisesList.innerHTML = data.map(ex => `
+        <article class="product show">
+          <div class="p-body">
+            <h3>${ex.name}</h3>
+            <div class="meta">
+              <span>Muscle: ${ex.muscle}</span>
+              <span>Type: ${ex.type}</span>
+            </div>
+            <p><strong>Equipment:</strong> ${ex.equipment || "None"}</p>
+            <p><strong>Difficulty:</strong> ${ex.difficulty}</p>
+            <p>${ex.instructions}</p>
+          </div>
+        </article>
+      `).join("");
+
+      showToast(`Loaded ${data.length} ${muscle} exercises`);
       playClickTone();
-      showToast(`Loaded ${exercises.length} ${muscle} exercises`);
-    });
-  }
+
+    } catch (err) {
+      exercisesList.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+      console.error("API Error:", err);
+    }
+  });
+}
+
   
   // ===== Reveal animations =====
   document.querySelectorAll('.pop').forEach(el => {
