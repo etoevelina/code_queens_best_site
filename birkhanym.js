@@ -1,47 +1,23 @@
-// =========================================================
-// 1️⃣ DATE & TIME
-// =========================================================
+// date & time
 function formatNow(d = new Date()) {
-  return d.toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'short' });
-}
-const nowEl = document.getElementById('now');
-if (nowEl) {
-  nowEl.textContent = formatNow();
-  setInterval(() => (nowEl.textContent = formatNow()), 60_000);
-}
-
-// =========================================================
-// 2️⃣ BACKGROUND COLOR CHANGER (Body + Header)
-// =========================================================
-const bgBtn = document.getElementById('bg-btn');
-const bgReset = document.getElementById('bg-reset');
-const palette = ['#0f1530', '#111836', '#0a0f12', '#151c3d', '#1a1f3f', '#0e142c'];
-const header = document.querySelector('.bg-nav');
-const originalBodyBg = getComputedStyle(document.body).backgroundColor;
-const originalHeaderBg = header ? getComputedStyle(header).background : '';
-
-function pick(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
-
-if (bgBtn) {
-  bgBtn.addEventListener('click', () => {
-    const newColor = pick(palette);
-    document.body.style.backgroundColor = newColor;
-    if (header) header.style.background = newColor;
+  return d.toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
   });
 }
 
-if (bgReset) {
-  bgReset.addEventListener('click', () => {
-    document.body.style.backgroundColor = originalBodyBg || '';
-    if (header) header.style.background = originalHeaderBg || '';
-  });
+const footerTimeEl = document.getElementById('footerTime');
+if (footerTimeEl) {
+  footerTimeEl.textContent = formatNow();
+  setInterval(() => {
+    footerTimeEl.textContent = formatNow();
+  }, 60_000);
 }
 
-// =========================================================
-// 3️⃣ USER RANKING TABLE
-// =========================================================
+// user ranking table 
 const users = [
   { name: 'John Doe', rank: '#1', exercises: 300 },
   { name: 'Alice Smith', rank: '#2', exercises: 290 },
@@ -71,161 +47,109 @@ function updateRanking() {
 }
 updateRanking();
 
-// =========================================================
-// 4️⃣ POPUP OPEN/CLOSE
-// =========================================================
-const popup = document.getElementById('popup');
-const openBtn = document.getElementById('open-popup');
+// theme toggle
+(function initTheme(){
+  const saved = localStorage.getItem('theme');
+  const toggle = document.getElementById('themeToggle');
 
-function openPopup() {
-  popup.hidden = false;
-  document.body.style.overflow = 'hidden';
-  const first = popup.querySelector('input');
-  if (first) first.focus();
-}
-function closePopup() {
-  popup.hidden = true;
-  document.body.style.overflow = '';
-}
-
-if (popup && openBtn) {
-  const closeBtn = popup.querySelector('.popup-close');
-  openBtn.addEventListener('click', openPopup);
-  closeBtn.addEventListener('click', closePopup);
-  popup.addEventListener('click', (e) => {
-    if (e.target === popup) closePopup();
-  });
-  window.addEventListener('keydown', (e) => {
-    if (!popup.hidden && e.key === 'Escape') closePopup();
-  });
-}
-
-// =========================================================
-// 5️⃣ FORM VALIDATION
-// =========================================================
-const form = document.getElementById('signup-form');
-if (form) {
-  const errMsg = form.querySelector('[data-error]');
-  const okMsg = form.querySelector('[data-success]');
-
-  function showError(msg) {
-    if (okMsg) {
-      okMsg.hidden = true;
-      okMsg.textContent = '';
-    }
-    if (errMsg) {
-      errMsg.hidden = !msg;
-      errMsg.textContent = msg || '';
-    }
+  if (saved === 'light') {
+    document.body.classList.add('light-theme');
+    if (toggle) toggle.textContent = '🌙';
+  } else {
+    document.body.classList.remove('light-theme');
+    if (toggle) toggle.textContent = '🌞';
   }
+})();
 
-  function showSuccess(msg) {
-    if (errMsg) {
-      errMsg.hidden = true;
-      errMsg.textContent = '';
-    }
-    if (okMsg) {
-      okMsg.hidden = !msg;
-      okMsg.textContent = msg || '';
-    }
-  }
+const toggle = document.getElementById('themeToggle');
 
-  function emailValid(v) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-  }
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = form.elements.email.value.trim();
-    const pass = form.elements.password.value;
-    const conf = form.elements.confirm.value;
-
-    form.querySelectorAll('input').forEach((i) => i.classList.remove('is-invalid'));
-
-    if (!emailValid(email)) {
-      form.elements.email.classList.add('is-invalid');
-      return showError('Please enter a valid email address.');
-    }
-    if (pass.length < 6) {
-      form.elements.password.classList.add('is-invalid');
-      return showError('Password must be at least 6 characters.');
-    }
-    if (pass !== conf) {
-      form.elements.confirm.classList.add('is-invalid');
-      return showError('Passwords do not match.');
-    }
-
-    showError('');
-    showSuccess('Signed up successfully! (demo)');
-    form.reset();
-  });
+function playClick() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = 'triangle';
+    o.frequency.value = 880;
+    g.gain.setValueAtTime(0.0001, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.05, ctx.currentTime + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.12);
+    o.connect(g).connect(ctx.destination);
+    o.start();
+    o.stop(ctx.currentTime + 0.13);
+  } catch (e) {}
 }
 
-// =========================================================
-// 🌞 / 🌙 THEME TOGGLE (Full Page + Header + Footer)
-// =========================================================
-(function initTheme() {
-  const saved = localStorage.getItem("theme");
-  const body = document.body;
-  const header = document.querySelector(".bg-nav");
-  const toggle = document.getElementById("themeToggle");
-  const loginBtn = document.querySelector('.auth a[href="login.html"]');
-  const signupBtn = document.querySelector('.auth a[href="signup.html"]');
-  const footer = document.querySelector(".site-footer");
-
-  function applyTheme(isLight) {
-    if (isLight) {
-      // --- Light mode ---
-      body.classList.add("light-theme");
-      body.style.backgroundColor = "#f3f4ff";
-      if (header) header.style.background = "#4a369c";
-      if (footer) footer.style.background = "#ede9ff";
-      if (loginBtn) loginBtn.style.color = "#fff";
-      if (signupBtn) signupBtn.style.color = "#fff";
-      if (toggle) toggle.textContent = "🌚 / ☀️";
-    } else {
-      // --- Dark mode ---
-      body.classList.remove("light-theme");
-      body.style.backgroundColor = "#0f1115";
-      if (header)
-        header.style.background =
-          "linear-gradient(180deg, rgba(17,24,39,.85), rgba(17,24,39,.55) 60%, transparent)";
-      if (footer)
-        footer.style.background = "color-mix(in oklab, var(--bg), #000 2%)";
-      if (loginBtn) loginBtn.style.color = "#fff";
-      if (signupBtn) signupBtn.style.color = "#fff";
-      if (toggle) toggle.textContent = "☀️ / 🌙";
-    }
-  }
-
-  // Initialize theme
-  applyTheme(saved === "light");
-
-  // Toggle handler
-  toggle?.addEventListener("click", () => {
+if (toggle) {
+  toggle.addEventListener('click', () => {
     playClick();
-    const isLight = !body.classList.contains("light-theme");
-    localStorage.setItem("theme", isLight ? "light" : "dark");
-    applyTheme(isLight);
+    const isLight = !document.body.classList.contains('light-theme');
+    
+
+    document.body.classList.toggle('light-theme');
+    
+
+    toggle.textContent = isLight ? '🌙' : '🌞';
+
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
   });
-})();
+}
 
-// ===== Footer Date =====
-(function () {
-  const footerTime = document.getElementById('footerTime');
-  if (!footerTime) return;
+// accordion
+document.addEventListener('DOMContentLoaded', function() {
+  const accordionButtons = document.querySelectorAll('.accordion-button');
+  
+  accordionButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      playClick(); 
+      
+      const targetId = this.getAttribute('data-target');
+      if (targetId) {
+        const target = document.querySelector(targetId);
+        const accordionItem = this.closest('.accordion-item');
+        
+        if (target) {
 
-  function updateDateTime() {
-    const now = new Date();
-    footerTime.textContent = now.toLocaleString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+          const isCollapsed = this.classList.contains('collapsed');
+          
+
+          document.querySelectorAll('.accordion-collapse.show').forEach(openItem => {
+            if (openItem.id !== targetId.replace('#', '')) {
+              openItem.classList.remove('show');
+              openItem.previousElementSibling.querySelector('.accordion-button').classList.add('collapsed');
+            }
+          });
+          
+
+          if (isCollapsed) {
+            target.classList.add('show');
+            this.classList.remove('collapsed');
+            
+            accordionItem.classList.add('pulse');
+            setTimeout(() => {
+              accordionItem.classList.remove('pulse');
+            }, 600);
+          } else {
+            target.classList.remove('show');
+            this.classList.add('collapsed');
+          }
+          
+          this.setAttribute('aria-expanded', !isCollapsed);
+        }
+      }
     });
-  }
+  });
+  
+  const accordionItems = document.querySelectorAll('.accordion-item');
+  accordionItems.forEach((item, index) => {
+    item.style.animationDelay = `${index * 0.1}s`;
+    item.classList.add('fade-in');
+  });
+});
 
-  updateDateTime();
-  setInterval(updateDateTime, 60000);
-})();
+// additional animation
+function bump(el) {
+  if (!el) return;
+  el.classList.remove('bump');
+  el.offsetWidth;
+  el.classList.add('bump');
+}
