@@ -182,7 +182,6 @@ body.light-theme .bg-nav{
 }
 .navbar .nav-link.active,
 .navbar .nav-link:hover{ color:#fff; }
-
 .site-footer{ 
   border-top:1px solid var(--line); 
   background:color-mix(in oklab, var(--bg), #000 2%); 
@@ -211,10 +210,4 @@ body.light-theme .bg-nav{
   flex-wrap:wrap; 
   justify-content:center; 
   gap:12px; } 
-}
-#themeToggle {
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-.bg-nav {
-  transition: background 0.4s ease;
 }
