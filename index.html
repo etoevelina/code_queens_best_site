@@ -1,50 +1,57 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <!-- <link rel="stylesheet" href="styles.css?v=4"> -->
   <link rel="stylesheet" href="index.css">
-  <title>EliteFit — Home</title>
 
+  <title>EliteFit — Home</title>
 </head>
 <body class="home">
 
+  <div id="scrollProgress" style="
+    position:fixed;left:0;top:0;height:4px;width:0;
+    background:linear-gradient(90deg,#7c5cff,#60a5fa,#34d399);
+    z-index:2000;box-shadow:0 0 8px rgba(124,92,255,.6);">
+  </div>
+
   <header class="site-header bg-nav sticky-top">
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container container-nav-wrap">
-      <a class="navbar-brand brand d-flex align-items-center gap-2" href="index.html">
-        <span class="logo">💪</span><span>EliteFit</span>
-      </a>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container container-nav-wrap">
+        <a class="navbar-brand brand d-flex align-items-center gap-2" href="index.html">
+          <span class="logo">💪</span><span>EliteFit</span>
+        </a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-      <div id="navMenu" class="collapse navbar-collapse">
-        <ul class="navbar-nav ms-auto mb-4 mb-lg-3">
-          <li class="nav-item"><a class="nav-link active" href="index.html" aria-current="page">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="about.html">About us</a></li>
-          <li class="nav-item"><a class="nav-link" href="programs.html">Programs</a></li>
-          <li class="nav-item"><a class="nav-link" href="team.html">Team</a></li>
-          <li class="nav-item"><a class="nav-link" href="schedule.html">Schedule</a></li>
-          <li class="nav-item"><a class="nav-link" href="plans.html">Plans</a></li>
-          <li class="nav-item"><a class="nav-link" href="ranking.html">Ranking</a></li>
-        </ul>
+        <div id="navMenu" class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link active" href="./index.html" aria-current="page">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="./about.html">About us</a></li>
+            <li class="nav-item"><a class="nav-link" href="./programs.html">Programs</a></li>
+            <li class="nav-item"><a class="nav-link" href="./team.html">Team</a></li>
+            <li class="nav-item"><a class="nav-link" href="./schedule.html">Schedule</a></li>
+            <li class="nav-item"><a class="nav-link" href="./plans.html">Plans</a></li>
+            <li class="nav-item"><a class="nav-link" href="./ranking.html">Ranking</a></li>
+          </ul>
 
-        <div class="auth d-flex ms-lg-3 mt-3 mt-lg-0 gap-2">
-          <a class="btn ghost btn-outline-light btn-soft" href="login.html">Login</a>
-          <a class="btn primary glow btn-primary btn-soft" href="signup.html">Sign up</a>
+          <div class="auth d-flex ms-lg-3 gap-2">
+            <a class="btn primary glow btn-primary btn-soft" href="login.html">Login</a>
+            <a class="btn primary glow btn-primary btn-soft" href="signup.html">Sign up</a>
+            <button id="themeToggle" class="btn btn-secondary ms-3">🌞 / 🌙</button>
+          </div>
         </div>
       </div>
-    </div>
-  </nav>
-</header>
-
+    </nav>
+  </header>
 
   <main>
+
     <section class="description container">
       <div class="description-inner">
         <div class="short-description">New • Fall Programs 2025</div>
@@ -62,15 +69,15 @@
         </div>
 
         <ul class="description-statistic">
-          <li><strong>24/7</strong><span>Access</span></li>
-          <li><strong>+20</strong><span>Coaches</span></li>
-          <li><strong>1200m²</strong><span>Facility</span></li>
+          <li><strong class="countup" data-target="24">0</strong><span>Access (hrs/day)</span></li>
+          <li><strong class="countup" data-target="20">0</strong><span>Coaches</span></li>
+          <li><strong class="countup" data-target="1200">0</strong><span>Facility m²</span></li>
         </ul>
       </div>
 
       <div class="description-visual">
         <div class="photo">
-          <img src="assets/facility.jpg" alt="EliteFit Gym" loading="eager">
+          <img src="assets/facility.jpg" alt="EliteFit Gym">
         </div>
         <div class="orbs">
           <span class="orb-o1"></span>
@@ -133,130 +140,137 @@
         <p>“Beautiful space, clean, and open 24/7. Zero excuses.”</p>
         <div class="by">— Dana, designer</div>
       </div>
+
+      <!-- <div class="rating" style="font-size:28px; line-height:1; user-select:none;">
+        <span class="star" data-value="1">★</span>
+        <span class="star" data-value="2">★</span>
+        <span class="star" data-value="3">★</span>
+        <span class="star" data-value="4">★</span>
+        <span class="star" data-value="5">★</span>
+      </div>
+      <p id="ratingText">Your rating: 0</p> -->
     </section>
+
     <section class="faq container my-5">
-  <h2 class="mb-4">Frequently Asked Questions</h2>
-  <div class="accordion" id="faqAccordion">
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="headingOne">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
-          What are your gym hours?
-        </button>
-      </h2>
-      <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-        <div class="accordion-body">
-          Our gym is open 24/7 for all members.
+      <h2 class="mb-4">Frequently Asked Questions</h2>
+      <div class="accordion" id="faqAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+              What are your gym hours?
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Our gym is open 24/7 for all members.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+              Do you offer personal coaching?
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Yes, we have professional personal trainers available upon request.
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="headingTwo">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
-          Do you offer personal coaching?
-        </button>
-      </h2>
-      <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-        <div class="accordion-body">
-          Yes, we have professional personal trainers available upon request.
+
+      <!-- <div class="container my-4 px-0">
+        <label class="form-label text-muted mb-1" for="hlInput">Highlight FAQ keyword</label>
+        <div class="d-flex gap-2">
+          <input id="hlInput" class="form-control" type="text" placeholder="e.g., coach, 24/7, personal">
+          <button id="hlBtn" class="btn btn-primary">Highlight</button>
+          <button id="hlClear" class="btn btn-outline-light">Clear</button>
         </div>
+      </div> -->
+    </section>
+
+    <!-- Live Search -->
+    <!-- <section class="container my-3">
+      <label class="form-label text-muted mb-1" for="liveSearch">Search programs</label>
+      <input id="liveSearch" class="form-control" type="text" placeholder="Type to filter: hiit, yoga, powerlifting…">
+      <div id="suggestions" class="suggestions"></div>
+
+      <h3 class="h5 mt-3">Programs We Offer</h3>
+      <ul id="programList" class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span>HIIT</span><span class="badge bg-primary rounded-pill">Cardio</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span>Yoga</span><span class="badge bg-primary rounded-pill">Flexibility</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span>Powerlifting</span><span class="badge bg-primary rounded-pill">Strength</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span>Pilates</span><span class="badge bg-primary rounded-pill">Flexibility</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span>CrossFit</span><span class="badge bg-primary rounded-pill">Cardio</span>
+        </li>
+      </ul>
+    </section> -->
+
+    <!-- Subscribe-->
+    <!-- <section class="subscribe container text-center my-5">
+      <button id="openPopupBtn" class="btn btn-primary btn-lg">Subscribe for Updates</button>
+    </section>
+
+    <div id="popupForm" class="popup-overlay" style="display:none;">
+      <div class="popup-content">
+        <span id="closePopupBtn" class="close-btn">&times;</span>
+        <h3>Subscribe to Our Newsletter</h3>
+        <input type="email" placeholder="Your Email" class="form-control mb-2" id="subscriberEmail">
+        <button id="subscribeBtn" class="btn btn-success w-100">Subscribe</button>
       </div>
-    </div>
-  </div>
-</section>
+    </div> -->
 
-    <section class="subscribe container text-center my-5">
-  <button id="openPopupBtn" class="btn btn-primary btn-lg">Subscribe for Updates</button>
-</section>
-
-<div id="popupForm" class="popup-overlay">
-  <div class="popup-content">
-    <span id="closePopupBtn" class="close-btn">&times;</span>
-    <h3>Subscribe to Our Newsletter</h3>
-    <input type="email" placeholder="Your Email" class="form-control mb-2" id="subscriberEmail">
-    <button class="btn btn-success w-100">Subscribe</button>
-  </div>
-</div>
+    
 
   </main>
 
-  <footer class="site-footer">
-    <div class="container foot">
-      <div class="foot-brand"><span class="logo">💪</span><strong>EliteFit</strong></div>
-      <div class="foot-brand"><span class="logo">💪</span> <strong>EliteFit</strong></div>
-      <nav class="foot-links">
-        <a href="about.html">About</a><a href="programs.html">Programs</a>
-        <a href="team.html">Team</a><a href="schedule.html">Schedule</a><a href="plans.html">Plans</a>
-      </nav>
-      <div class="foot-button-links">
-        <a class="btn primary glow btn-primary btn-soft" href="signup.html">Join now</a>
-      </div>
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <ul class="footer-names">
+      <li>Evelina</li>
+      <li>Aknur</li>
+      <li>Meruert</li>
+      <li>Birkhanym</li>
+    </ul>
+
+    <div class="footer-date">
+      <span id="currentDateTime"></span>
     </div>
-    <div id="footer-with-names">
-      <ul><li>Evelina</li><li>Aknur</li><li>Meruert</li><li>Birkhanym</li></ul>
-    </div>
-  </footer>
+  </div>
+</footer>
+
+
 
   <div class="bg-gradients">
     <span class="g-g1"></span><span class="g-g2"></span><span class="g-g3"></span>
   </div>
 
+  <div id="toast" style="
+    position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);
+    background:#0f1629;color:#e8eef7;padding:10px 14px;border-radius:10px;
+    border:1px solid rgba(255,255,255,.12);opacity:0;pointer-events:none;
+    transition:.25s;z-index:2100;">Toast</div>
+  <style>
+    #toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+    .spinner{display:inline-block;width:1rem;height:1rem;border:.2rem solid rgba(255,255,255,.3);
+            border-top-color:#fff;border-radius:50%;margin-right:.5rem;animation:spin 1s linear infinite;}
+    @keyframes spin{ to{ transform:rotate(360deg); } }
+  </style>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- <script>
-  const popup = document.getElementById('popupForm');
-  const openPopupBtn = document.getElementById('openPopupBtn');
-  const closePopupBtn = document.getElementById('closePopupBtn');
 
-  openPopupBtn.addEventListener('click', () => {
-    popup.style.display = 'flex';
-  });
-
-  closePopupBtn.addEventListener('click', () => {
-    popup.style.display = 'none';
-  });
-
-  window.addEventListener('click', (e) => {
-    if (e.target === popup) {
-      popup.style.display = 'none';
-    }
-  });
-</script> -->
-
-<script>
-  const popup = document.getElementById('popupForm');
-  const openPopupBtn = document.getElementById('openPopupBtn');
-  const closePopupBtn = document.getElementById('closePopupBtn');
-  const emailInput = document.getElementById('subscriberEmail');
-
-  function openPopup(){ popup.style.display = 'flex'; emailInput.focus(); }
-  function closePopup(){ popup.style.display = 'none'; }
-
-  openPopupBtn.addEventListener('click', openPopup);
-  closePopupBtn.addEventListener('click', closePopup);
-
-  popup.addEventListener('click', (e) => {
-    if (e.target === popup) closePopup();
-  });
-
-  document.querySelector('.popup-content').addEventListener('click', (e) => e.stopPropagation());
-
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && popup.style.display === 'flex') closePopup();
-  });
-
-  document.querySelector('#popupForm .btn.btn-success').addEventListener('click', () => {
-    const val = emailInput.value.trim();
-    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
-    if (!ok) {
-      emailInput.classList.add('is-invalid');
-      emailInput.focus();
-      return;
-    }
-    emailInput.classList.remove('is-invalid');
-    alert('Thanks! You are subscribed.');
-    closePopup();
-  });
-</script>
-
-
+  <script src="aknur.js" defer></script>
+  <script src="aknur-jq.js" defer></script>
 </body>
 </html>
