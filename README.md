@@ -58,7 +58,7 @@ It makes the **Programs page interactive and personalized**.
 #### 1. API Key Setup
 We registered on [api-ninjas.com](https://api-ninjas.com) and generated a free API key.  
 Then the key was added into the JavaScript file:
-const API_KEY = "YOUR_API_KEY_HERE";
+const API_KEY = "4R2xYsWrwe6DCJQeGUee5A==xw5HAxqOHObkcnCH";
 ### Fetch Request
 When the user selects a muscle group (for example, *biceps* or *legs*),  
 the system sends a request to the API endpoint:
