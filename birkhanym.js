@@ -162,16 +162,24 @@ if (form) {
 }
 
 // =========================================================
-// 6️⃣ THEME TOGGLE 🌞 / 🌙 (with color + emoji change)
+// 6️⃣ THEME TOGGLE 🌞 / 🌙 (Header + Background + LocalStorage)
 // =========================================================
 (function initTheme() {
   const saved = localStorage.getItem('theme');
   const toggle = document.getElementById('themeToggle');
+  const header = document.querySelector('.bg-nav');
+
   if (saved === 'light') {
     document.body.classList.add('light-theme');
     if (toggle) toggle.textContent = '🌚 / ☀️';
+    document.body.style.backgroundColor = '#f3f4ff';
+    if (header) header.style.background = '#4a369c';
   } else {
     if (toggle) toggle.textContent = '☀️ / 🌙';
+    document.body.style.backgroundColor = '';
+    if (header)
+      header.style.background =
+        'linear-gradient(180deg, rgba(17,24,39,.85), rgba(17,24,39,.55) 60%, transparent)';
   }
 })();
 
@@ -198,18 +206,19 @@ if (toggle) {
     playClick();
     document.body.classList.toggle('light-theme');
     const isLight = document.body.classList.contains('light-theme');
+    const header = document.querySelector('.bg-nav');
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
 
-    // Change emoji and button color
+    // Emoji + button colors
     toggle.textContent = isLight ? '🌚 / ☀️' : '☀️ / 🌙';
     toggle.style.backgroundColor = isLight ? '#fff' : 'var(--card)';
     toggle.style.color = isLight ? '#000' : 'var(--text)';
 
-    // Update header background too
-    if (header) {
+    // Apply background + header colors
+    document.body.style.backgroundColor = isLight ? '#f3f4ff' : '';
+    if (header)
       header.style.background = isLight
         ? '#4a369c'
         : 'linear-gradient(180deg, rgba(17,24,39,.85), rgba(17,24,39,.55) 60%, transparent)';
-    }
   });
 }
