@@ -1,28 +1,76 @@
 // ===== Sound: short click tone =====
 function playClickTone(){
-    try{
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      const o = ctx.createOscillator();
-      const g = ctx.createGain();
-      o.type = 'triangle'; o.frequency.value = 880;
-      g.gain.setValueAtTime(0.0001, ctx.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.05, ctx.currentTime + 0.01);
-      g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.12);
-      o.connect(g).connect(ctx.destination); o.start(); o.stop(ctx.currentTime + 0.13);
-    }catch(e){}
+  try{
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = 'triangle'; 
+    o.frequency.value = 880;
+    g.gain.setValueAtTime(0.0001, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.05, ctx.currentTime + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.12);
+    o.connect(g);
+    g.connect(ctx.destination); 
+    o.start(); 
+    o.stop(ctx.currentTime + 0.13);
+  }catch(e){
+    console.log('Audio not supported');
   }
+}
+
+// ===== Theme toggle =====
+(function initTheme(){
+  const saved = localStorage.getItem('theme'); // 'light' | 'dark' | null
+  if (saved === 'light') {
+    document.body.classList.add('light-theme');
+  }
+})();
+
+const toggle = document.getElementById('themeToggle');
+toggle?.addEventListener('click', () => {
+  playClickTone();
+  document.body.classList.toggle('light-theme');
+  const isLight = document.body.classList.contains('light-theme');
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+});
+
+// ===== Toast Notification =====
+function showToast(message) {
+  let toast = document.getElementById('highlightToast');
   
-  // ===== Theme toggle =====
-  const themeToggle = document.querySelector('#themeToggle');
-  if(themeToggle){
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('theme-night');
-      const night = document.body.classList.contains('theme-night');
-      themeToggle.textContent = night ? '🌙 Night' : '🌞 Day';
-      themeToggle.setAttribute('aria-pressed', String(night));
-      playClickTone();
-    });
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'highlightToast';
+    toast.style.cssText = `
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--surface);
+      color: var(--text);
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 10000;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      font-size: 14px;
+    `;
+    document.body.appendChild(toast);
   }
+
+  toast.textContent = message;
+  toast.style.opacity = '1';
+  toast.style.transform = 'translateY(0)';
+
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(20px)';
+  }, 3000);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
   
   // ===== Show time =====
   const timeBtn = document.querySelector('#timeBtn');
@@ -39,8 +87,12 @@ function playClickTone(){
   if(footerTime){
     const fmtDate = new Intl.DateTimeFormat('en-US',{month:'long',day:'numeric',year:'numeric'});
     const fmtTime = new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',hour12:true});
-    const tick = ()=>{ const now=new Date(); footerTime.textContent=`${fmtDate.format(now)} at ${fmtTime.format(now)}`; };
-    tick(); setInterval(tick, 30000);
+    const tick = ()=>{ 
+      const now = new Date(); 
+      footerTime.textContent = `${fmtDate.format(now)} at ${fmtTime.format(now)}`; 
+    };
+    tick(); 
+    setInterval(tick, 30000);
   }
   
   // ===== Greeting + reset =====
@@ -57,6 +109,7 @@ function playClickTone(){
       playClickTone();
     });
   }
+  
   if(resetInputs){
     resetInputs.addEventListener('click', ()=>{
       document.querySelectorAll('input').forEach(i=> i.value = '');
@@ -80,6 +133,7 @@ function playClickTone(){
   const stars = document.querySelectorAll('.star');
   const ratingOutput = document.querySelector('#ratingOutput');
   let rating = 0;
+  
   if(stars.length && ratingOutput){
     stars.forEach(star=>{
       star.addEventListener('click', ()=>{
@@ -94,25 +148,19 @@ function playClickTone(){
   // ===== Gallery =====
   const mainImage = document.querySelector('#mainImage');
   const thumbs = document.querySelectorAll('.thumb');
+  
   if(mainImage && thumbs.length){
     thumbs.forEach(th=>{
       th.addEventListener('click', ()=>{
         mainImage.style.transform = 'scale(.98)';
         const src = th.getAttribute('src').replace('w=300','w=1200');
         mainImage.setAttribute('src', src);
-        setTimeout(()=> mainImage.style.transform='scale(1)', 200);
+        mainImage.setAttribute('alt', th.getAttribute('alt'));
+        setTimeout(()=> mainImage.style.transform = 'scale(1)', 200);
         playClickTone();
       });
     });
   }
-  
-  // ===== Keyboard nav (ArrowLeft/ArrowRight) =====
-  const navItems = Array.from(document.querySelectorAll('#mainNav .nav-item'));
-  document.addEventListener('keydown', (e) => {
-    const idx = document.activeElement ? navItems.indexOf(document.activeElement) : -1;
-    if(e.key === 'ArrowRight' && idx > -1){ e.preventDefault(); navItems[(idx+1)%navItems.length].focus(); }
-    else if(e.key === 'ArrowLeft' && idx > -1){ e.preventDefault(); navItems[(idx-1+navItems.length)%navItems.length].focus(); }
-  });
   
   // ===== Data + Switch + Arrays/Loops/HOFs =====
   const initialProducts = [
@@ -121,20 +169,25 @@ function playClickTone(){
     { id:3, title:'Mobility Flow', category:'mobility', price:9,  img:'https://images.unsplash.com/photo-1552196563-55cd4e45efb3?q=80&w=600&auto=format&fit=crop' },
     { id:4, title:'Lean Strength', category:'strength', price:22, img:'https://images.unsplash.com/photo-1517963879433-6ad2b056d712?q=80&w=600&auto=format&fit=crop' }
   ];
+  
   const AppState = {
     products: [...initialProducts],
-    addProducts(list){ this.products.push(...list); },
-    filtered(category){
-      const arr = category==='all' ? this.products : this.products.filter(p=> p.category===category);
-      return arr.map(p=> ({ ...p, label: p.title.toUpperCase() })); // HOFs
+    addProducts: function(list){ 
+      this.products.push(...list); 
+    },
+    filtered: function(category){
+      const arr = category === 'all' ? this.products : this.products.filter(p => p.category === category);
+      return arr.map(p => ({ ...p, label: p.title.toUpperCase() }));
     }
   };
   
   const productsEl = document.querySelector('#products');
+  
   function renderProducts(list){
     if(!productsEl) return;
     productsEl.innerHTML = '';
-    for(const p of list){ // loop
+    
+    list.forEach(p => {
       const el = document.createElement('article');
       el.className = 'product';
       el.innerHTML = `
@@ -145,176 +198,297 @@ function playClickTone(){
           <button class="btn addBtn" data-id="${p.id}">Add</button>
         </div>`;
       productsEl.appendChild(el);
-      requestAnimationFrame(()=> el.classList.add('show'));
-    }
-    document.querySelectorAll('.addBtn').forEach(btn=> btn.addEventListener('click', playClickTone));
+      
+      const addBtn = el.querySelector('.addBtn');
+      if(addBtn){
+        addBtn.addEventListener('click', function() {
+          playClickTone();
+          showToast(`Added ${p.title} to cart`);
+        });
+      }
+      
+      requestAnimationFrame(() => el.classList.add('show'));
+    });
   }
-  if(productsEl){ renderProducts(AppState.filtered('all')); }
+  
+  // Инициализация продуктов при загрузке
+  if(productsEl){ 
+    renderProducts(AppState.filtered('all')); 
+  }
   
   const categorySelect = document.querySelector('#category');
   if(categorySelect){
     categorySelect.addEventListener('change', ()=>{
       const val = categorySelect.value;
       let list;
+      
       switch(val){
-        case 'strength': list = AppState.filtered('strength'); break;
-        case 'cardio':   list = AppState.filtered('cardio');   break;
-        case 'mobility': list = AppState.filtered('mobility'); break;
+        case 'strength': 
+          list = AppState.filtered('strength'); 
+          break;
+        case 'cardio':   
+          list = AppState.filtered('cardio');   
+          break;
+        case 'mobility': 
+          list = AppState.filtered('mobility'); 
+          break;
         case 'all':
-        default:         list = AppState.filtered('all');
+        default:         
+          list = AppState.filtered('all');
       }
-      renderProducts(list); playClickTone();
+      renderProducts(list); 
+      playClickTone();
     });
   }
   
- // ===== Load more via fetch (with OFFLINE fallback) =====
-const loadMoreBtn = document.querySelector('#loadMoreBtn');
+  // ===== Load More Plans =====
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
+  if(loadMoreBtn){
+    loadMoreBtn.addEventListener('click', () => {
+      const additionalProducts = [
+        { id:5, title:'Cardio Blast', category:'cardio', price:15, img:'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=600&auto=format&fit=crop' },
+        { id:6, title:'Flex Master', category:'mobility', price:11, img:'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=600&auto=format&fit=crop' }
+      ];
+      
+      AppState.addProducts(additionalProducts);
+      renderProducts(AppState.filtered(categorySelect ? categorySelect.value : 'all'));
+      playClickTone();
+      showToast('Loaded more plans!');
+    });
+  }
+  
+  // ===== Random Quote (with OFFLINE fallback) =====
+  const newQuoteBtn = document.querySelector('#newQuoteBtn');
+  const quoteText   = document.querySelector('#quoteText');
+  
+  const QUOTES_FALLBACK = [
+    { text: "Discipline is choosing what you want most over what you want now.", author: "Craig Groeschel" },
+    { text: "The secret of getting ahead is getting started.", author: "Mark Twain" },
+    { text: "It never gets easier, you just get stronger.", author: "Unknown" },
+    { text: "Motivation gets you going, habit keeps you growing.", author: "John C. Maxwell" }
+  ];
+  
+  if (newQuoteBtn && quoteText) {
+    newQuoteBtn.addEventListener('click', async () => {
+      try {
+        const res = await fetch('data/quotes.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const quotes = await res.json();
+        const q = quotes[Math.floor(Math.random() * quotes.length)];
+        quoteText.textContent = `"${q.text}" — ${q.author}`;
+      } catch {
+        // оффлайн-фолбэк
+        const q = QUOTES_FALLBACK[Math.floor(Math.random() * QUOTES_FALLBACK.length)];
+        quoteText.textContent = `"${q.text}" — ${q.author}`;
+      }
+      playClickTone();
+    });
+  }
+  
+ // ===== Search Highlighting =====
+function setupSearchHighlighting() {
+    const searchInput = document.getElementById('searchInput');
+    const highlightBtn = document.getElementById('highlightBtn');
+    const clearHighlightBtn = document.getElementById('clearHighlightBtn');
+    const productsSection = document.getElementById('products');
 
-// локальный запасной массив на случай file:// или ошибки сети
-const EXTRA_PRODUCTS_FALLBACK = [
-  { id:5, title:'Engine Room',      category:'cardio',   price:14, img:'https://images.unsplash.com/photo-1526403226-eda5eb3f5f2c?q=80&w=600&auto=format&fit=crop' },
-  { id:6, title:'Bulletproof Back', category:'mobility', price:11, img:'https://images.unsplash.com/photo-1541534401786-2077eed87a56?q=80&w=600&auto=format&fit=crop' },
-  { id:7, title:'Max Strength',     category:'strength', price:25, img:'https://images.unsplash.com/photo-1580261450046-d0a30080dc9b?q=80&w=600&auto=format&fit=crop' }
-];
-
-if (loadMoreBtn) {
-  loadMoreBtn.addEventListener('click', async () => {
-    try {
-      const res = await fetch('data/products.json', { cache: 'no-store' });
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const extra = await res.json();
-      AppState.addProducts(extra);
-    } catch {
-      // оффлайн-фолбэк
-      AppState.addProducts(EXTRA_PRODUCTS_FALLBACK);
+    if (!searchInput || !highlightBtn || !clearHighlightBtn || !productsSection) {
+        console.log('Search elements not found');
+        return;
     }
-    renderProducts(AppState.filtered(categorySelect ? categorySelect.value : 'all'));
-    playClickTone();
-  });
-}
 
-  
-  // ===== Multi-step form (callbacks + state) =====
-  const wizForm = document.querySelector('#wizForm');
-  const wizStatus = document.querySelector('#wizStatus');
-  const steps = ['step1','step2','step3'].map(id=> document.getElementById(id));
-  let currentStep = 0;
-  const showStep = (idx)=> steps.forEach((s,i)=> s.classList.toggle('hidden', i!==idx));
-  
-  function nextStep(){
-    if(currentStep < steps.length-1){ currentStep++; showStep(currentStep); playClickTone(); }
-  }
-  function prevStep(){
-    if(currentStep > 0){ currentStep--; showStep(currentStep); playClickTone(); }
-  }
-  if(wizForm){
-    wizForm.addEventListener('click', (e)=>{
-      if(e.target.matches('[data-next]')) nextStep();
-      if(e.target.matches('[data-back]')) prevStep();
-    });
-    wizForm.addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const data = Object.fromEntries(new FormData(wizForm).entries());
-      const onDone = (payload)=>{ // callback to update UI
-        wizStatus.textContent = `✅ Saved: ${payload.name || '-'} • ${payload.email || '-'} • ${payload.goal || '-'}`;
-        wizForm.reset();
-        currentStep = 0; showStep(currentStep);
+    let originalHTML = productsSection.innerHTML;
+    console.log('Search initialized, original HTML saved');
+
+    function highlightText(text, searchTerm) {
+        if (!searchTerm.trim()) return text;
+        try {
+            const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            return text.replace(regex, '<mark class="highlight">$1</mark>');
+        } catch (e) {
+            console.log('Regex error:', e);
+            return text;
+        }
+    }
+
+    function highlightContent() {
+        const searchTerm = searchInput.value.trim();
+        console.log('Highlighting:', searchTerm);
+        
+        if (!searchTerm) {
+            showToast('Please enter a search term');
+            return;
+        }
+
+        // Восстанавливаем оригинальный HTML перед подсветкой
+        productsSection.innerHTML = originalHTML;
+
+        // Подсвечиваем только в названиях программ и категориях
+        const textElements = productsSection.querySelectorAll('h3, .meta span:first-child');
+        console.log('Text elements found:', textElements.length);
+        
+        let found = false;
+        textElements.forEach(element => {
+            const originalText = element.textContent;
+            const highlightedText = highlightText(originalText, searchTerm);
+            
+            if (highlightedText !== originalText) {
+                element.innerHTML = highlightedText;
+                found = true;
+                console.log('Highlighted in:', originalText);
+            }
+        });
+
         playClickTone();
-      };
-      // имитация async
-      setTimeout(()=> onDone(data), 400);
-    });
-  }
-  showStep(currentStep);
-  
- // ===== Random Quote (with OFFLINE fallback) =====
-const newQuoteBtn = document.querySelector('#newQuoteBtn');
-const quoteText   = document.querySelector('#quoteText');
-
-const QUOTES_FALLBACK = [
-  { text: "Discipline is choosing what you want most over what you want now.", author: "Craig Groeschel" },
-  { text: "The secret of getting ahead is getting started.", author: "Mark Twain" },
-  { text: "It never gets easier, you just get stronger.", author: "Unknown" },
-  { text: "Motivation gets you going, habit keeps you growing.", author: "John C. Maxwell" }
-];
-
-if (newQuoteBtn && quoteText) {
-  newQuoteBtn.addEventListener('click', async () => {
-    try {
-      const res = await fetch('data/quotes.json', { cache: 'no-store' });
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const quotes = await res.json();
-      const q = quotes[Math.floor(Math.random() * quotes.length)];
-      quoteText.textContent = `“${q.text}” — ${q.author}`;
-    } catch {
-      // оффлайн-фолбэк
-      const q = QUOTES_FALLBACK[Math.floor(Math.random() * QUOTES_FALLBACK.length)];
-      quoteText.textContent = `“${q.text}” — ${q.author}`;
-
+        if (found) {
+            showToast(`Highlighted "${searchTerm}" in programs`);
+        } else {
+            showToast(`No results for "${searchTerm}"`);
+        }
     }
-    playClickTone();
-  });
-}
 
+    function clearHighlight() {
+        console.log('Clearing highlight');
+        // Полностью восстанавливаем оригинальный HTML чтобы убрать всю подсветку
+        productsSection.innerHTML = originalHTML;
+        searchInput.value = '';
+        playClickTone();
+        showToast('Highlight cleared');
+    }
+
+    highlightBtn.addEventListener('click', highlightContent);
+    clearHighlightBtn.addEventListener('click', clearHighlight);
+
+    // Также подсвечиваем при нажатии Enter
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            highlightContent();
+        }
+    });
+
+    // Обновляем originalHTML при изменении контента (фильтрация, загрузка больше и т.д.)
+    const observer = new MutationObserver(() => {
+        originalHTML = productsSection.innerHTML;
+        console.log('Content changed, updated original HTML');
+    });
+    observer.observe(productsSection, { childList: true, subtree: true });
+}
+  // Вызываем функцию поиска после рендера продуктов
+  setTimeout(() => {
+    setupSearchHighlighting();
+  }, 100);
   
   // ===== Accordion =====
   function setupAccordion(){
     const triggers = document.querySelectorAll('.accordion__trigger');
     if(!triggers.length) return;
+    
     triggers.forEach(btn=>{
-      const panel = document.getElementById(btn.getAttribute('aria-controls'));
-      btn.setAttribute('aria-expanded','false'); panel.style.maxHeight='0';
+      const panelId = btn.getAttribute('aria-controls');
+      const panel = document.getElementById(panelId);
+      
+      if(!panel) return;
+      
+      btn.setAttribute('aria-expanded','false'); 
+      panel.style.maxHeight = '0';
+      
       btn.addEventListener('click', ()=>{
-        const expanded = btn.getAttribute('aria-expanded')==='true';
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
         btn.setAttribute('aria-expanded', String(!expanded));
-        if(!expanded){ panel.classList.add('open'); panel.style.maxHeight = panel.scrollHeight + 'px'; }
-        else{ panel.style.maxHeight = panel.scrollHeight + 'px'; requestAnimationFrame(()=>{ panel.style.maxHeight = '0'; panel.classList.remove('open'); }); }
+        
+        if(!expanded){
+          panel.classList.add('open'); 
+          panel.style.maxHeight = panel.scrollHeight + 'px'; 
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + 'px'; 
+          requestAnimationFrame(()=>{ 
+            panel.style.maxHeight = '0'; 
+            panel.classList.remove('open'); 
+          }); 
+        }
         playClickTone();
       });
     });
   }
   setupAccordion();
   
-  // ===== Modal =====
-  function setupModal(){
-    const openBtn = document.getElementById('openModal');
-    const modal = document.getElementById('modal');
-    if(!openBtn || !modal) return;
-    const show = ()=> modal.setAttribute('aria-hidden','false');
-    const hide = ()=> modal.setAttribute('aria-hidden','true');
-    openBtn.addEventListener('click', show);
-    modal.addEventListener('click', e=>{ if(e.target.matches('[data-close]')) hide(); });
-    document.addEventListener('keydown', e=>{ if(e.key==='Escape' && modal.getAttribute('aria-hidden')==='false') hide(); });
-    const subForm = document.getElementById('subForm');
-    const subEmail = document.getElementById('subEmail');
-    const errSub = document.getElementById('err-sub');
-    const subSuccess = document.getElementById('subSuccess');
-    if(subForm){
-      subForm.addEventListener('submit', (e)=>{
-        e.preventDefault();
-        errSub.textContent=''; subSuccess.textContent='';
-        const ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(subEmail.value.trim());
-        if(!ok){ errSub.textContent='Please enter a valid email.'; return; }
-        subSuccess.textContent='🎉 Subscribed!'; subForm.reset(); setTimeout(hide, 1200); playClickTone();
-      });
-    }
+  // ===== Book Class Form =====
+  const bookClassForm = document.getElementById('bookClassForm');
+  if(bookClassForm){
+    bookClassForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const classSelect = document.getElementById('classSelect').value;
+      
+      alert(`Class reserved for ${name} (${email}) in ${classSelect}`);
+      playClickTone();
+      bookClassForm.reset();
+    });
   }
-  setupModal();
   
-  // ===== Background Color Switch =====
-  function setupColorSwitcher(){
-    const btn = document.getElementById('colorBtn');
-    const label = document.getElementById('colorLabel');
-    if(!btn || !label) return;
-    const colors = ['#0f1115','#151b29','#1f2937','#022c22','#1d2433','#2b1b3f','#0b1b2a','#2a1f2f','#132a13','#1b263b'];
-    let i = 0;
-    const apply = (c)=>{ document.body.style.background = c; label.textContent = 'Background: ' + c; };
-    btn.addEventListener('click', ()=>{ i = (i+1) % colors.length; apply(colors[i]); playClickTone(); });
-    apply(colors[0]);
+  // ===== Load Exercises =====
+  const loadExercisesBtn = document.getElementById('loadExercisesBtn');
+  const exercisesList = document.getElementById('exercisesList');
+  const muscleSelect = document.getElementById('muscle');
+  
+  if(loadExercisesBtn && exercisesList && muscleSelect){
+    loadExercisesBtn.addEventListener('click', function() {
+      const muscle = muscleSelect.value;
+      
+      // Mock data for exercises
+      const exercisesData = {
+        biceps: [
+          { name: 'Barbell Curl', difficulty: 'Intermediate' },
+          { name: 'Dumbbell Curl', difficulty: 'Beginner' },
+          { name: 'Hammer Curl', difficulty: 'Beginner' }
+        ],
+        chest: [
+          { name: 'Bench Press', difficulty: 'Intermediate' },
+          { name: 'Push Ups', difficulty: 'Beginner' },
+          { name: 'Chest Fly', difficulty: 'Intermediate' }
+        ],
+        legs: [
+          { name: 'Squats', difficulty: 'Intermediate' },
+          { name: 'Lunges', difficulty: 'Beginner' },
+          { name: 'Deadlifts', difficulty: 'Advanced' }
+        ],
+        triceps: [
+          { name: 'Tricep Dips', difficulty: 'Beginner' },
+          { name: 'Skull Crushers', difficulty: 'Intermediate' },
+          { name: 'Tricep Pushdown', difficulty: 'Beginner' }
+        ],
+        abs: [
+          { name: 'Crunches', difficulty: 'Beginner' },
+          { name: 'Plank', difficulty: 'Beginner' },
+          { name: 'Leg Raises', difficulty: 'Intermediate' }
+        ]
+      };
+      
+      const exercises = exercisesData[muscle] || [];
+      exercisesList.innerHTML = '';
+      
+      exercises.forEach(exercise => {
+        const exerciseEl = document.createElement('div');
+        exerciseEl.className = 'product';
+        exerciseEl.innerHTML = `
+          <div class="p-body">
+            <h3>${exercise.name}</h3>
+            <div class="meta"><span>${muscle}</span><span>${exercise.difficulty}</span></div>
+          </div>`;
+        exercisesList.appendChild(exerciseEl);
+        
+        requestAnimationFrame(() => exerciseEl.classList.add('show'));
+      });
+      
+      playClickTone();
+      showToast(`Loaded ${exercises.length} ${muscle} exercises`);
+    });
   }
-  setupColorSwitcher();
   
   // ===== Reveal animations =====
-  document.querySelectorAll('.pop').forEach(el=> requestAnimationFrame(()=> el.classList.add('show')));
-  
-  
+  document.querySelectorAll('.pop').forEach(el => {
+    requestAnimationFrame(() => el.classList.add('show'));
+  });
+});
