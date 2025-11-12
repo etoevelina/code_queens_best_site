@@ -135,6 +135,7 @@
   box-shadow: 0 8px 28px #bb36ff55, 0 2px 12px #2224;
   border-color: #bb36ff;
 }
+
 .btn-primary{
   --bs-btn-bg:var(--primary);
   --bs-btn-border-color:transparent;
@@ -167,7 +168,6 @@ body.light-theme .bg-nav{
   background: var(--chip-bg); 
 }
 
-
 .site-header{ 
   position:sticky; 
   top:0; 
@@ -182,6 +182,7 @@ body.light-theme .bg-nav{
 }
 .navbar .nav-link.active,
 .navbar .nav-link:hover{ color:#fff; }
+
 .site-footer{ 
   border-top:1px solid var(--line); 
   background:color-mix(in oklab, var(--bg), #000 2%); 
