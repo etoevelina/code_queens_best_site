@@ -81,7 +81,8 @@
       <section class="panel">
         <h2 class="panel-title mb-3">Top 10 Users Above Average</h2>
         <div class="table-wrap">
-          <table class="table table-dark table-striped table-bordered align-middle rank-table mb-0">
+          <!-- REMOVED table-striped class to make all rows same color -->
+          <table class="table table-dark table-bordered align-middle rank-table mb-0">
             <thead>
               <tr>
                 <th>#</th>
@@ -97,22 +98,6 @@
       </section>
     </div>
   </section>
-
-  <section class="container my-4">
-    <div class="panel">
-      <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
-        <div>
-          <h2 class="panel-title mb-1">Current Date &amp; Time</h2>
-          <p id="now" aria-live="polite" class="mb-0">Loading…</p>
-        </div>
-        <div class="d-flex gap-2">
-          <button id="bg-btn" class="btn btn-light">Change Background</button>
-          <button id="bg-reset" class="btn btn-outline-light">Reset</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
 
   <section class="container my-4">
     <div class="panel">
@@ -152,56 +137,21 @@
     </div>
   </section>
 
-
-  <section class="container my-4">
-    <div class="panel">
-      <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
-        <h2 class="panel-title mb-0">Join EliteFit</h2>
-        <button class="btn primary glow" id="open-popup" type="button">Open signup popup</button>
-      </div>
-      <p class="mb-0 mt-2 opacity-75">This popup includes form validation: required fields, email format, password length, and password confirmation.</p>
-    </div>
-  </section>
-
-
-  <div class="popup-backdrop" id="popup" hidden>
-    <div class="popup" role="dialog" aria-modal="true" aria-labelledby="popup-title">
-      <button class="popup-close" aria-label="Close">×</button>
-      <h3 id="popup-title" class="mb-3">Create your account</h3>
-      <form id="signup-form" novalidate>
-        <div class="mb-3">
-          <label class="form-label">Email</label>
-          <input type="email" name="email" class="form-control" required>
-          <div class="invalid-feedback">Please enter a valid email.</div>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Password <small class="opacity-75">(min 6 chars)</small></label>
-          <input type="password" name="password" class="form-control" minlength="6" required>
-          <div class="invalid-feedback">Password must be at least 6 characters.</div>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Confirm password</label>
-          <input type="password" name="confirm" class="form-control" required>
-          <div class="invalid-feedback">Passwords do not match.</div>
-        </div>
-        <button class="btn btn-success" type="submit">Create account</button>
-        <p class="text-danger small mt-2" data-error hidden></p>
-        <p class="text-success small mt-2" data-success hidden></p>
-      </form>
-    </div>
-  </div>
-
 <footer class="site-footer">
-      <ul>
+    <div class="container">
+      <ul class="team-list">
         <li>Evelina</li>
         <li>Aknur</li>
         <li>Meruert</li>
         <li>Birkhanym</li>
       </ul>
-      <div class="text-center mt-3">
-        <span id="currentDateTime"></span>
-      </div>
-    </footer>
+      <p id="footerTime" class="footer-time" aria-live="polite"></p>
+    </div>
+  </footer>
+
+  <div class="bg-gradients">
+    <span class="g-g1"></span><span class="g-g2"></span><span class="g-g3"></span>
+  </div>
 
   <script src="birkhanym.js"></script>
 </body>
