@@ -42,6 +42,32 @@ EliteFit is an interactive web application for a modern fitness center that comb
 
 **🌗 Dark/Light Mode Toggle and Play Sound interactivity.**
 
+## ⚡ API Integration – Exercises Section
+### 🔍 What API is used?
+We used the **[API Ninjas – Exercises API](https://api-ninjas.com/api/exercises)**.  
+This API provides real workout data, including:
+- Exercise name  
+- Muscle group  
+- Equipment used  
+- Type and difficulty  
+- Step-by-step instructions  
+### 🧠 Why this API?
+The Exercises API allows users to **instantly load training plans** for different muscle groups, giving real examples of workouts they can do in the gym.  
+It makes the **Programs page interactive and personalized**.
+### 🛠️ How it was implemented
+#### 1. API Key Setup
+We registered on [api-ninjas.com](https://api-ninjas.com) and generated a free API key.  
+Then the key was added into the JavaScript file:
+
+```js
+const API_KEY = "YOUR_API_KEY_HERE";
+### Fetch Request
+When the user selects a muscle group (for example, *biceps* or *legs*),  
+the system sends a request to the API endpoint:
+https://api.api-ninjas.com/v1/exercises?muscle=biceps
+
+
+
 ## 🔌 External APIs and Technologies Used
 
 Font Awesome – for icons.
