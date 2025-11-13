@@ -429,7 +429,77 @@ function setupSearchHighlighting() {
   }
   
  // ===== Exercises API (API Ninjas) =====
-const API_KEY = "4R2xYsWrwe6DCJCQeGUee5A==w5HAxqQH0bkcnCH"; // твой ключ API
+const API_KEY = "4R2xYsWrwe6DCJCQeGUee5A==w5HAxqQH0bkcnCH";
+
+// Fallback данные для демонстрации
+const FALLBACK_EXERCISES = {
+  biceps: [
+    {
+      name: "Barbell Curl",
+      muscle: "biceps",
+      type: "strength",
+      equipment: "barbell",
+      difficulty: "beginner",
+      instructions: "Stand holding a barbell with a shoulder-width underhand grip. Curl the weight upward while keeping your elbows close to your torso."
+    },
+    {
+      name: "Hammer Curl",
+      muscle: "biceps",
+      type: "strength", 
+      equipment: "dumbbell",
+      difficulty: "beginner",
+      instructions: "Hold dumbbells with a neutral grip. Curl the weights while keeping your palms facing each other."
+    }
+  ],
+  chest: [
+    {
+      name: "Bench Press",
+      muscle: "chest",
+      type: "strength",
+      equipment: "barbell",
+      difficulty: "intermediate",
+      instructions: "Lie on a flat bench. Lower the barbell to your chest, then press it back to the starting position."
+    },
+    {
+      name: "Push Ups",
+      muscle: "chest",
+      type: "strength",
+      equipment: "body only",
+      difficulty: "beginner",
+      instructions: "Place hands shoulder-width apart. Lower your body until chest nearly touches the floor, then push back up."
+    }
+  ],
+  legs: [
+    {
+      name: "Squats",
+      muscle: "legs",
+      type: "strength",
+      equipment: "barbell",
+      difficulty: "intermediate",
+      instructions: "Stand with feet shoulder-width apart. Lower your body as if sitting in a chair, then return to standing."
+    }
+  ],
+  triceps: [
+    {
+      name: "Tricep Dips",
+      muscle: "triceps",
+      type: "strength",
+      equipment: "body weight",
+      difficulty: "beginner",
+      instructions: "Use parallel bars or a bench. Lower your body by bending elbows, then push back up."
+    }
+  ],
+  abs: [
+    {
+      name: "Crunches",
+      muscle: "abs",
+      type: "strength",
+      equipment: "body only",
+      difficulty: "beginner",
+      instructions: "Lie on your back with knees bent. Lift your upper body toward your knees, then lower back down."
+    }
+  ]
+};
 
 const loadExercisesBtn = document.getElementById('loadExercisesBtn');
 const exercisesList = document.getElementById('exercisesList');
@@ -438,32 +508,46 @@ const muscleSelect = document.getElementById('muscle');
 if (loadExercisesBtn && exercisesList && muscleSelect) {
   loadExercisesBtn.addEventListener('click', async function() {
     const muscle = muscleSelect.value;
-    exercisesList.innerHTML = `<p>Loading ${muscle} exercises...</p>`;
+    exercisesList.innerHTML = `<p style="color: var(--muted);">Loading ${muscle} exercises...</p>`;
 
     try {
-      const res = await fetch(`https://api.api-ninjas.com/v1/exercises?muscle=${muscle}`, {
-        headers: { "X-Api-Key": API_KEY }
+      console.log('Fetching exercises for muscle:', muscle);
+      
+      const response = await fetch(`https://api.api-ninjas.com/v1/exercises?muscle=${muscle}`, {
+        method: 'GET',
+        headers: { 
+          "X-Api-Key": API_KEY,
+          "Content-Type": "application/json"
+        }
       });
 
-      if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
-      const data = await res.json();
+      console.log('Response status:', response.status);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status} - ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      console.log('Data received:', data);
 
-      if (!data.length) {
-        exercisesList.innerHTML = `<p>No exercises found for ${muscle} 😢</p>`;
+      if (!data || !data.length) {
+        exercisesList.innerHTML = `<p style="color: var(--muted);">No exercises found for ${muscle}. Try another muscle group.</p>`;
+        showToast(`No exercises found for ${muscle}`);
         return;
       }
 
-      exercisesList.innerHTML = data.map(ex => `
-        <article class="product show">
+      // Отображаем упражнения
+      exercisesList.innerHTML = data.map(exercise => `
+        <article class="product show" style="background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px;">
           <div class="p-body">
-            <h3>${ex.name}</h3>
-            <div class="meta">
-              <span>Muscle: ${ex.muscle}</span>
-              <span>Type: ${ex.type}</span>
+            <h3 style="color: var(--brand); margin-bottom: 12px;">${exercise.name}</h3>
+            <div class="meta" style="color: var(--muted); margin-bottom: 12px;">
+              <span><strong>Muscle:</strong> ${exercise.muscle}</span>
+              <span><strong>Type:</strong> ${exercise.type}</span>
             </div>
-            <p><strong>Equipment:</strong> ${ex.equipment || "None"}</p>
-            <p><strong>Difficulty:</strong> ${ex.difficulty}</p>
-            <p>${ex.instructions}</p>
+            <p style="margin-bottom: 8px;"><strong>Equipment:</strong> ${exercise.equipment || "None"}</p>
+            <p style="margin-bottom: 12px;"><strong>Difficulty:</strong> ${exercise.difficulty}</p>
+            <p style="color: var(--text); line-height: 1.5;">${exercise.instructions || "No instructions available."}</p>
           </div>
         </article>
       `).join("");
@@ -471,13 +555,36 @@ if (loadExercisesBtn && exercisesList && muscleSelect) {
       showToast(`Loaded ${data.length} ${muscle} exercises`);
       playClickTone();
 
-    } catch (err) {
-      exercisesList.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
-      console.error("API Error:", err);
+    } catch (error) {
+      console.error("API Error, using fallback data:", error);
+      
+      // Используем fallback данные
+      const fallbackData = FALLBACK_EXERCISES[muscle] || [];
+      if (fallbackData.length > 0) {
+        // Отображаем fallback данные
+        exercisesList.innerHTML = fallbackData.map(exercise => `
+          <article class="product show" style="background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px;">
+            <div class="p-body">
+              <h3 style="color: var(--brand); margin-bottom: 12px;">${exercise.name} (Demo)</h3>
+              <div class="meta" style="color: var(--muted); margin-bottom: 12px;">
+                <span><strong>Muscle:</strong> ${exercise.muscle}</span>
+                <span><strong>Type:</strong> ${exercise.type}</span>
+              </div>
+              <p style="margin-bottom: 8px;"><strong>Equipment:</strong> ${exercise.equipment}</p>
+              <p style="margin-bottom: 12px;"><strong>Difficulty:</strong> ${exercise.difficulty}</p>
+              <p style="color: var(--text); line-height: 1.5;">${exercise.instructions}</p>
+            </div>
+          </article>
+        `).join("");
+        
+        showToast(`Demo: Loaded ${fallbackData.length} ${muscle} exercises (API offline)`);
+      } else {
+        exercisesList.innerHTML = `<p style="color: var(--muted);">API unavailable and no demo data for ${muscle}</p>`;
+      }
+      playClickTone();
     }
   });
 }
-
   
   // ===== Reveal animations =====
   document.querySelectorAll('.pop').forEach(el => {
