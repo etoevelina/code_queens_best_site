@@ -1,16 +1,10 @@
 // =========================================================
-// 1️⃣ THEME TOGGLE
+// 1️⃣ THEME TOGGLE (Exactly like teammate's)
 // =========================================================
 (function initTheme(){
   const saved = localStorage.getItem('theme');
-  const toggle = document.getElementById('themeToggle');
-
   if (saved === 'light') {
     document.body.classList.add('light-theme');
-    if (toggle) toggle.textContent = '🌙';
-  } else {
-    document.body.classList.remove('light-theme');
-    if (toggle) toggle.textContent = '🌞';
   }
 })();
 
@@ -35,10 +29,8 @@ function playClick() {
 if (toggle) {
   toggle.addEventListener('click', () => {
     playClick();
-    const isLight = !document.body.classList.contains('light-theme');
-    
     document.body.classList.toggle('light-theme');
-    toggle.textContent = isLight ? '🌙' : '🌞';
+    const isLight = document.body.classList.contains('light-theme');
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
   });
 }
@@ -148,7 +140,7 @@ if (loginForm) {
       
       // Simulate API call
       setTimeout(() => {
-        // Store user session (in real app, this would be a proper auth token)
+        // Store user session
         localStorage.setItem('userEmail', email);
         localStorage.setItem('isLoggedIn', 'true');
         
@@ -272,7 +264,7 @@ if (signupForm) {
       
       // Simulate API call
       setTimeout(() => {
-        // Store user data (in real app, this would be sent to backend)
+        // Store user data
         const userData = {
           firstName: first,
           lastName: last,
@@ -341,10 +333,7 @@ if (googleLogin) {
   googleLogin.addEventListener('click', function(e) {
     e.preventDefault();
     playClick();
-    
-    // Simulate Google OAuth
     alert('Google login would be implemented here');
-    // In real implementation: window.location.href = '/auth/google';
   });
 }
 
@@ -352,37 +341,12 @@ if (appleLogin) {
   appleLogin.addEventListener('click', function(e) {
     e.preventDefault();
     playClick();
-    
-    // Simulate Apple OAuth
     alert('Apple login would be implemented here');
-    // In real implementation: window.location.href = '/auth/apple';
   });
 }
 
 // =========================================================
-// 7️⃣ CHECK AUTH STATUS (for other pages)
-// =========================================================
-function checkAuthStatus() {
-  const isLoggedIn = localStorage.getItem('isLoggedIn');
-  const userEmail = localStorage.getItem('userEmail');
-  
-  if (isLoggedIn === 'true' && userEmail) {
-    // User is logged in
-    console.log('User is logged in:', userEmail);
-    return true;
-  }
-  return false;
-}
-
-function logout() {
-  localStorage.removeItem('isLoggedIn');
-  localStorage.removeItem('userEmail');
-  localStorage.removeItem('userData');
-  window.location.href = 'login.html';
-}
-
-// =========================================================
-// 8️⃣ SPINNER STYLES (inline in JS for convenience)
+// 7️⃣ SPINNER STYLES
 // =========================================================
 const spinnerStyle = document.createElement('style');
 spinnerStyle.textContent = `

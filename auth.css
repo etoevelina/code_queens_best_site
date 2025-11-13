@@ -1,8 +1,98 @@
+/* ===== CSS VARIABLES (Exactly like teammate's) ===== */
+:root {
+  --bg: #0b0e16;
+  --text: #e8eef7;
+  --muted: #9fb0c6;
+  --line: rgba(255,255,255,.10);
+  --primary: #7c5cff;
+  --primary-2: #60a5fa;
+  --accent: #34d399;
+  --surface: #0f1629;
+  --card: #0c1018;
+  --chip-bg: rgba(124,92,255,.12);
+}
+
+body.light-theme {
+  --nav: #f5f2ff; /* Soft light purple header */
+  --bg: #faf8ff;
+  --text: #2d1f6d; /* Rich purple text */
+  --muted: #7568a8; /* Purple muted tones */
+  --line: rgba(124, 92, 255, 0.3); /* More visible purple lines */
+
+  --primary: #7c5cff;
+  --primary-2: #8a6dff; /* Slightly lighter purple */
+  --accent: #34d399;
+
+  --surface: #f7f4ff; /* Light purple surfaces */
+  --card: #f0ebff; /* Soft purple cards */
+  --chip-bg: rgba(156, 136, 235, 0.18); /* Slightly stronger purple chips */
+}
+
+/* ===== HEADER AUTH BUTTONS (NEW - Add this section) ===== */
+.auth-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.header-btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  font-size: 14px;
+  border: 2px solid transparent;
+  font-family: inherit;
+}
+
+.btn-login {
+  background-color: transparent;
+  color: var(--text);
+  border: 2px solid var(--line);
+}
+
+.btn-login:hover {
+  background-color: var(--chip-bg);
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.btn-signup {
+  background-color: #ff6b00;
+  color: white;
+  border: 2px solid #ff6b00;
+}
+
+.btn-signup:hover {
+  background-color: #e55e00;
+  border-color: #e55e00;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
+}
+
+/* Light theme adjustments for header buttons */
+.light-theme .btn-login {
+  color: var(--text);
+  border: 2px solid var(--line);
+}
+
+.light-theme .btn-login:hover {
+  background-color: var(--surface);
+  border-color: var(--primary);
+}
+
 /* ===== AUTH PAGE LAYOUT ===== */
-.page-grid-auth {
+.page-grid-about-page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  transition: background .35s ease, color .35s ease;
 }
 
 .auth-main {
@@ -11,7 +101,6 @@
   align-items: center;
   justify-content: center;
   padding: 2rem 1rem;
-  background: var(--bg);
   position: relative;
   overflow: hidden;
 }
@@ -69,10 +158,6 @@
 }
 
 /* ===== FORM STYLES ===== */
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
 .field {
   margin-bottom: 1.5rem;
 }
@@ -107,19 +192,11 @@
   opacity: 0.7;
 }
 
-.field input:invalid:not(:focus):not(:placeholder-shown) {
-  border-color: #ff4757;
-}
-
 .error-message {
   color: #ff4757;
   font-size: 0.8rem;
   margin-top: 0.25rem;
   display: none;
-}
-
-.field input:invalid:not(:focus):not(:placeholder-shown) + .error-message {
-  display: block;
 }
 
 /* ===== FORM LAYOUT ===== */
@@ -167,7 +244,51 @@
   color: var(--primary-2);
 }
 
-/* ===== BUTTON STYLES ===== */
+/* ===== BUTTON STYLES (Exactly like teammate's) ===== */
+.btn,
+.btn.primary,
+.btn.ghost,
+.btn-outline-light,
+.btn-secondary {
+  border-radius: 12px;
+  padding: .58rem .95rem;
+  font-weight: 600;
+  letter-spacing: .2px;
+  transition: transform .15s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+
+.btn:active { transform: translateY(1px); }
+
+.btn-primary{
+  --bs-btn-bg: var(--primary);
+  --bs-btn-border-color: transparent;
+  --bs-btn-hover-bg: #6d4cf0;
+  color: #fff;
+}
+
+.btn-outline-light{
+  --bs-btn-color: #dbe7f6;
+  --bs-btn-border-color: rgba(255,255,255,.2);
+  --bs-btn-hover-bg: rgba(255,255,255,.08);
+  --bs-btn-hover-border-color: rgba(255,255,255,.35);
+  color: #dbe7f6;
+  border-color: rgba(255,255,255,.2);
+}
+
+.glow{ 
+  box-shadow: 0 0 0 rgba(124,92,255,0); 
+  transition: .25s box-shadow, .15s transform; 
+}
+.glow:hover{ 
+  transform: translateY(-1px); 
+  box-shadow: 0 10px 30px rgba(124,92,255,.35); 
+}
+
+.btn-soft{ 
+  border-radius: 12px; 
+  padding: .55rem .9rem; 
+}
+
 .auth-card .btn {
   width: 100%;
   padding: 0.875rem 1.5rem;
@@ -203,7 +324,29 @@
 }
 
 /* ===== DIVIDER ===== */
+/* ===== DIVIDER ===== */
 .or {
+  text-align: center;
+  margin: 1.5rem 0;
+  color: var(--muted);
+  position: relative;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.or::before,
+.or::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+  margin: 0 10px;
+}
+
+/* Alternative method if you prefer the original approach */
+.or-alternative {
   text-align: center;
   margin: 1.5rem 0;
   color: var(--muted);
@@ -211,24 +354,24 @@
   font-size: 0.9rem;
 }
 
-.or::before,
-.or::after {
+.or-alternative::before,
+.or-alternative::after {
   content: '';
   position: absolute;
   top: 50%;
   width: 45%;
   height: 1px;
   background: var(--line);
+  transform: translateY(-50%);
 }
 
-.or::before {
+.or-alternative::before {
   left: 0;
 }
 
-.or::after {
+.or-alternative::after {
   right: 0;
 }
-
 /* ===== ALTERNATIVE LOGIN ===== */
 .alt {
   display: flex;
@@ -283,6 +426,16 @@
   .auth-card h1 {
     font-size: 1.75rem;
   }
+
+  /* Header buttons responsive */
+  .auth-buttons {
+    gap: 8px;
+  }
+  
+  .header-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -295,4 +448,28 @@
     gap: 1rem;
     align-items: flex-start;
   }
+
+  /* Stack buttons on very small screens */
+  .auth-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
+  
+  .header-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+/* Specific targeting for auth buttons */
+.auth .btn.primary.glow.btn-primary.btn-soft {
+  color: #ffffff !important;
+}
+
+.auth .btn.primary.glow.btn-primary.btn-soft:hover {
+  color: #ffffff !important;
+}
+
+.auth .btn.primary.glow.btn-primary.btn-soft.active {
+  color: #ffffff !important;
 }
